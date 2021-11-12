@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="container">
+
+    @foreach (var item in Model.Articles)
+    {
+        <div style="margin-bottom:20px; padding-bottom:10px; border-bottom: 1px dashed #ccc;">
+            <div class="clearfix">
+                <h1>
+                    <a href="/Article/810">@item.Title</a>
+                </h1>
+                <p style="word-break:break-all; clear:both; margin-top:8px;">@item.Body</p>
+            </div>
+        </div>
+    }
+    <nav>
+        <ul class="pagination">
+            @for (int i = 0; i < Model.PageCount; i++)
+            {
+                <li><a href="/Article/Page-@(i+1)">@(i+1)</a></li>
+            }
+        </ul>
+    </nav>
+</div>
+
+<style>
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+
+        .pagination > li {
+            display: inline;
+        }
+
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .clearfix {
+        clear: both;
+    }
+</style>
