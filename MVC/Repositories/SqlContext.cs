@@ -8,6 +8,6 @@ namespace MVC.Repositories
 {
     public class SqlContext :DbContext
     {
-        private SqlContext sqlContext { get }
+        private SqlContext sqlContext { get; }
     }
 }
