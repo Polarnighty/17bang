@@ -1,42 +1,157 @@
 ﻿<!DOCTYPE html>
 <html>
+@*<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>*@
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta name="description" />
+    <link rel="shortcut icon" type="image/ico" href="/Images/logo.ico" media="screen" />
+    <title>首页·一起帮</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default">
         <div class="container">
+            <a href="/" data-toggle="tooltip" title="" data-original-title="返回首页">
+                <img src="/Images/logo-big.ico" alt="一起帮Logo" class="pull-left">
+            </a>
+            <p class="navbar-text pull-left">
+                <span style="font-size:18px; font-weight:600;">一起帮</span>
+                <span class="visible-md-inline visible-lg-inline">· 网络互助平台</span>
+            </p>
+            <a href="/Message/Mine" class="navbar-text pull-left" style="font-size:18px; margin-left:10px;">
+                <span class="fa fa-bell  pull-left hide" style="color: darkblue;" zyf-bell=""></span>
+            </a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-question-circle"></span> 求助</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="dropdown-header">督导班</li>
+                            <li><a href="/Course/Confusion/New"><span class="fa fa-eye"></span> 督导班</a> </li>
+                            <li><a href="/Problem?excludeCanceled=true&amp;excludeRewarded=true"><span class="fa fa-list"></span> 列表</a> </li>
+                            <li><a href="/Course/Confusion/New"><span class="fa fa-edit"></span> 疑问发布</a> </li>
+                            <li><a href="/Course/Confusion"><span class="fa fa-list"></span> 疑问列表</a> </li>
+                            <li class="divider"></li>
+                            <li><a href="/Problem?excludeCanceled=true&amp;excludeRewarded=true"><span class="fa fa-list"></span> 列表</a> </li>
+                            <li><a href="/Problem/New"><span class="fa fa-edit"></span> 发布</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span zyf-ducu-notices="" class="fa fa-eye"></span> 督促</a>
+                        <ul class="dropdown-menu" role="menu" zyf-navigator-ducu="">
+                            <li><a href="/Plan/New"><span class="fa fa-edit fa-fw"></span> 求督促</a></li>
+                            <li><a href="/Plan"><span class="fa fa-gavel fa-fw"></span> 督促别人</a></li>
+                            <li><a href="/Plan?my=f&amp;full=False&amp;due=False&amp;expire=False&amp;Frozen=False"><span class="fa fa-list fa-fw"></span> 我的目标</a></li>
+                            <li><a href="/Plan?my=s&amp;full=False&amp;due=False&amp;expire=True&amp;Frozen=False"><span class="fa fa-list fa-fw"></span> 我的督促</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/Article" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="iconfont icon-articles"></span> 文章</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Article"><span class="fa fa-list fa-fw"></span> 文章列表</a> </li>
+                            <li><a href="/Article"><span class="fa fa-list fa-fw"></span> 文章发布</a> </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="iconfont icon-articles"></span> 信息</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Message"><span class="fa fa-list fa-fw"></span> 我的信息</a> </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="dropdown">
+                        <a zyf-navigator-loginstatus="" class="text-primary dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                            <span class="text-muted"><span class="fa fa-user-secret"></span><span> @(ViewData["UserName"] ?? "未登录")</span></span>
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+
+                            <li><a href="/Log/On"><span class="fa fa-sign-in"></span> 登录</a></li>
+                            <li><a href="/Register"><span class="fa fa-registered"></span> 注册</a></li>
+                            <li><a href="/Password/Forget"><span class="fa fa-lock"></span> 忘记密码</a></li>
+                            @if (ViewData["UserName"] != null)
+                            {
+                                <li><a href="/Log/Off"><span class="fa fa-sign-out"></span> 退出登录</a></li>
+                            }
+                        </ul>
+                    </li>
+
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
+
+@*<body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>*@
+
 </html>
+<style>
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+        position: relative;
+    }
+</style>

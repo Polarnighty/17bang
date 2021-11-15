@@ -14,11 +14,21 @@ namespace MVC.Controllers
         {
             return View();
         }
+        [HttpPost]
         public ActionResult Index(ArticleModel article)
         {
             return View();
         }
         public ActionResult Single()
+        {
+            return View();
+        }
+        public ActionResult New()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult New(NewModel model)
         {
             return View();
         }
