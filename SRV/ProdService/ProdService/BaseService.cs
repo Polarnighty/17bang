@@ -18,6 +18,31 @@ namespace SRV.ProdService
         {
             userRepository = new UserRepository(context);
         }
+
+        public static void Commit()
+        {
+            var objContext= HttpContext.Current.Items[Keys.DbContext];
+            if (objContext!=null)
+            {
+                var context = objContext as SqlContext;
+                using (var transaction = context.Database.CurrentTransaction)
+                {
+                    transaction.Commit();
+                }
+            }
+        }
+        public static void Rollbasck()
+        {
+            var objContext= HttpContext.Current.Items[Keys.DbContext];
+            if (objContext!=null)
+            {
+                var context = objContext as SqlContext;
+                using (var transaction = context.Database.CurrentTransaction)
+                {
+                    transaction.Rollback();
+                }
+            }
+        }
         protected SqlContext context
         {
             get
