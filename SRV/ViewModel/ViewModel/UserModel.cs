@@ -11,7 +11,7 @@ namespace SRV.ViewModel
         public string Name { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public string InviterBy { get; set; }
+        public string InviterByName { get; set; }
         public string InviterCode { get; set; }
 
     }

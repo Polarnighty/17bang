@@ -26,9 +26,9 @@ namespace BLL.Repositories
 
     public class SqlContext : DbContext
     {
-        //private const string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=17bang;Integrated Security=True;";
+        private const string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=18bang;Integrated Security=True;";
 
-        public SqlContext() : base("18bang")
+        public SqlContext() : base(connectionString)
         {
             Database.Log = s => Debug.WriteLine(s);
         }

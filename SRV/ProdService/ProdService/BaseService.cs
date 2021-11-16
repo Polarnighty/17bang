@@ -1,6 +1,8 @@
-﻿using BLL.Entites;
+﻿using AutoMapper;
+using BLL.Entites;
 using BLL.Repositories;
 using Global;
+using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,18 @@ namespace SRV.ProdService
     {
         private UserRepository userRepository;
 
+        protected readonly static MapperConfiguration config;
+        protected IMapper mapper => config.CreateMapper();
+
+        static BaseService()
+        {
+            config = new MapperConfiguration(
+                cfg =>
+                {
+                    cfg.CreateMap<Article, NewModel>().ReverseMap();
+                    cfg.CreateMap<Article, NewModel>().ReverseMap();
+                });
+        }
         public BaseService()
         {
             userRepository = new UserRepository(context);
@@ -21,8 +35,8 @@ namespace SRV.ProdService
 
         public static void Commit()
         {
-            var objContext= HttpContext.Current.Items[Keys.DbContext];
-            if (objContext!=null)
+            var objContext = HttpContext.Current.Items[Keys.DbContext];
+            if (objContext != null)
             {
                 var context = objContext as SqlContext;
                 using (var transaction = context.Database.CurrentTransaction)
@@ -33,8 +47,8 @@ namespace SRV.ProdService
         }
         public static void Rollbasck()
         {
-            var objContext= HttpContext.Current.Items[Keys.DbContext];
-            if (objContext!=null)
+            var objContext = HttpContext.Current.Items[Keys.DbContext];
+            if (objContext != null)
             {
                 var context = objContext as SqlContext;
                 using (var transaction = context.Database.CurrentTransaction)

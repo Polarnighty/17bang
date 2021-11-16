@@ -27,7 +27,7 @@ namespace MVC.Controllers
         public ActionResult Index(UserModel model)
         {
             #region 前端验证
-            if (model.InviterBy == null)
+            if (model.InviterByName == null)
             {
                 ModelState.AddModelError("model.InviterBy.Name", "* 邀请人不能为空");
             }
@@ -53,7 +53,7 @@ namespace MVC.Controllers
             }
             #endregion
 
-            var invitedBy = userService.GetByName(model.InviterBy);
+            var invitedBy = userService.GetByName(model.InviterByName);
 
             if (invitedBy == null)
             {

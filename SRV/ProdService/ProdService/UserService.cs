@@ -13,36 +13,21 @@ namespace SRV.ProdService
     {
         private UserRepository userRepository = new UserRepository(new SqlContext());
         public int Register(UserModel model)
-        {
-            var NewUser = new User() { Name = model.Name, Password = model.Password, InviterCode = model.InviterCode };
+        {            
+            var NewUser=mapper.Map<UserModel, User>(model);
+            NewUser.InviterBy = userRepository.GetByName(model.InviterByName);
             return userRepository.Save(NewUser);
         }
 
         public UserModel GetByName(string name)
         {
             var user = userRepository.GetByName(name);
-            return new UserModel
-            {
-                Id = user.Id,
-                Password = user.Password,
-                Name = user.Name,
-                InviterCode = user.InviterCode,
-                InviterBy = user.InviterBy.Id.ToString()
-            };
+            return mapper.Map<User,UserModel>(user);
         }
         public string GetPwdById(int id)
         {
             var password = userRepository.GetPwdById(id);
             return password;
-
-            //return new UserModel
-            //{
-            //    Id = user.Id,
-            //    Password = user.Password,
-            //    Name = user.Name,
-            //    InviterCode = user.InviterCode,
-            //    InviterBy = user.InviterBy.Id.ToString()
-            //};
         }
     }
 }
