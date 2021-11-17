@@ -168,8 +168,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Filters\ContextPerRequest.cs" />
+    <Compile Include="Filters\LogOn.cs" />
+    <Compile Include="Filters\NeedLogOn.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,13 +215,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
     <Content Include="Views\Article\Single.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Article\New.cshtml" />
+    <Content Include="Views\Log\On.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -240,6 +242,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\Entites\Entites.csproj">
+      <Project>{EA373C9B-AE1D-4CD9-9DE6-F7707A08A3CD}</Project>
+      <Name>Entites</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GLB\Global\Global\Global.csproj">
       <Project>{3fd8caca-7d51-42d5-a0f1-400ef0ac37cb}</Project>
       <Name>Global</Name>

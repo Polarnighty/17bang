@@ -82,7 +82,7 @@
 
                     <li class="dropdown">
                         <a zyf-navigator-loginstatus="" class="text-primary dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                            <span class="text-muted"><span class="fa fa-user-secret"></span><span> @(ViewData["UserName"] ?? "未登录")</span></span>
+                            <span class="text-muted"><span class="fa fa-user-secret"></span><span> @( ViewBag.UserName ?? "未登录")</span></span>
                             <span class="caret"></span>
                         </a>
 
@@ -91,13 +91,12 @@
                             <li><a href="/Log/On"><span class="fa fa-sign-in"></span> 登录</a></li>
                             <li><a href="/Register"><span class="fa fa-registered"></span> 注册</a></li>
                             <li><a href="/Password/Forget"><span class="fa fa-lock"></span> 忘记密码</a></li>
-                            @if (ViewData["UserName"] != null)
+                            @if (ViewBag.UserName != null)
                             {
                                 <li><a href="/Log/Off"><span class="fa fa-sign-out"></span> 退出登录</a></li>
                             }
                         </ul>
                     </li>
-
                 </ul>
             </div>
         </div>

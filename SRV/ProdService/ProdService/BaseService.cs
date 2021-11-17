@@ -24,7 +24,8 @@ namespace SRV.ProdService
             config = new MapperConfiguration(
                 cfg =>
                 {
-                    cfg.CreateMap<Article, NewModel>().ReverseMap();
+                    cfg.CreateMap<User, UserModel>().ReverseMap();
+                    cfg.CreateMap<User, LogOnModel>().ReverseMap();
                     cfg.CreateMap<Article, NewModel>().ReverseMap();
                 });
         }
@@ -71,7 +72,7 @@ namespace SRV.ProdService
                 return HttpContext.Current.Items[Keys.DbContext] as SqlContext;
             }
         }
-        public User GetCurrentUser(bool userProxy = true)
+        public User GetCurrentUser()
         {
             var userInfo = HttpContext.Current.Request.Cookies[Keys.User].Values;
 
@@ -87,7 +88,7 @@ namespace SRV.ProdService
             }
 
             var user = userRepository.Find(CurrentUserId);
-            if (user.Password.MD5Encrypt() != userInfo[Keys.Password])
+            if (user.Password != userInfo[Keys.Password])
             {
                 throw new ArgumentException("");
             }

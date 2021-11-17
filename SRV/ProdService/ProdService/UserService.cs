@@ -18,6 +18,11 @@ namespace SRV.ProdService
             NewUser.InviterBy = userRepository.GetByName(model.InviterByName);
             return userRepository.Save(NewUser);
         }
+        //public int LogOn(LogOnModel model)
+        //{            
+        //    var user=mapper.Map<LogOnModel, User>(model);
+        //    return userRepository.Save(user);
+        //}
 
         public UserModel GetByName(string name)
         {

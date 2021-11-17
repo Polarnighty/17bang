@@ -1,4 +1,4 @@
-﻿@model MVC.Models.RegisterModel
+﻿@model SRV.ViewModel.UserModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -40,40 +40,42 @@
 
     <div class="row">
         <div class="col-lg-4 col-md-5">
-            <form method="post">
-                <section style="padding:0 10px 0 10px; margin-bottom:10px;" class="yellow-highlight">
-                    <div class="form-group">
-                        <label>邀请人：（* 必填）</label>
-                        <input class="form-control valid" asp-for="NewUser.InviterBy.UserName" />
-                        <span asp-validation-for="NewUser.InviterBy.UserName"></span>
-                    </div>
-                    <div class="form-group">
-                        <label>邀请码：（* 必填）</label>
-                        <input class="form-control valid" asp-for="NewUser.InviterBy.InviterCode" />
-                        <span asp-validation-for="NewUser.InviterBy.InviterCode"></span>
-                    </div>
-                </section>
+            @using (Html.BeginForm())
+            {
+            <section style="padding:10px; margin-bottom:10px;" class="yellow-highlight">
                 <div class="form-group">
-                    <label>用户名：（* 必填）</label>
-                    <input class="form-control valid" asp-for="NewUser.UserName" />
-                    <span asp-validation-for="NewUser.UserName"></span>
+                    <label>邀请人：（* 必填）</label>
+                    @Html.TextBoxFor(u => u.InviterByName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.InviterByName)
+                    <span asp-validation-for="SRV.ViewModel.UserModel.InviterBy.Name"></span>
                 </div>
                 <div class="form-group">
-                    <label>密码：（* 必填）</label>
-                    <input type="password" class="form-control valid" asp-for="NewUser.Password" />
-                    <span asp-validation-for="NewUser.Password"></span>
+                    <label>邀请码：（* 必填）</label>
+                    @Html.TextBoxFor(u => u.InviterCode, new{@class = "form-control"})
+                    @Html.ValidationMessageFor(u => u.InviterCode)
                 </div>
-                <div class="form-group">
-                    <label>验证密码：（* 必填）</label>
-                    <input type="password" class="form-control valid" asp-for="ConfirmPassword " />
-                    <span asp-validation-for="ConfirmPassword"></span>
-                </div>
-                <div class="submit">
-                    <input type="submit" class="btn btn-primary loading" value="提交">
-                    <input type="reset" class="btn btn-default">
-                    <a href="/log/on" class="btn pull-right"><span class="fa fa-sign-in"></span> 登录</a>
-                </div>
-            </form>
+            </section>
+            <div class="form-group">
+                <label>用户名：（* 必填）</label>
+                @Html.TextBoxFor(u => u.Name, new{@class = "form-control"})
+                @Html.ValidationMessageFor(u => u.Name)
+            </div>
+            <div class="form-group">
+                <label>密码：（* 必填）</label>
+                @Html.PasswordFor(u => u.Password, new{@class = "form-control"})
+                @Html.ValidationMessageFor(u => u.Password)
+            </div>
+            <div class="form-group">
+                <label>验证密码：（* 必填）</label>
+                @Html.PasswordFor(u => u.ConfirmPassword, new{@class = "form-control"})
+                @Html.ValidationMessageFor(u => u.ConfirmPassword)
+            </div>
+            <div class="submit">
+                <input type="submit" class="btn btn-primary loading" value="提交">
+                <input type="reset" class="btn btn-default">
+                <a href="/log/on" class="btn pull-right"><span class="fa fa-sign-in"></span> 登录</a>
+            </div>
+                            }
         </div>
     </div>
 
