@@ -1,28 +1,26 @@
-﻿@model MVC.Models.ArticleModel
-
-
+﻿@model List<SRV.ViewModel.ArticleModel>
 
 <div class="container">
-
-    @foreach (var item in Model.)
+    @foreach (var item in Model)
     {
-        <div style="margin-bottom:20px; padding-bottom:10px; border-bottom: 1px dashed #ccc;">
-            <div class="clearfix">
-                <h1>
-                    <a href="/Article/810">@item.Title</a>
-                </h1>
-                <p style="word-break:break-all; clear:both; margin-top:8px;">@item.Body</p>
-            </div>
+    <div style="margin-bottom:20px; padding-bottom:10px; border-bottom: 1px dashed #ccc;">
+        <div class="clearfix">
+            <h1><a href="/Article/@item.Id">@item.Title</a></h1>
+            <p style="word-break:break-all; clear:both; margin-top:8px;">@item.Summary</p>
         </div>
+    </div>
     }
+
     <nav>
         <ul class="pagination">
-            @for (int i = 0; i < Model.PageCount; i++)
+            @for (int i = 0; i < ViewBag.PageCount; i++)
             {
                 <li><a href="/Article/Page-@(i+1)">@(i+1)</a></li>
             }
         </ul>
     </nav>
+
+
 </div>
 
 <style>

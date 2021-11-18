@@ -1,27 +1,29 @@
-﻿using MVC.Models;
+﻿using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using SRV.ProdService;
 namespace MVC.Controllers
 {
     public class ArticleController : Controller
     {
-        // GET: Article
-        public ActionResult Index()
+        private ArticleService articleService;
+        public ArticleController(ArticleService articleService)
         {
-            return View();
+            this.articleService = articleService;
         }
-        [HttpPost]
-        public ActionResult Index(ArticleModel article)
+        public ActionResult Index(int id=1)
         {
-            return View();
+            var model = articleService.GetArticles(id, out int count);
+            ViewBag.PageCount = count;
+            return View(model);
         }
-        public ActionResult Single()
+        public ActionResult Single(int id)
         {
-            return View();
+            var model = articleService.GetArticleById(id);
+            return View(model);
         }
         public ActionResult New()
         {

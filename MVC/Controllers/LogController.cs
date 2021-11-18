@@ -21,6 +21,7 @@ namespace MVC.Controllers
 
             return View();
         }
+
         public ActionResult Off()
         {
             Response.Cookies.Add(new HttpCookie(Keys.User) { Expires = DateTime.Now.AddDays(-1) });

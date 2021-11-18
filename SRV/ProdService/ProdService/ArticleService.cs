@@ -24,8 +24,30 @@ namespace SRV.ProdService
                 return null;
                 //throw new ArgumentException("");
             }
+
             var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = model.PublishDateTime, Author = user };
             return articleRepository.Save(article);
+        }
+
+        public IList<ArticleModel> GetArticles(int pageIndex, out int count, int pageSize = 5, string author = null)
+        {
+            var articles =articleRepository.GetArticles(pageIndex);
+            count = articleRepository.GetCount();
+            count= count % 5 != 0 ? count/pageSize + 1 : count/pageSize;
+            var articleModels = new List<ArticleModel>();
+            foreach (var item in articles)
+            {
+                var model=mapper.Map<Article, ArticleModel>(item);
+                //model.AuthorName = item.Author.Name;
+                articleModels.Add(model);
+            }
+            return articleModels;
+        }
+
+        public SingleModel GetArticleById(int id)
+        {
+            var article = articleRepository.Find(id);
+            return mapper.Map<Article, SingleModel>(article);
         }
     }
 }

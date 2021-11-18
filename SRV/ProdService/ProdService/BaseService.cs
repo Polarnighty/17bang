@@ -27,6 +27,9 @@ namespace SRV.ProdService
                     cfg.CreateMap<User, UserModel>().ReverseMap();
                     cfg.CreateMap<User, LogOnModel>().ReverseMap();
                     cfg.CreateMap<Article, NewModel>().ReverseMap();
+                    cfg.CreateMap<Article, SingleModel>().ReverseMap();
+                    cfg.CreateMap<Article, ArticleModel>().ReverseMap().ForMember(a => a.Author, opt => opt.Ignore());
+                    //cfg.CreateMap<List<Article>, List<ArticleModel>>().ReverseMap();
                 });
         }
         public BaseService()

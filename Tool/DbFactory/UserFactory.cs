@@ -12,12 +12,8 @@ namespace DbFactory
     class UserFactory
     {
         private UserRepository userRepository;
-        public UserFactory()
+        public UserFactory(SqlContext context)
         {
-            var context = new SqlContext();
-            var database = context.Database;
-            database.Delete();
-            database.Create();
             userRepository = new UserRepository(context);
         }
         public void Create()

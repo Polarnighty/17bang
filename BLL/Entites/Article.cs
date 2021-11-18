@@ -18,6 +18,7 @@ namespace BLL.Entites
         public string Body { get; set; }
         public DateTime PublishDateTime { get; set; }
         public User Author { get; set; }
+        public int AuthorId { get; set; }
 
     }
 }

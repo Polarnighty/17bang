@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SingleModel.cs" />
     <Compile Include="ArticleModel.cs" />
     <Compile Include="LogOnModel.cs" />
     <Compile Include="NewModel.cs" />

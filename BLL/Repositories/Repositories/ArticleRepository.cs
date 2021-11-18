@@ -12,5 +12,16 @@ namespace BLL.Repositories
         public ArticleRepository(SqlContext context) : base(context)
         {
         }
+
+        public List<Article> GetArticles(int pageIndex, int pageSize=5,string author=null)
+        {
+            var query = DbSet.AsQueryable();
+            if (author != null)
+            {
+                query = query.Where(a => a.Author.Name == author);
+            }
+            return query.OrderBy(a=>a.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+
     }
 }

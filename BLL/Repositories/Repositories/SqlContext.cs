@@ -36,7 +36,7 @@ namespace BLL.Repositories
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<User>();           
+            modelBuilder.Entity<User>();
             modelBuilder.Entity<Article>();
 
             base.OnModelCreating(modelBuilder);

@@ -17,6 +17,10 @@ namespace BLL.Repositories
         {
             return DbSet.Where(u => u.Name == name).SingleOrDefault();
         }
+        public string GetNameById(int id)
+        {
+            return DbSet.Where(u => u.Id == id).SingleOrDefault().Name;
+        }
         public string GetPwdById(int Id)
         {
             return DbSet.Where(u => u.Id == Id).SingleOrDefault().Password;

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SRV.ViewModel
 {
-    public class ArticleModel
+    public class SingleModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

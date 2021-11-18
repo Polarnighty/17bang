@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Repositories
 {
-    public class Repository<T> where T: BaseEntity ,new()
+    public class Repository<T> where T : BaseEntity, new()
     {
         protected DbSet<T> DbSet;
         protected SqlContext context;
@@ -24,12 +24,22 @@ namespace BLL.Repositories
             //return context.Entites.Find(Id);
             return DbSet.Find(Id);
         }
+        public int GetCount()
+        {
+            //return context.Entites.Find(Id);
+            return DbSet.Count();
+        }
 
         public int Save(T entity)
         {
             DbSet.Add(entity);
             context.SaveChanges();
             return entity.Id;
+        }
+        public void RangeSave(IList<T> entities)
+        {
+            DbSet.AddRange(entities);
+            context.SaveChanges();
         }
         public T LoadProxy(int id)
         {

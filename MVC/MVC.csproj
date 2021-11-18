@@ -243,7 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\Entites\Entites.csproj">
-      <Project>{EA373C9B-AE1D-4CD9-9DE6-F7707A08A3CD}</Project>
+      <Project>{ea373c9b-ae1d-4cd9-9de6-f7707a08a3cd}</Project>
       <Name>Entites</Name>
     </ProjectReference>
     <ProjectReference Include="..\GLB\Global\Global\Global.csproj">
