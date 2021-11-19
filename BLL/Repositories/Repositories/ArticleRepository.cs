@@ -1,9 +1,7 @@
 ﻿using BLL.Entites;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace BLL.Repositories
 {
@@ -13,15 +11,26 @@ namespace BLL.Repositories
         {
         }
 
-        public List<Article> GetArticles(int pageIndex, int pageSize=5,string author=null)
+        public List<Article> GetArticles(int pageIndex, int? author, int pageSize = 5)
         {
             var query = DbSet.AsQueryable();
             if (author != null)
             {
-                query = query.Where(a => a.Author.Name == author);
+                //Articles.
+                //query = DbSet.Where(a => a.Author.Id == author);
+                query = DbSet.Where(a => a.Author.Id == author);
             }
-            return query.OrderBy(a=>a.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return query.OrderBy(a => a.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize)
+                .Include(a=>a.Author).ToList();
         }
 
+        public int GetCount(int? authorId = null)
+        {
+            if (authorId != null)
+            {
+                return DbSet.Count(a => a.AuthorId == authorId);
+            }
+            return DbSet.Count();
+        }
     }
 }

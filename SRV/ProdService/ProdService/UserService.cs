@@ -12,7 +12,7 @@ namespace SRV.ProdService
     public class UserService : BaseService
     {
         private UserRepository userRepository = new UserRepository(new SqlContext());
-        public int Register(UserModel model)
+        public int? Register(UserModel model)
         {            
             var NewUser=mapper.Map<UserModel, User>(model);
             NewUser.InviterBy = userRepository.GetByName(model.InviterByName);

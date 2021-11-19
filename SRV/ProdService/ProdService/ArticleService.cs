@@ -16,7 +16,7 @@ namespace SRV.ProdService
         {
             articleRepository = new ArticleRepository(context);
         }
-        public int? Publish(ArticleModel model)
+        public int? Publish(NewModel model)
         {
             var user = GetCurrentUser();
             if (user == null)
@@ -25,20 +25,20 @@ namespace SRV.ProdService
                 //throw new ArgumentException("");
             }
 
-            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = model.PublishDateTime, Author = user };
+            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = DateTime.Now, Author = user, AuthorId = user.Id };
             return articleRepository.Save(article);
         }
 
-        public IList<ArticleModel> GetArticles(int pageIndex, out int count, int pageSize = 5, string author = null)
+        public IList<ArticleModel> GetArticles(int pageIndex, out int count, int? authorId=null,int pageSize = 5)
         {
-            var articles =articleRepository.GetArticles(pageIndex);
-            count = articleRepository.GetCount();
-            count= count % 5 != 0 ? count/pageSize + 1 : count/pageSize;
+            var articles = articleRepository.GetArticles(pageIndex, authorId);
+            count = articleRepository.GetCount(authorId);
+            count = count % 5 != 0 ? count / pageSize + 1 : count / pageSize;
             var articleModels = new List<ArticleModel>();
             foreach (var item in articles)
             {
-                var model=mapper.Map<Article, ArticleModel>(item);
-                //model.AuthorName = item.Author.Name;
+                var model = mapper.Map<Article, ArticleModel>(item);
+                model.AuthorName = item.Author.Name;
                 articleModels.Add(model);
             }
             return articleModels;
@@ -49,5 +49,6 @@ namespace SRV.ProdService
             var article = articleRepository.Find(id);
             return mapper.Map<Article, SingleModel>(article);
         }
+
     }
 }

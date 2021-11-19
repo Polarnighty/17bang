@@ -1,23 +1,27 @@
 ﻿@model List<SRV.ViewModel.ArticleModel>
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <div class="container">
     @foreach (var item in Model)
     {
-        <div style="margin-bottom:20px; padding-bottom:10px; border-bottom: 1px dashed #ccc;">
-            <div>
-                <small class="text-muted" zyf-datetime="">
-                    <span>
-                        <span class="fa fa-calendar"></span> @item.PublishDateTime.ToString()
-                    </span>
-                </small>
-
-                <span class="pull-right">
-                    作者：<a href="/Article/User-@item.AuthorId">@item.AuthorName</a>
+        <div>
+            <small class="text-muted" zyf-datetime="">
+                <span>
+                    <span class="fa fa-calendar"></span> @item.PublishDateTime.ToString()
                 </span>
-            </div>
+            </small>
 
+            <span class="pull-right">
+                作者：<a href="/Article/User-@item.AuthorId">@item.AuthorName</a>
+            </span>
+        </div>
+
+        <div style="margin-bottom:20px; padding-bottom:10px; border-bottom: 1px dashed #ccc;">
             <div class="clearfix">
-                <h1><a href="/Article/@item.Id">@item.Title</a></h1>
+                <h1><a href="/Article/User-@item.AuthorId/@item.Id">@item.Title</a></h1>
                 <p style="word-break:break-all; clear:both; margin-top:8px;">@item.Summary</p>
             </div>
         </div>
@@ -27,7 +31,7 @@
         <ul class="pagination">
             @for (int i = 0; i < ViewBag.PageCount; i++)
             {
-                <li><a href="/Article/Page-@(i+1)">@(i+1)</a></li>
+                <li><a href="/Article/User-@ViewBag.AuthorId/@(i+1)">@(i+1)</a></li>
             }
         </ul>
     </nav>

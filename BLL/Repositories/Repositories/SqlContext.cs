@@ -12,11 +12,8 @@ namespace BLL.Repositories
     public class SqlContext<T> : SqlContext where T : BaseEntity
     {
 
-        protected DbSet<T> DbSet;
+        protected DbSet<T> DbSet { get; set; }
         protected SqlContext context;
-
-        //public DbSet<T> Entites;
-
         public SqlContext()
         {
             context = new SqlContext();
@@ -31,6 +28,7 @@ namespace BLL.Repositories
         public SqlContext() : base(connectionString)
         {
             Database.Log = s => Debug.WriteLine(s);
+            
         }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -41,6 +39,5 @@ namespace BLL.Repositories
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

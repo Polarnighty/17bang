@@ -11,6 +11,7 @@ namespace BLL.Repositories
     public class Repository<T> where T : BaseEntity, new()
     {
         protected DbSet<T> DbSet;
+        protected DbSet<Article> DbSet2;
         protected SqlContext context;
 
 
@@ -18,19 +19,15 @@ namespace BLL.Repositories
         {
             this.context = context;
             DbSet = context.Set<T>();
+            DbSet2 =context.Set<Article>();
         }
         public T Find(int Id)
         {
             //return context.Entites.Find(Id);
             return DbSet.Find(Id);
         }
-        public int GetCount()
-        {
-            //return context.Entites.Find(Id);
-            return DbSet.Count();
-        }
 
-        public int Save(T entity)
+        public int? Save(T entity)
         {
             DbSet.Add(entity);
             context.SaveChanges();
