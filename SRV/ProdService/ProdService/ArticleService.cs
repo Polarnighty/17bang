@@ -44,10 +44,19 @@ namespace SRV.ProdService
             return articleModels;
         }
 
-        public SingleModel GetArticleById(int id)
+        public SingleModel GetSingleArticle(int id)
         {
             var article = articleRepository.Find(id);
-            return mapper.Map<Article, SingleModel>(article);
+            var Next = articleRepository.GetNextArticle(id);
+            var Prev = articleRepository.GetPrevArticle(id);
+            var model = mapper.Map<Article, SingleModel>(article);
+
+            model.NextId = Next?.Id;
+            model.NextTitle = Next?.Title;
+            model.PreviousTitle = Prev?.Title;
+            model.PreviousId = Prev?.Id;
+
+            return model;
         }
 
     }

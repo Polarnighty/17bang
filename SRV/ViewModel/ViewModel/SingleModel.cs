@@ -12,6 +12,10 @@ namespace SRV.ViewModel
         public string Body { get; set; }
         public string Summary { get; set; }
         public int AuthorId { get; set; }
+        public int? PreviousId { get; set; }
+        public string PreviousTitle { get; set; }
+        public int? NextId { get; set; }
+        public string NextTitle { get; set; }
         public DateTime PublishDateTime { get; set; }
 
     }

@@ -36,6 +36,7 @@ namespace BLL.Repositories
 
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Article>();
+            //modelBuilder.Entity<Comment>();
 
             base.OnModelCreating(modelBuilder);
         }

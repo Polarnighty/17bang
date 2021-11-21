@@ -32,5 +32,15 @@ namespace BLL.Repositories
             }
             return DbSet.Count();
         }
+        public Article GetNextArticle(int id)
+        {
+            return DbSet.Where(a => a.Id > id).FirstOrDefault();
+        }
+        public Article GetPrevArticle(int id)
+        {
+            return DbSet.Where(a => a.Id < id).OrderByDescending(a=>a.Id).FirstOrDefault();
+        }
+
+
     }
 }

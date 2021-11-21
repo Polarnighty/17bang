@@ -31,7 +31,7 @@ namespace MVC.Controllers
         }
         public ActionResult Single(int id)
         {
-            var model = articleService.GetArticleById(id);
+            var model = articleService.GetSingleArticle(id);
             return View(model);
         }
 

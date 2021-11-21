@@ -11,7 +11,6 @@ namespace BLL.Repositories
     public class Repository<T> where T : BaseEntity, new()
     {
         protected DbSet<T> DbSet;
-        protected DbSet<Article> DbSet2;
         protected SqlContext context;
 
 
@@ -19,7 +18,7 @@ namespace BLL.Repositories
         {
             this.context = context;
             DbSet = context.Set<T>();
-            DbSet2 =context.Set<Article>();
+
         }
         public T Find(int Id)
         {

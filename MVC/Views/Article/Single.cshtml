@@ -21,6 +21,33 @@
                 </p>
             </div>
 
+            <div style=" margin-top: 50px;clear:both; margin-bottom: 20px; padding: 10px 15px; border: 2px dashed #808080; border-radius: 4px 5px;">
+                <div>
+                    <span class="fa fa-arrow-up"></span>
+                    上一篇：
+                    @if (Model.PreviousId != null)
+                    {
+                        <a href="/Article/@Model.PreviousId">@Model.PreviousTitle</a>
+                    }
+                    else
+                    {
+                        <span>已经是第一篇了</span>
+                    }
+
+                </div>
+                <div style="margin-top:6px;">
+                    <span class="fa fa-arrow-down"></span>
+                    下一篇：
+                    @if (Model.NextId != null)
+                    {
+                        <a href="/Article/@Model.NextId">@Model.NextTitle</a>
+                    }
+                    else
+                    {
+                        <span> 已经是最后一篇了……</span>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>

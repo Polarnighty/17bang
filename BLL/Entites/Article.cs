@@ -19,6 +19,6 @@ namespace BLL.Entites
         public DateTime PublishDateTime { get; set; }
         public User Author { get; set; }
         public int AuthorId { get; set; }
-
+        //public IList<Comment> Comments { get; set; }
     }
 }
