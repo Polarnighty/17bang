@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SRV.ViewModel
 {
@@ -10,6 +11,7 @@ namespace SRV.ViewModel
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "* 用户名必须填写")]
+        [Remote("UserNameValidate", "RemoteValidate",  ErrorMessage = "抱歉,用户名已经存在！！")]
         public string Name { get; set; }
         [Required(ErrorMessage = "* 密码必须填写")]
         public string Password { get; set; }

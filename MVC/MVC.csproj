@@ -170,6 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\RemoteValidateController.cs" />
     <Compile Include="Filters\ContextPerRequest.cs" />
     <Compile Include="Filters\LogOn.cs" />
     <Compile Include="Filters\NeedLogOn.cs" />
