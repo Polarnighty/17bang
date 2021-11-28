@@ -18,7 +18,7 @@ namespace DbFactory
         }
         void Init()
         {
-
+            
             context = new SqlContext();
             var database = context.Database;
             database.Delete();
@@ -26,6 +26,7 @@ namespace DbFactory
 
             new UserFactory(context).Create();
             new ArticleFactory(context).Create();
+            new MessageFactory(context).Create();
 
             database.Connection.Dispose();
         }

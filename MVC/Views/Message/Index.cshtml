@@ -1,0 +1,63 @@
+﻿@model List<SRV.ViewModel.MessageModel>
+
+@{
+    ViewBag.Title = "MessageController";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    hr.thin {
+        margin-top: 5px !important;
+        margin-bottom: 8px !important
+    }
+
+    hr.dashed {
+        border-top: 1px dashed #eee !important
+    }
+
+</style>
+<div class="row">
+    <h2 class="page-header">
+        <span class="fa fa-bell" aria-hidden="true"></span> 我的消息
+    </h2>
+
+    @using (Html.BeginForm())
+    {
+        <div class="row visible-sm visible-md visible-lg">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-1">时间</div>
+            <div class="col-sm-2">
+                <a zyf-message-filter="" data-toggle="tooltip" title="" data-original-title="筛选/退订">订阅种类 <span class="fa fa-cog"></span></a>
+            </div>
+            <div class="col-sm-8">内容</div>
+        </div>
+        foreach (var item in Model)
+        {
+            <hr class="thin dashed">
+            <div class="row text-bold">
+                <div class="col-xs-2 col-sm-1">
+                    @Html.CheckBoxFor(m => item.HasRead)
+                    @Html.HiddenFor(m => item.Id)
+                </div>
+                <div class="col-xs-2 col-sm-1" data-toggle="tooltip" title="@item.CreateTime">
+                    <small>
+                        <span class="fa fa-calendar"></span>
+                    </small>
+                </div>
+                <div class="col-xs-8 col-sm-2">
+                    刷新
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    @item.Content
+                </div>
+            </div>
+        }
+
+    }
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+

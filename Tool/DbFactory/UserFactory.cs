@@ -12,13 +12,15 @@ namespace DbFactory
     class UserFactory
     {
         private UserRepository userRepository;
+        public static User fg { get; set; }
         public UserFactory(SqlContext context)
         {
             userRepository = new UserRepository(context);
         }
         public void Create()
         {
-            userRepository.Save(new User { Name = "fg", Password = "1234".MD5Encrypt(), InviterCode = "1234"});
+            fg = new User { Name = "fg", Password = "1234".MD5Encrypt(), InviterCode = "1234" };
+            userRepository.Save(fg);
         }
     }
 }

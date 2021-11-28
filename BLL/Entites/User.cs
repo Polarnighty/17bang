@@ -13,7 +13,7 @@ namespace BLL.Entites
         [MaxLength(4)]
         public string InviterCode { get; set; }
         public IList<Article> Articles { get; set; }
-
+        public IList<Message> Messages { get; set; }
         public void Register()
         {
 

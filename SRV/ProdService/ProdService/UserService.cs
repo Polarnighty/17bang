@@ -11,7 +11,11 @@ namespace SRV.ProdService
 {
     public class UserService : BaseService
     {
-        private UserRepository userRepository = new UserRepository(new SqlContext());
+        private UserRepository userRepository;
+        public UserService()
+        {
+            userRepository  =new UserRepository(context);
+        }
         public int? Register(UserModel model)
         {            
             var NewUser=mapper.Map<UserModel, User>(model);

@@ -5,9 +5,6 @@ using Global;
 using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace SRV.ProdService
@@ -28,6 +25,7 @@ namespace SRV.ProdService
                     cfg.CreateMap<User, LogOnModel>().ReverseMap();
                     cfg.CreateMap<Article, NewModel>().ReverseMap();
                     cfg.CreateMap<Article, SingleModel>().ReverseMap();
+                    cfg.CreateMap<Message, MessageModel>().ReverseMap();
                     cfg.CreateMap<Article, ArticleModel>().ReverseMap().ForMember(a => a.Author, opt => opt.Ignore());
                     //cfg.CreateMap<List<Article>, List<ArticleModel>>().ReverseMap();
                 });

@@ -19,7 +19,6 @@ namespace DbFactory
         public void Create()
         {
             var articles = new List<Article>();
-            var user = new User { Id = 1 };
             var sb = new StringBuilder();
             for (int i = 0; i < 20; i++)
             {
@@ -27,7 +26,7 @@ namespace DbFactory
                 articles.Add(new Article
                 {
                     Title = $"测试数据{i + 1}",
-                    Author = user,
+                    Author = UserFactory.fg,
                     Body = sb.ToString(),
                     Summary = $"你好，这是第{i}条测试数据",
                     PublishDateTime = DateTime.Now.AddDays(-i)
