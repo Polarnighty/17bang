@@ -14,6 +14,7 @@ namespace SRV.ViewModel
         public SubscriptionType Type { get; set; }
         public int UserId { get; set; }
         public bool HasRead { get; set; }
+        public bool Selected { get; set; }
     }
 
     public enum SubscriptionType

@@ -15,21 +15,28 @@ namespace BLL.Repositories
 
         public List<Message> GetMessages(int pageIndex, int userId, int pageSize = 10)
         {
-            return DbSet.OrderByDescending(m => m.CreateTime).OrderBy(m => m.HasRead).Where(m => m.UserId == userId ).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return DbSet.OrderBy(m=>m.HasRead).ThenByDescending(m=>m.Id).Where(m => m.UserId == userId).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
 
-        public void HasRead(List<Message> messages)
+        public void HasRead(int[] ids)
         {
-            DbSet.AddRange(messages);
+            for (int i = 0; i < ids.Length; i++)
+            {
+                var message = LoadProxy(ids[i]);
+                message.HasRead = true;
+            }
+            context.SaveChanges();
         }
         public void Remove(List<Message> messages)
         {
-            DbSet.RemoveRange(messages);
+            DbSet.RemoveRange(messages.AsEnumerable());
+            context.SaveChanges();
         }
 
         public int GetCount(int userId)
         {
-            return DbSet.Count(m=> m.UserId == userId);
+            var count = DbSet.Count(m => m.UserId == userId);
+            return count % 10 == 0 ? count / 10  : count / 10+1;
         }
 
     }

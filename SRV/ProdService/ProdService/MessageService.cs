@@ -20,15 +20,14 @@ namespace SRV.ProdService
             return mapper.Map<List<Message>, List<MessageModel>>(messages);
         }
 
-        public void HasRead(List<MessageModel> models)
+        public void HasRead(int[] ids)
         {
 
-            messageRepository.HasRead(mapper.Map<List<MessageModel>, List<Message>>(models));
+            messageRepository.HasRead(ids);
         }
-        public void Remove(List<MessageModel> models)
+        public void Delete(int[] id)
         {
-
-            messageRepository.Remove(mapper.Map<List<MessageModel>, List<Message>>(models));
+            messageRepository.RangeRemove(id);
         }
 
         public int GetCount()

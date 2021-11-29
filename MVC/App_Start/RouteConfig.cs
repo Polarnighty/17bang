@@ -21,8 +21,8 @@ namespace MVC
             );
 
             routes.MapRoute(
-                name: "Article",
-                url: "Article/Page-{id}",
+                name: "Pagination",
+                url: "{controller}/Page-{id}",
                 defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional },
                 constraints: new { id = @"\d*" }    //只能是数字
             );

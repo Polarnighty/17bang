@@ -25,7 +25,7 @@ namespace DbFactory
                 {
                     UserId =1,
                     Content = $"你好，这是第{i}条测试数据",
-                    CreateTime = DateTime.Now.AddDays(-i)
+                    CreateTime = DateTime.Now.AddDays(-40+i)
                 };
                 message.HasRead = i % 2 == 0 ? true : false;
                 messages.Add(message);

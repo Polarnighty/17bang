@@ -13,7 +13,9 @@
     hr.dashed {
         border-top: 1px dashed #eee !important
     }
-
+    .text-bold{
+        font-weight:600;
+    }
 </style>
 <div class="row">
     <h2 class="page-header">
@@ -22,6 +24,21 @@
 
     @using (Html.BeginForm())
     {
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col-xs-12 col-sm-8 col-md-6">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> 全选
+                </label>
+                <button type="submit" value="Read" class="btn btn-primary btn-xs" name="submitType">
+                    <span class="fa fa-check-circle"></span> 已读
+                </button>
+                <button type="submit" value="Delete" class="btn btn-default btn-xs" name="submitType">
+                    <span class="fa fa-times-circle"></span> 删除
+                </button>
+            </div>
+            <input type="hidden" name="submit" value="">
+        </div>
+
         <div class="row visible-sm visible-md visible-lg">
             <div class="col-sm-1">
             </div>
@@ -31,15 +48,16 @@
             </div>
             <div class="col-sm-8">内容</div>
         </div>
-        foreach (var item in Model)
+        for (int i = 0; i < Model.Count; i++)
         {
             <hr class="thin dashed">
-            <div class="row text-bold">
+            <div class="row @(Model[i].HasRead==false ? "text-bold":"")">
                 <div class="col-xs-2 col-sm-1">
-                    @Html.CheckBoxFor(m => item.HasRead)
-                    @Html.HiddenFor(m => item.Id)
+                    @Html.CheckBoxFor(m => Model[i].Selected)
+                    @Html.HiddenFor(m => Model[i].Id)
+                    @Html.HiddenFor(m => Model[i].HasRead)
                 </div>
-                <div class="col-xs-2 col-sm-1" data-toggle="tooltip" title="@item.CreateTime">
+                <div class="col-xs-2 col-sm-1" data-toggle="tooltip" title="@Model[i].CreateTime">
                     <small>
                         <span class="fa fa-calendar"></span>
                     </small>
@@ -48,16 +66,44 @@
                     刷新
                 </div>
                 <div class="col-xs-12 col-sm-8">
-                    @item.Content
+                    @Model[i].Content
                 </div>
             </div>
         }
 
+
     }
+
+    <nav>
+        <ul class="pagination">
+            @for (int i = 0; i < ViewBag.PageCount; i++)
+            {
+                <li><a href="/Message/Page-@(i+1)">@(i+1)</a></li>
+            }
+        </ul>
+    </nav>
+
 </div>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    $('.checkbox-inline').click(function () {
+        let box = $(':checkbox');
+        if (box.get(0).checked) {
+            box.each(function (i) {
+                if (i > 0) {
+                    $(this).prop('checked',true)
+                }
+            })
+        } else {
+            box.each(function (i) {
+                if (i > 0) {
+                    $(this).prop('checked', false)
+                }
+            })
+        }
     })
 </script>
 

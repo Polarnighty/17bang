@@ -43,6 +43,17 @@ namespace BLL.Repositories
             DbSet.Attach(entity);
             return entity;
         }
+        public void RangeRemove(int[] id)
+        {
+            for (int i = 0; i < id.Length; i++)
+            {
+                var entity = new T { Id = id[i] };
+                DbSet.Remove(DbSet.Attach(entity));
+            }
+            context.SaveChanges();
+        }
+
+
         public void Remove(T entity)
         {
         }
