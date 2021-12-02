@@ -19,8 +19,8 @@
                     @Model.Body
                 </p>
             </div>
-            <div class="article-appraise appraise-status pull-right">
-                <button id="agree" type="button" class="btn btn-primary">
+            <div id="appraise" class="article-appraise appraise-status pull-right">
+                <button id="agree" type="button" class="btn btn-primary" style="margin:10px">
                     <span class="fa fa-thumbs-o-up"></span>
                     <span class="visible-sm-inline visible-md-inline visible-lg-inline">赞：</span>
                     <span>@(Model.Appraise?.Agree ?? 0)</span>
@@ -65,7 +65,28 @@
 </div>
 
 <script type="text/javascript">
-    $('#agree').on('click', function () {
+    $('#appraise').on('click', function (e) {
+        let agree;
+        if (e.target.id === 'appraise') { return }
+        while (e.target.id !== 'appraise') {
+            if (e.target.id === 'agree') {
+                agree = true;
+            }
+            if (e.target.id === 'disAgree') {
+                agree = false;
+            }
+            e.target = e.target.parentNode
+        }
+                $.ajax({
+        url: '/Article/Appraise?id=@(Model.Id)&agree='+agree,
+        method: 'post',
+            success: function (data) {
+                $('#agree').children().last().text(data.Agree)
+                $('#disAgree').children().last().text(data.DisAgree)
+            }
+        })
+    })
+    @*$('#agree').on('click', function () {
         $.ajax({
         url: '/Article/Appraise?id=@(Model.Id)&agree=true',
         method: 'post',
@@ -84,6 +105,6 @@
                 $('#disAgree').children().last().text(data.DisAgree)
             }
         })
-    })
-    
+    })*@
+
 </script>
