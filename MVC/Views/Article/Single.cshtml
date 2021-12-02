@@ -1,5 +1,4 @@
 ﻿@model SRV.ViewModel.SingleModel
-
 <div class="container body-content">
     <div style="margin-top:55px" class="row">
         <div class="col-md-8">
@@ -20,6 +19,19 @@
                     @Model.Body
                 </p>
             </div>
+            <div class="article-appraise appraise-status pull-right">
+                <button id="agree" type="button" class="btn btn-primary">
+                    <span class="fa fa-thumbs-o-up"></span>
+                    <span class="visible-sm-inline visible-md-inline visible-lg-inline">赞：</span>
+                    <span>@(Model.Appraise?.Agree ?? 0)</span>
+                </button>
+                </a>
+                <button id="disAgree" type="button" class="btn btn-primary">
+                    <span class="fa fa-thumbs-o-down"></span>
+                    <span class="visible-sm-inline visible-md-inline visible-lg-inline">踩：</span>
+                    <span>@(Model.Appraise?.DisAgree ?? 0)</span>
+                </button>
+            </div>
 
             <div style=" margin-top: 50px;clear:both; margin-bottom: 20px; padding: 10px 15px; border: 2px dashed #808080; border-radius: 4px 5px;">
                 <div>
@@ -33,7 +45,6 @@
                     {
                         <span>已经是第一篇了</span>
                     }
-
                 </div>
                 <div style="margin-top:6px;">
                     <span class="fa fa-arrow-down"></span>
@@ -48,6 +59,36 @@
                     }
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    console.log('1')
+    $('#agree').on('click', function () {
+        console.log('1')
+
+        $.ajax({
+        url: '/Article/Appraise',
+        method: 'post',
+            data: { id="@(Model.Id)", agree="true" },
+            success: function (data) {
+                console.log(data)
+            }
+        })
+    })
+    $('#disAgree').on('click', function () {
+        console.log('1')
+
+        $.ajax({
+        url: '/Article/Appraise',
+        method: 'post',
+        data: { id="@(Model.Id)", agree="false" },
+        success: function (data) {
+                console.log(data)
+            }
+        })
+    })
+    console.log('1')
+</script>

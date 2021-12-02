@@ -32,7 +32,7 @@ namespace MVC.Controllers
             }
             if (submitType == "Read")
             {
-                var UnReadId = models.Where(m => m.HasRead == false).Select(m => m.Id).ToArray();
+                var UnReadId = models.Where(m => m.HasRead == false && m.Selected==true).Select(m => m.Id).ToArray();
                 if (UnReadId.Length==0)
                 {
                     return RedirectToRoute(new { id = index });

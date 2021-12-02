@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceInterface
+namespace BLL.Entites.Interface
 {
-    public class Class1
+    interface IAppraise
     {
+        void Agree(User user);
+        void DisAgree(User user);
     }
 }

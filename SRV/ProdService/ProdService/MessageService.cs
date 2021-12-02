@@ -27,7 +27,7 @@ namespace SRV.ProdService
         }
         public void Delete(int[] id)
         {
-            messageRepository.RangeRemove(id);
+            messageRepository.RangeRemoveId(id);
         }
 
         public int GetCount()

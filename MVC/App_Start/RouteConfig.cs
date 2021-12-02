@@ -15,7 +15,7 @@ namespace MVC
 
             routes.MapRoute(
                 name: "UserArticle",
-                url: "Article/User-{userId}/{id}",// Article/User-1/Page-1
+                url: "{controller}/User-{userId}/{id}",// Article/User-1/Page-1
                 defaults: new { controller = "Article", action = "UserArticle", id = UrlParameter.Optional },
                 constraints: new { id = @"\d*", userId = @"\d*" }    //只能是数字
             );

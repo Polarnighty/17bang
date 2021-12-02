@@ -18,7 +18,6 @@ namespace BLL.Repositories
         {
             this.context = context;
             DbSet = context.Set<T>();
-
         }
         public T Find(int Id)
         {
@@ -54,8 +53,5 @@ namespace BLL.Repositories
         }
 
 
-        public void Remove(T entity)
-        {
-        }
     }
 }

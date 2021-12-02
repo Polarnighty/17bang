@@ -16,12 +16,11 @@ namespace BLL.Repositories
             var query = DbSet.AsQueryable();
             if (author != null)
             {
-                //Articles.
-                //query = DbSet.Where(a => a.Author.Id == author);
                 query = DbSet.Where(a => a.Author.Id == author);
             }
             return query.OrderBy(a => a.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize)
-                .Include(a=>a.Author).ToList();
+                .Include(au => au.Author)
+                .ToList();
         }
 
         public int GetCount(int? authorId = null)
@@ -32,15 +31,33 @@ namespace BLL.Repositories
             }
             return DbSet.Count();
         }
+        public Article GetSingleArticle(int id)
+        {
+            return DbSet.Where(a => a.Id == id).Include(a => a.Appraises).SingleOrDefault();
+        }
         public Article GetNextArticle(int id)
         {
             return DbSet.Where(a => a.Id > id).FirstOrDefault();
         }
         public Article GetPrevArticle(int id)
         {
-            return DbSet.Where(a => a.Id < id).OrderByDescending(a=>a.Id).FirstOrDefault();
+            return DbSet.Where(a => a.Id < id).OrderByDescending(a => a.Id).FirstOrDefault();
         }
 
+        public Article Appraise(int id, User user, bool agree)
+        {
+            var article = DbSet.Where(a => a.Id == id).Include(a => a.Appraises).SingleOrDefault();
+            if (agree)
+            {
+                article.Agree(user);
+            }
+            else
+            {
+                article.DisAgree(user);
+            }
+            context.SaveChanges();
+            return article;
+        }
 
     }
 }

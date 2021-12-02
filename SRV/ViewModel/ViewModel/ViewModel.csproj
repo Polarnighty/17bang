@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnityDto\AppraiseDto.cs" />
     <Compile Include="MessageModel.cs" />
     <Compile Include="SingleModel.cs" />
     <Compile Include="ArticleModel.cs" />

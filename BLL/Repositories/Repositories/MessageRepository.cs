@@ -15,7 +15,7 @@ namespace BLL.Repositories
 
         public List<Message> GetMessages(int pageIndex, int userId, int pageSize = 10)
         {
-            return DbSet.OrderBy(m=>m.HasRead).ThenByDescending(m=>m.Id).Where(m => m.UserId == userId).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return DbSet.OrderBy(m => m.HasRead).ThenByDescending(m => m.Id).Where(m => m.UserId == userId).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public void HasRead(int[] ids)
@@ -27,16 +27,21 @@ namespace BLL.Repositories
             }
             context.SaveChanges();
         }
-        public void Remove(List<Message> messages)
+        public void RangeRemoveId(int[] ids)
         {
-            DbSet.RemoveRange(messages.AsEnumerable());
-            context.SaveChanges();
+            var sb = new StringBuilder("DELETE from Messages WHERE Id in(");
+            for (int i = 0; i < ids.Length-1; i++)
+            {
+                sb.Append($@"'{ids[i]}',");
+            }
+            sb.Append($@"'{ids[ids.Length - 1]}')");
+            context.Database.ExecuteSqlCommand(sb.ToString());
         }
 
         public int GetCount(int userId)
         {
             var count = DbSet.Count(m => m.UserId == userId);
-            return count % 10 == 0 ? count / 10  : count / 10+1;
+            return count % 10 == 0 ? count / 10 : count / 10 + 1;
         }
 
     }

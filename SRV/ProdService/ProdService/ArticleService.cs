@@ -1,8 +1,10 @@
 ﻿using BLL.Entites;
+using BLL.Entites.EnityDto;
 using BLL.Repositories;
 using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SRV.ProdService
 {
@@ -26,7 +28,7 @@ namespace SRV.ProdService
             return articleRepository.Save(article);
         }
 
-        public IList<ArticleModel> GetArticles(int pageIndex, out int count, int? authorId=null,int pageSize = 5)
+        public IList<ArticleModel> GetArticles(int pageIndex, out int count, int? authorId = null, int pageSize = 5)
         {
             var articles = articleRepository.GetArticles(pageIndex, authorId);
             count = articleRepository.GetCount(authorId);
@@ -36,6 +38,7 @@ namespace SRV.ProdService
             {
                 var model = mapper.Map<Article, ArticleModel>(item);
                 model.AuthorName = item.Author.Name;
+
                 articleModels.Add(model);
             }
             return articleModels;
@@ -43,7 +46,8 @@ namespace SRV.ProdService
 
         public SingleModel GetSingleArticle(int id)
         {
-            var article = articleRepository.Find(id);
+            var article = articleRepository.GetSingleArticle(id);
+
             var Next = articleRepository.GetNextArticle(id);
             var Prev = articleRepository.GetPrevArticle(id);
             var model = mapper.Map<Article, SingleModel>(article);
@@ -53,7 +57,29 @@ namespace SRV.ProdService
             model.PreviousTitle = Prev?.Title;
             model.PreviousId = Prev?.Id;
 
+            if (article.Appraises.Count != 0)
+            {
+                model.Appraise.Agree = article.Appraises.Count(a => a.Agree == true);
+                model.Appraise.DisAgree = article.Appraises.Count(a => a.Agree == false);
+            }
+            else
+            {
+                model.Appraise = new AppraiseDto { Agree = 0, DisAgree = 0 };
+            }
+
             return model;
+        }
+
+        public AppraiseDto Appraise(int id, bool agree)
+        {
+            var article = articleRepository.Appraise(id, GetCurrentUser(), agree);
+
+            return new AppraiseDto
+            {
+                Agree = article.Appraises.Count(a => a.Agree == true),
+                DisAgree = article.Appraises.Count(a => a.Agree == false)
+            };
+
         }
 
     }
