@@ -65,30 +65,25 @@
 </div>
 
 <script type="text/javascript">
-    console.log('1')
     $('#agree').on('click', function () {
-        console.log('1')
-
         $.ajax({
-        url: '/Article/Appraise',
+        url: '/Article/Appraise?id=@(Model.Id)&agree=true',
         method: 'post',
-            data: { id="@(Model.Id)", agree="true" },
             success: function (data) {
-                console.log(data)
+                $('#agree').children().last().text(data.Agree)
+                $('#disAgree').children().last().text(data.DisAgree)
             }
         })
     })
     $('#disAgree').on('click', function () {
-        console.log('1')
-
         $.ajax({
-        url: '/Article/Appraise',
+        url: '/Article/Appraise?id=@(Model.Id)&agree=false',
         method: 'post',
-        data: { id="@(Model.Id)", agree="false" },
-        success: function (data) {
-                console.log(data)
+            success: function (data) {
+                $('#agree').children().last().text(data.Agree)
+                $('#disAgree').children().last().text(data.DisAgree)
             }
         })
     })
-    console.log('1')
+    
 </script>

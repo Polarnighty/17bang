@@ -57,15 +57,13 @@ namespace SRV.ProdService
             model.PreviousTitle = Prev?.Title;
             model.PreviousId = Prev?.Id;
 
+            model.Appraise = new AppraiseDto { Agree = 0, DisAgree = 0 };
+
             if (article.Appraises.Count != 0)
             {
                 model.Appraise.Agree = article.Appraises.Count(a => a.Agree == true);
                 model.Appraise.DisAgree = article.Appraises.Count(a => a.Agree == false);
-            }
-            else
-            {
-                model.Appraise = new AppraiseDto { Agree = 0, DisAgree = 0 };
-            }
+            }//do nothing
 
             return model;
         }

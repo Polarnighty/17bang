@@ -57,7 +57,7 @@ namespace MVC.Controllers
         public JsonResult Appraise(int id, bool agree)
         {
             var appraise = articleService.Appraise(id, agree);
-            return new JsonResult { Data = JsonConvert.SerializeObject(appraise) };
+            return Json(appraise, JsonRequestBehavior.AllowGet);
         }
     }
 }
