@@ -60,8 +60,43 @@
                 </div>
             </div>
 
-        </div>
+            <div class="appraise-status" style="clear:both; margin-top: 15px;">
+                <span class="lead" style="margin-right:20px">
+                    <span class="fa fa-comments-o"></span>
+                    <span class="visible-sm-inline visible-md-inline visible-lg-inline">评论</span><small>
+                        （ <span zyf-comment-of-article-count="" title="" data-toggle="tooltip" data-original-title="精选评论">0</span> / <span title="" data-toggle="tooltip" data-original-title="全部评论">6</span> ）
+                    </small>
+                </span>
+            </div>
+
+            @{
+                var comment = Model.Comments.Where(c => c.CommentBy.Count == 0).ToList();
+                var commentBy = Model.Comments.Where(c => c.CommentBy.Count > 0).ToList();
+
+                for (int i = 0; i < comment.Count; i++)
+                {
+                    <div id="comment">
+                        <p>
+                            @comment[i].Content </ p >
+
+                            @if (comment[i])
+                            {
+                                foreach (var commentBy in comment.CommentBy)
+                                {
+                                    < div style = "width:80%;background-color:aquamarine" >
+
+                                    < p > @commentBy.Content </ p >
+
+                                    </ div >
+                                }
+                            }
+                            </ div >
+                        }
+
+            }
+
     </div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -77,7 +112,7 @@
             }
             e.target = e.target.parentNode
         }
-                $.ajax({
+        $.ajax({
         url: '/Article/Appraise?id=@(Model.Id)&agree='+agree,
         method: 'post',
             success: function (data) {

@@ -1,4 +1,4 @@
-﻿namespace BLL.Entites.EnityDto
+﻿namespace SRV.ViewModel.EnityDto
 {
     public class AppraiseDto 
     {

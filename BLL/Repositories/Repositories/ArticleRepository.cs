@@ -33,7 +33,10 @@ namespace BLL.Repositories
         }
         public Article GetSingleArticle(int id)
         {
-            return DbSet.Where(a => a.Id == id).Include(a => a.Appraises).SingleOrDefault();
+            return DbSet.Where(a => a.Id == id)
+                .Include(a => a.Appraises)
+                //.Include(a => a.Comments)
+                .SingleOrDefault();
         }
         public Article GetNextArticle(int id)
         {

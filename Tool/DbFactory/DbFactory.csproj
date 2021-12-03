@@ -50,10 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArticleFactory.cs" />
     <Compile Include="MessageFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ArticleFactory .cs" />
+    <Compile Include="CommentFactory.cs" />
     <Compile Include="UserFactory.cs" />
   </ItemGroup>
   <ItemGroup>

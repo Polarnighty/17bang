@@ -3,6 +3,7 @@ using BLL.Entites;
 using BLL.Repositories;
 using Global;
 using SRV.ViewModel;
+using SRV.ViewModel.EnityDto;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -26,6 +27,7 @@ namespace SRV.ProdService
                     cfg.CreateMap<Article, NewModel>().ReverseMap();
                     cfg.CreateMap<Article, SingleModel>().ReverseMap();
                     cfg.CreateMap<Message, MessageModel>().ReverseMap();
+                    cfg.CreateMap<CommentDto, Comment>().ReverseMap();
                     cfg.CreateMap<Article, ArticleModel>().ReverseMap().ForMember(a => a.Author, opt => opt.Ignore());
                     //cfg.CreateMap<List<Article>, List<ArticleModel>>().ReverseMap();
                 });

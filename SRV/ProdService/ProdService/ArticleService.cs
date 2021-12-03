@@ -1,7 +1,7 @@
 ﻿using BLL.Entites;
-using BLL.Entites.EnityDto;
 using BLL.Repositories;
 using SRV.ViewModel;
+using SRV.ViewModel.EnityDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +11,11 @@ namespace SRV.ProdService
     public class ArticleService : BaseService
     {
         private ArticleRepository articleRepository;
+        private CommentRepository commentRepository;
         public ArticleService()
         {
             articleRepository = new ArticleRepository(context);
+            commentRepository = new CommentRepository(context);
         }
         public int? Publish(NewModel model)
         {
@@ -58,12 +60,14 @@ namespace SRV.ProdService
             model.PreviousId = Prev?.Id;
 
             model.Appraise = new AppraiseDto { Agree = 0, DisAgree = 0 };
-
             if (article.Appraises.Count != 0)
             {
                 model.Appraise.Agree = article.Appraises.Count(a => a.Agree == true);
                 model.Appraise.DisAgree = article.Appraises.Count(a => a.Agree == false);
             }//do nothing
+
+            var comments = commentRepository.GetArticleComments(id);
+            model.Comments = mapper.Map<List<Comment>, List<CommentDto>>(comments);
 
             return model;
         }

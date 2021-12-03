@@ -12,6 +12,7 @@ namespace DbFactory
     class ArticleFactory 
     {
         private ArticleRepository articleRepository;
+        public static Article First;
         public ArticleFactory (SqlContext context)
         {
             articleRepository = new ArticleRepository(context);
@@ -33,6 +34,7 @@ namespace DbFactory
                 });
             }
             articleRepository.RangeSave(articles);
+            First = articles[0];
         }
     }
 }

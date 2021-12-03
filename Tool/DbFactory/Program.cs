@@ -27,6 +27,7 @@ namespace DbFactory
             new UserFactory(context).Create();
             new ArticleFactory(context).Create();
             new MessageFactory(context).Create();
+            new CommentFactory(context).Create();
 
             database.Connection.Dispose();
         }

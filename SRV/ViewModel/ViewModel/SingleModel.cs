@@ -1,4 +1,4 @@
-﻿using BLL.Entites.EnityDto;
+﻿using SRV.ViewModel.EnityDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,7 @@ namespace SRV.ViewModel
         public string NextTitle { get; set; }
         public DateTime PublishDateTime { get; set; }
         public AppraiseDto Appraise { get; set; }
+        public IList<CommentDto> Comments { get; set; }
 
     }
 }
