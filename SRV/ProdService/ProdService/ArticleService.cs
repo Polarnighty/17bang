@@ -5,6 +5,8 @@ using SRV.ViewModel.EnityDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Global;
+using System.Web;
 
 namespace SRV.ProdService
 {
@@ -12,10 +14,12 @@ namespace SRV.ProdService
     {
         private ArticleRepository articleRepository;
         private CommentRepository commentRepository;
+        private AppraiseRepositary appraiseRepositary;
         public ArticleService()
         {
             articleRepository = new ArticleRepository(context);
             commentRepository = new CommentRepository(context);
+            appraiseRepositary = new AppraiseRepositary(context);
         }
         public int? Publish(NewModel model)
         {
@@ -59,30 +63,42 @@ namespace SRV.ProdService
             model.PreviousTitle = Prev?.Title;
             model.PreviousId = Prev?.Id;
 
+
+            var appraise = new Appraise();
+            if (HttpContext.Current.Request.Cookies[Keys.User].Values != null)
+            {
+                appraise = appraiseRepositary.GetAppraise(id, AppraiseType.Article, GetCurrentUser());
+            }
+            else
+            {
+                appraise = appraiseRepositary.GetAppraise(id, AppraiseType.Article);
+            }
             model.Appraise = new AppraiseDto { Agree = 0, DisAgree = 0 };
             if (article.Appraises.Count != 0)
             {
-                model.Appraise.Agree = article.Appraises.Count(a => a.Agree == true);
-                model.Appraise.DisAgree = article.Appraises.Count(a => a.Agree == false);
+                model.Appraise.Agree = article.Appraises.Count(a => a.IsAgree == true);
+                model.Appraise.DisAgree = article.Appraises.Count(a => a.IsAgree == false);
+                model.Appraise.IsAgree = appraise.IsAgree;
             }//do nothing
 
-            var comments = commentRepository.GetArticleComments(id);
-            model.Comments = mapper.Map<List<Comment>, List<CommentDto>>(comments);
+            //var comments = commentRepository.GetArticleComments(id);
+            //model.Comments = mapper.Map<List<Comment>, List<CommentDto>>(comments);
 
             return model;
         }
 
-        public AppraiseDto Appraise(int id, bool agree)
+        public void Appraise(int id, bool agree)
         {
-            var article = articleRepository.Appraise(id, GetCurrentUser(), agree);
-
-            return new AppraiseDto
-            {
-                Agree = article.Appraises.Count(a => a.Agree == true),
-                DisAgree = article.Appraises.Count(a => a.Agree == false)
-            };
-
+            appraiseRepositary.Appraise(id, AppraiseType.Article,GetCurrentUser(), agree);
         }
+
+        //public CommentDto GetComment(int id, bool agree)
+        //{
+        //    var article = commentRepository.GetComment(id, agree);
+
+        //    return null;
+        //}
+
 
     }
 }

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Entites
+namespace Global
 {
-    public class BaseEntity
+    public enum AppraiseType
     {
-        public int Id { get; set; }
+        Article,
+        Comment
     }
 }

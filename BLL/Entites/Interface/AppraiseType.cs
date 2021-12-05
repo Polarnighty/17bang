@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BLL.Entites.Interface
 {
-    interface IAppraise
+    enum AppraiseType
     {
-        void Agree(User user);
-        void DisAgree(User user);
+        Article,
     }
 }

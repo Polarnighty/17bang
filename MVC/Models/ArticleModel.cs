@@ -13,6 +13,5 @@ namespace MVC.Models
         public string Summary { get; set; }
         public string Content { get; set; }
         public DateTime PublishDateTime { get; set; }
-
     }
 }

@@ -28,9 +28,9 @@ namespace BLL.Repositories
         public SqlContext() : base(connectionString)
         {
             Database.Log = s => Debug.WriteLine(s);
-            
+
         }
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

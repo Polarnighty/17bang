@@ -16,10 +16,8 @@ namespace BLL.Repositories
 
         public List<Comment> GetArticleComments(int articleId)
         {
-            return DbSet.Where(c => c.Article.Id == articleId).Include(c => c.CommentBy).ToList();
-             //comments.OrderByDescending(c => c.CommentBy.Select(cBy => cBy.Id)).ToList();
+            return DbSet.Where(c => c.Article.Id == articleId).Take(1).Include(c => c.CommentBy).ToList();
         }
-
-
+   
     }
 }

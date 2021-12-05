@@ -56,8 +56,23 @@ namespace MVC.Controllers
         [HttpPost]
         public JsonResult Appraise(int id, bool agree)
         {
-            var appraise = articleService.Appraise(id, agree);
-            return Json(appraise, JsonRequestBehavior.AllowGet);
+            articleService.Appraise(id, agree);
+            return null;
         }
+
+        //public ActionResult GetComment(int id, bool agree)
+        //{
+        //    var appraise = articleService.Appraise(id, agree);
+        //    return Json(appraise, JsonRequestBehavior.AllowGet);
+        //}
+
+        //[HttpPost]
+        //public ActionResult Reply(int id, string )
+        //{
+        //    var appraise = articleService.Appraise(id, agree);
+        //    return Json(appraise, JsonRequestBehavior.AllowGet);
+        //}
+
+
     }
 }

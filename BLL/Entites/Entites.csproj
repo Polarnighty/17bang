@@ -44,9 +44,9 @@
   <ItemGroup>
     <Compile Include="Article.cs" />
     <Compile Include="BaseEntity.cs" />
-    <Compile Include="Comment.cs" />
     <Compile Include="Appraise.cs" />
-    <Compile Include="Interface\IAppraise.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="Interface\AppraiseType.cs" />
     <Compile Include="KeyWord.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

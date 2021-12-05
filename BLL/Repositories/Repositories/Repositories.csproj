@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppraiseRepositary.cs" />
     <Compile Include="ArticleRepository.cs" />
     <Compile Include="CommentRepository.cs" />
     <Compile Include="MessageRepository.cs" />
@@ -61,6 +62,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\GLB\Global\Global\Global.csproj">
+      <Project>{3fd8caca-7d51-42d5-a0f1-400ef0ac37cb}</Project>
+      <Name>Global</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Entites\Entites.csproj">
       <Project>{ea373c9b-ae1d-4cd9-9de6-f7707a08a3cd}</Project>
       <Name>Entites</Name>

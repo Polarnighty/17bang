@@ -16,7 +16,7 @@ namespace MVC.Controllers
         }
         public ActionResult UserNameValidate(string name)
         {
-            bool NotExists = userService.GetByName(name)==null;
+            bool NotExists = userService.GetByName(name) == null;
             return Json(NotExists, JsonRequestBehavior.AllowGet);
         }
     }

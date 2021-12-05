@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BLL.Entites
 {
-    public class Article : BaseEntity, IAppraise
+    public class Article : BaseEntity
     {
         [MaxLength(20)]
         public string Title { get; set; }
@@ -20,42 +20,5 @@ namespace BLL.Entites
         public int AuthorId { get; set; }
         public List<Appraise> Appraises { get; set; }
         public IList<Comment> Comments { get; set; }
-
-        public void Agree(User user)
-        {
-            var appraise = Appraises.Where(a => a.AppraiserId == user.Id).SingleOrDefault();
-            if (appraise==null)
-            {
-                Appraises.Add(new Appraise { Appraiser = user, Agree = true });
-            }
-            else
-            {
-                if (appraise.Agree==true)
-                {
-                    appraise.Agree = null;
-                    return;
-                }
-                appraise.Agree = true;
-            }
-        }
-
-        public void DisAgree(User user)
-        {
-            var appraise = Appraises.Where(a => a.AppraiserId == user.Id).SingleOrDefault();
-            if (appraise == null)
-            {
-                Appraises.Add(new Appraise { Appraiser = user, Agree = false });
-            }
-            else
-            {
-                if (appraise.Agree == false)
-                {
-                    appraise.Agree = null;
-                    return;
-                }
-                appraise.Agree = false;
-            }
-        }
-
     }
 }

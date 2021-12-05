@@ -35,7 +35,6 @@ namespace BLL.Repositories
         {
             return DbSet.Where(a => a.Id == id)
                 .Include(a => a.Appraises)
-                //.Include(a => a.Comments)
                 .SingleOrDefault();
         }
         public Article GetNextArticle(int id)
@@ -47,20 +46,6 @@ namespace BLL.Repositories
             return DbSet.Where(a => a.Id < id).OrderByDescending(a => a.Id).FirstOrDefault();
         }
 
-        public Article Appraise(int id, User user, bool agree)
-        {
-            var article = DbSet.Where(a => a.Id == id).Include(a => a.Appraises).SingleOrDefault();
-            if (agree)
-            {
-                article.Agree(user);
-            }
-            else
-            {
-                article.DisAgree(user);
-            }
-            context.SaveChanges();
-            return article;
-        }
 
     }
 }

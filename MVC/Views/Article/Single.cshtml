@@ -1,4 +1,5 @@
 ﻿@model SRV.ViewModel.SingleModel
+
 <div class="container body-content">
     <div style="margin-top:55px" class="row">
         <div class="col-md-8">
@@ -19,17 +20,18 @@
                     @Model.Body
                 </p>
             </div>
+
             <div id="appraise" class="article-appraise appraise-status pull-right">
                 <button id="agree" type="button" class="btn btn-primary" style="margin:10px">
                     <span class="fa fa-thumbs-o-up"></span>
                     <span class="visible-sm-inline visible-md-inline visible-lg-inline">赞：</span>
-                    <span>@(Model.Appraise?.Agree ?? 0)</span>
+                    <span>@Model.Appraise.Agree</span>
                 </button>
                 </a>
                 <button id="disAgree" type="button" class="btn btn-primary">
                     <span class="fa fa-thumbs-o-down"></span>
                     <span class="visible-sm-inline visible-md-inline visible-lg-inline">踩：</span>
-                    <span>@(Model.Appraise?.DisAgree ?? 0)</span>
+                    <span>@Model.Appraise.DisAgree</span>
                 </button>
             </div>
 
@@ -43,7 +45,7 @@
                     }
                     else
                     {
-                        <span>已经是第一篇了</span>
+                        <span>已经是第一篇了......</span>
                     }
                 </div>
                 <div style="margin-top:6px;">
@@ -55,7 +57,7 @@
                     }
                     else
                     {
-                        <span> 已经是最后一篇了……</span>
+                        <span> 已经是最后一篇了......</span>
                     }
                 </div>
             </div>
@@ -64,82 +66,97 @@
                 <span class="lead" style="margin-right:20px">
                     <span class="fa fa-comments-o"></span>
                     <span class="visible-sm-inline visible-md-inline visible-lg-inline">评论</span><small>
-                        （ <span zyf-comment-of-article-count="" title="" data-toggle="tooltip" data-original-title="精选评论">0</span> / <span title="" data-toggle="tooltip" data-original-title="全部评论">6</span> ）
+                        @* （ <span data-toggle="tooltip" data-original-title="精选评论">0</span> / <span title="" data-toggle="tooltip" data-original-title="全部评论">6</span> ）*@
                     </small>
                 </span>
             </div>
 
             @{
-                var comment = Model.Comments.Where(c => c.CommentBy.Count == 0).ToList();
-                var commentBy = Model.Comments.Where(c => c.CommentBy.Count > 0).ToList();
+                @*for (int i = 0; i < Model.Comments.Count; i++)
+                    {
+                        var comment = Model.Comments[i];
 
-                for (int i = 0; i < comment.Count; i++)
-                {
-                    <div id="comment">
-                        <p>
-                            @comment[i].Content </ p >
+                        if (comment.CommentId == null)
+                        {
+                            <div class="clearfix" style="margin-top:10px">
+                                <div>
+                                    <small class="text-muted"><span class="fa fa-calendar"></span><span>@comment.CommentTime</span></small>
+                                </div>
+                                <div class="comment-body clearfix">
+                                    @comment.Content
+                                </div>
+                                <div class="appraise-status pull-right">
+                                    <span zyf-comment-hide="" class="">
+                                        <a href="#new-comment" zyf-comment-delete="" data-current-comment-id="389" data-current-comment-layer="3" class="hide" style="margin-left:20px;">
+                                            <span class="fa fa-trash"></span> 删除
+                                        </a>
+                                        <a href="#new-comment" zyf-comment-reply="" data-current-comment-id="389" data-current-comment-layer="3" style="margin-left:20px;">
+                                            <span class="fa fa-send"></span> 回复
+                                        </a>
+                                    </span>
+                                    <a href="/Article/Comment/Appraise?id=389&amp;direction=1" class="appraise-status-item" data-author-id="18">
+                                        <span class="fa fa-thumbs-o-up text-success"></span> 支持
+                                        <span >0</span>
+                                    </a>
+                                    <a href="/Article/Comment/Appraise?id=389&amp;direction=-1" class="appraise-status-item" data-author-id="18">
+                                        <span class="fa fa-thumbs-o-down text-success"></span> 反对
+                                        <span >0</span>
+                                    </a>
+                                </div>
 
-                            @if (comment[i])
-                            {
-                                foreach (var commentBy in comment.CommentBy)
+                                @if (comment.CommentBy.Count != 0)
                                 {
-                                    < div style = "width:80%;background-color:aquamarine" >
-
-                                    < p > @commentBy.Content </ p >
-
-                                    </ div >
+                                    foreach (var item in comment.CommentBy)
+                                    {
+                                        <div class="pull-right" style="width: 90%; background-color: aquamarine; float: right; margin-top:3px">
+                                            <p> @item.Content</p>
+                                        </div>
+                                    }
                                 }
-                            }
-                            </ div >
+                            </div>
                         }
+                    }*@
 
             }
 
+        </div>
     </div>
-</div>
 </div>
 
 <script type="text/javascript">
+    let appraise = [1, 0];
     $('#appraise').on('click', function (e) {
+        console.log(appraise)
         let agree;
         if (e.target.id === 'appraise') { return }
         while (e.target.id !== 'appraise') {
             if (e.target.id === 'agree') {
                 agree = true;
+                if (appraise[0]==1) {
+                    appraise = [0, 0]
+                } else {
+                    appraise=[1,0]
+                }
             }
             if (e.target.id === 'disAgree') {
                 agree = false;
+                if (appraise[1] == 1) {
+                    appraise = [0, 0]
+                } else {
+                    appraise = [0, 1]
+                }
             }
             e.target = e.target.parentNode
         }
+
         $.ajax({
         url: '/Article/Appraise?id=@(Model.Id)&agree='+agree,
         method: 'post',
-            success: function (data) {
-                $('#agree').children().last().text(data.Agree)
-                $('#disAgree').children().last().text(data.DisAgree)
+            success: function () {
+                $('#agree').children().last().text(@Model.Appraise.Agree+appraise[0])
+                $('#disAgree').children().last().text(@Model.Appraise.DisAgree+appraise[1])
             }
         })
     })
-    @*$('#agree').on('click', function () {
-        $.ajax({
-        url: '/Article/Appraise?id=@(Model.Id)&agree=true',
-        method: 'post',
-            success: function (data) {
-                $('#agree').children().last().text(data.Agree)
-                $('#disAgree').children().last().text(data.DisAgree)
-            }
-        })
-    })
-    $('#disAgree').on('click', function () {
-        $.ajax({
-        url: '/Article/Appraise?id=@(Model.Id)&agree=false',
-        method: 'post',
-            success: function (data) {
-                $('#agree').children().last().text(data.Agree)
-                $('#disAgree').children().last().text(data.DisAgree)
-            }
-        })
-    })*@
 
 </script>
