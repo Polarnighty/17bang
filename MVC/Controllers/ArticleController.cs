@@ -60,11 +60,11 @@ namespace MVC.Controllers
             return null;
         }
 
-        //public ActionResult GetComment(int id, bool agree)
-        //{
-        //    var appraise = articleService.Appraise(id, agree);
-        //    return Json(appraise, JsonRequestBehavior.AllowGet);
-        //}
+        public PartialViewResult Comment(int id)
+        {
+            var model = articleService.GetComment(id);
+            return PartialView(model);
+        }
 
         //[HttpPost]
         //public ActionResult Reply(int id, string )

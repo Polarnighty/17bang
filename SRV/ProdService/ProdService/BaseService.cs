@@ -36,10 +36,16 @@ namespace SRV.ProdService
         {
             userRepository = new UserRepository(context);
         }
+        private static SqlContext getSqlContextFromHtpp()
+        {
+            var objContext = HttpContext.Current.Items[Keys.DbContext];
+            //HttpContext.Current.Items[Keys.DbContext]=null;
+            return objContext as SqlContext;
+        }
 
         public static void Commit()
         {
-            var objContext = HttpContext.Current.Items[Keys.DbContext];
+            var objContext = getSqlContextFromHtpp();
             if (objContext != null)
             {
                 var context = objContext as SqlContext;
@@ -51,7 +57,7 @@ namespace SRV.ProdService
         }
         public static void Rollbasck()
         {
-            var objContext = HttpContext.Current.Items[Keys.DbContext];
+            var objContext = getSqlContextFromHtpp();
             if (objContext != null)
             {
                 var context = objContext as SqlContext;

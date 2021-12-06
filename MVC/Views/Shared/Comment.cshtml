@@ -1,0 +1,57 @@
+﻿@model List<SRV.ViewModel.EnityDto.CommentDto>
+
+@helper DisplayComment(SRV.ViewModel.EnityDto.CommentDto comment)
+{
+    <div>
+        <small class="text-muted"><span class="fa fa-calendar"></span><span>@comment.CommentTime</span></small>
+    </div>
+    <div class="clearfix" style="margin:10px 0;">
+        @comment.Content
+    </div>
+    @*<div class="appraise-status pull-right">
+            <span zyf-comment-hide="" class="">
+                <a href="#new-comment" zyf-comment-delete="" data-current-comment-id="389" data-current-comment-layer="3" class="hide" style="margin-left:20px;">
+                    <span class="fa fa-trash"></span> 删除
+                </a>
+                <a href="#new-comment" zyf-comment-reply="" data-current-comment-id="389" data-current-comment-layer="3" style="margin-left:20px;">
+                    <span class="fa fa-send"></span> 回复
+                </a>
+            </span>
+            <a href="/Article/Comment/Appraise?id=389&amp;direction=1" class="appraise-status-item" data-author-id="18">
+                <span class="fa fa-thumbs-o-up text-success"></span> 支持
+                <span>0</span>
+            </a>
+            <a href="/Article/Comment/Appraise?id=389&amp;direction=-1" class="appraise-status-item" data-author-id="18">
+                <span class="fa fa-thumbs-o-down text-success"></span> 反对
+                <span>0</span>
+            </a>
+
+        </div>*@
+}
+
+@{
+    for (int i = 0; i < Model.Count; i++)
+    {
+        var comment = Model[i];
+        if (comment.CommentId == null)
+        {
+            <div class="clearfix" style="margin-top: 10px; border-bottom:1px dashed #ddd;">
+                @DisplayComment(Model[i])
+
+                @if (comment.CommentBy.Count != 0)
+                {
+                    foreach (var item in comment.CommentBy)
+                    {
+                        <div class="pull-right" style="width: 95%; background-color: aquamarine; float: right; margin-top:3px">
+                            @DisplayComment(item)
+                        </div>
+                    }
+                }
+            </div>
+        }
+    }
+}
+
+<style>
+
+</style>

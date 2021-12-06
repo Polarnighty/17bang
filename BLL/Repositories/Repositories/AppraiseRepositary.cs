@@ -40,8 +40,14 @@ namespace BLL.Repositories
                     break;
             }
 
-            appraise.IsAgree = agree;
+            if (appraise.IsAgree == agree)
+            {
+                appraise.IsAgree = null;
+                context.SaveChanges();
+                return;
+            }
 
+            appraise.IsAgree = agree;
             context.SaveChanges();
         }
         public Appraise GetAppraise(int id, AppraiseType type,User user=null)
@@ -50,7 +56,7 @@ namespace BLL.Repositories
             var query = DbSet.AsQueryable<Appraise>();
             if (user!=null)
             {
-                query = query.Where(a => a.Appraiser == user);
+                query = query.Where(a => a.Appraiser.Id == user.Id);
             }
             switch (type)
             {

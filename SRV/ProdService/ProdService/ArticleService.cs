@@ -65,7 +65,7 @@ namespace SRV.ProdService
 
 
             var appraise = new Appraise();
-            if (HttpContext.Current.Request.Cookies[Keys.User].Values != null)
+            if (HttpContext.Current.Request.Cookies[Keys.User]?.Values != null)
             {
                 appraise = appraiseRepositary.GetAppraise(id, AppraiseType.Article, GetCurrentUser());
             }
@@ -92,12 +92,11 @@ namespace SRV.ProdService
             appraiseRepositary.Appraise(id, AppraiseType.Article,GetCurrentUser(), agree);
         }
 
-        //public CommentDto GetComment(int id, bool agree)
-        //{
-        //    var article = commentRepository.GetComment(id, agree);
-
-        //    return null;
-        //}
+        public List<CommentDto> GetComment(int id)
+        {
+            var comments = commentRepository.GetArticleComments(id);
+            return mapper.Map<List<Comment>,List<CommentDto>>(comments);
+        }
 
 
     }

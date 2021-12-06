@@ -12,19 +12,18 @@ namespace MVC.Filters
     {
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (filterContext.IsChildAction)
+            if (!filterContext.IsChildAction)
             {
-                return;
+                if (filterContext.Exception == null)
+                {
+                    BaseService.Commit();
+                }
+                else
+                {
+                    BaseService.Rollbasck();
+                }
             }
-            if (filterContext.Exception==null)
-            {
-                BaseService.Commit();
-            }
-            else
-            {
-                BaseService.Rollbasck();
-            }            
-            
+
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)

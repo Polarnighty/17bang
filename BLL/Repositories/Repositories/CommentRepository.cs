@@ -18,6 +18,8 @@ namespace BLL.Repositories
         {
             return DbSet.Where(c => c.Article.Id == articleId).Take(1).Include(c => c.CommentBy).ToList();
         }
+
+
    
     }
 }

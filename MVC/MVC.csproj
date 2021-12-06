@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -2040,10 +2041,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Article\UserArticle.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
-    <Content Include="Views\Article\Comment\Comment.cshtml" />
+    <Content Include="Views\Shared\Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
