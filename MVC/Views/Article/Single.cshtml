@@ -79,48 +79,43 @@
 
 <script type="text/javascript">
     let hasAgree = "@Model.Appraise.IsAgree";
-    let appraiseStatus
+    let appraiseStatus = [false, false]
+    if (hasAgree == "True") {
+        appraiseStatus[0] = true
+    } else if (hasAgree == "False") {
+        appraiseStatus[1] = true
+    }
 
-    function appraise(e, e2, hasAgree, agree) {
-        if (!appraiseStatus) {
-            let appraiseStatus = [false, false]
-            if (hasAgree == "True") {
-                appraiseStatus[0] = true
-            } else if (hasAgree == "False") {
-            appraiseStatus[1] = true
-            }
-        }
-        let b1 = + !agree; let b2 = + agree; e = e.children().last(); e2 = e2.children().last();
-
-        if (appraiseStatus[b1]) {
-            e.text(e.text()--)
+    function appraise(e, e2, agree) {
+        b1 = +!agree;b2 = +agree;
+        e = $(e).children().last();
+        if (appraiseStatus[b1] === true) {
+            e.text(+e.text()-1)
             appraiseStatus[b1] = false;
         } else {
-            if (appraiseStatus[b2]) {
-                e2.text(e2.text()--)
+            if (appraiseStatus[b2]===true) {
+                e2.text(+e2.text()-1)
                 appraiseStatus[b2] = false
             }
-            e.text(e.text()--)
+            e.text(+e.text()+1)
             appraiseStatus[b1] = true;
         }
-        e.text(e.text()--)
-        appraiseStatus[b1] = true;
-        }
-
-        hasAgree = undefined
     }
+
     $('#appraise').on('click', function (e) {
         let agree;
         if (e.target.id === 'appraise') { return }
         while (e.target.id !== 'appraise') {
             if (e.target.id === 'agree') {
                 agree = true;
-                appraise(e, $('#disAgree'), hasAgree, agree)
+                let e2 = $(e.target).next().children().last()
+                appraise(e.target,e2,  agree)
             }
 
             if (e.target.id === 'disAgree') {
                 agree = false;
-                appraise(e, $('#agree'), hasAgree, agree)
+                let e2 = $(e.target).prev().children().last();
+                appraise(e.target,  e2, agree)
             }
             e.target = e.target.parentNode
         }

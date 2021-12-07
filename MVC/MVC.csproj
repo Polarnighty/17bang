@@ -1960,6 +1960,7 @@
     <Content Include="Content\FontAwesome\svgs\solid\yen-sign.svg" />
     <Content Include="Content\FontAwesome\svgs\solid\yin-yang.svg" />
     <Content Include="Content\FontAwesome\svgs\solid\z.svg" />
+    <Content Include="Content\Test.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
