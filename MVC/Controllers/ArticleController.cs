@@ -59,7 +59,7 @@ namespace MVC.Controllers
             articleService.Appraise(id, agree);
             return null;
         }
-
+        [ChildActionOnly]
         public PartialViewResult Comment(int id)
         {
             var model = articleService.GetComment(id);
