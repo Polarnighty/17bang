@@ -52,6 +52,8 @@ namespace SRV.ProdService
 
         public SingleModel GetSingleArticle(int id)
         {
+            var hasLogin = HttpContext.Current.Request.Cookies[Keys.User]?.Values;
+
             var article = articleRepository.GetSingleArticle(id);
 
             var Next = articleRepository.GetNextArticle(id);
@@ -64,21 +66,17 @@ namespace SRV.ProdService
             model.PreviousId = Prev?.Id;
 
 
-            var appraise = new Appraise();
+            bool? hasAppraise =null;
             if (HttpContext.Current.Request.Cookies[Keys.User]?.Values != null)
             {
-                appraise = appraiseRepositary.GetAppraise(id, AppraiseType.Article, GetCurrentUser());
+                hasAppraise = appraiseRepositary.GetHasAppraise(id, AppraiseType.Article, GetCurrentUser());
             }
-            else
-            {
-                appraise = appraiseRepositary.GetAppraise(id, AppraiseType.Article);
-            }
-            model.Appraise = new AppraiseDto { Agree = 0, DisAgree = 0 };
+
             if (article.Appraises.Count != 0)
             {
                 model.Appraise.Agree = article.Appraises.Count(a => a.IsAgree == true);
                 model.Appraise.DisAgree = article.Appraises.Count(a => a.IsAgree == false);
-                model.Appraise.IsAgree = appraise.IsAgree;
+                model.Appraise.IsAgree = hasAppraise;
             }//do nothing
 
             //var comments = commentRepository.GetArticleComments(id);
@@ -95,7 +93,16 @@ namespace SRV.ProdService
         public List<CommentDto> GetComment(int id)
         {
             var comments = commentRepository.GetArticleComments(id);
-            return mapper.Map<List<Comment>,List<CommentDto>>(comments);
+            var model = mapper.Map<List<Comment>, List<CommentDto>>(comments);
+            
+            //if (article.Appraises.Count != 0)
+            //{
+            //    model.Appraise.Agree = article.Appraises.Count(a => a.IsAgree == true);
+            //    model.Appraise.DisAgree = article.Appraises.Count(a => a.IsAgree == false);
+            //    model.Appraise.IsAgree = appraise.IsAgree;
+            //}//do nothing
+
+            return model;
         }
 
 

@@ -12,6 +12,7 @@ namespace BLL.Entites
         [MaxLength(10)]
         public string Content { get; set; }
         public short Level { get; set; }
-        public int ParentId { get; set; }
+        public List<KeyWord> KeyWords { get; set; }
+        public int? KeyWordId { get; set; }
     }
 }

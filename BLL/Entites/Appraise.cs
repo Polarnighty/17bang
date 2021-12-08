@@ -8,6 +8,5 @@ namespace BLL.Entites
         public bool? IsAgree { get; set; }
         public int? ArticleId { get; set; }
         public int? CommentId { get; set; }
-
     }
 }

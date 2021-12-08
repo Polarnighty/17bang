@@ -18,6 +18,7 @@ namespace BLL.Repositories
         {
             return DbSet.Where(c => c.Article.Id == articleId && c.CommentId==null).Take(pageIndex)
                 .Include(c=>c.CommentBy)
+                .Include(c=>c.Appraises)
                 .ToList();
         }
 

@@ -22,13 +22,13 @@
             </div>
 
             <div id="appraise" class="article-appraise appraise-status pull-right">
-                <button id="agree" type="button" class="btn btn-primary" style="margin:10px">
+                <button id="agree" type="button" class="btn btn-primary" style="margin:10px" agree=@Model.Appraise.IsAgree.ToString()>
                     <span class="fa fa-thumbs-o-up"></span>
                     <span class="visible-sm-inline visible-md-inline visible-lg-inline">赞：</span>
                     <span>@Model.Appraise.Agree</span>
                 </button>
                 </a>
-                <button id="disAgree" type="button" class="btn btn-primary">
+                <button id="disAgree" type="button" class="btn btn-primary" @(!Model.Appraise.IsAgree)>
                     <span class="fa fa-thumbs-o-down"></span>
                     <span class="visible-sm-inline visible-md-inline visible-lg-inline">踩：</span>
                     <span>@Model.Appraise.DisAgree</span>
@@ -85,7 +85,6 @@
     } else if (hasAgree == "False") {
         appraiseStatus[1] = true
     }
-
     function appraise(e, e2, agree) {
         b1 = +!agree;b2 = +agree;
         e = $(e).children().last();
@@ -100,6 +99,7 @@
             e.text(+e.text()+1)
             appraiseStatus[b1] = true;
         }
+        hasAgree = appraiseStatus[b1]
     }
 
     $('#appraise').on('click', function (e) {

@@ -28,7 +28,7 @@ namespace BLL.Repositories
                     }
                     break;
                 case AppraiseType.Comment:
-                    appraise = DbSet.Where(a => a.CommentId == id).SingleOrDefault();
+                    appraise = DbSet.Where(a => a.CommentId == id && a.AppraiserId == user.Id).SingleOrDefault();
                     if (appraise == null)
                     {
                         DbSet.Add(new Appraise { IsAgree = agree, Appraiser = user, CommentId = id });
@@ -50,11 +50,11 @@ namespace BLL.Repositories
             appraise.IsAgree = agree;
             context.SaveChanges();
         }
-        public Appraise GetAppraise(int id, AppraiseType type,User user=null)
+        public bool? GetHasAppraise(int id, AppraiseType type, User user)
         {
             var appraise = new Appraise();
             var query = DbSet.AsQueryable<Appraise>();
-            if (user!=null)
+            if (user != null)
             {
                 query = query.Where(a => a.Appraiser.Id == user.Id);
             }
@@ -69,7 +69,8 @@ namespace BLL.Repositories
                 default:
                     break;
             }
-            return appraise;
+            return appraise.IsAgree;
         }
-}
+
+    }
 }
