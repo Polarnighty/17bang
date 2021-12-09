@@ -9,16 +9,18 @@
         @comment.Content
     </div>
     @*<div class="commentAppraise pull-right">
-        <a href="/Article/Comment/Appraise?id=@comment.Id;" agree=@comment.Appraises.IsAgree.ToString() data-id=@comment.Id.ToString()>
-            <span class="fa fa-thumbs-o-up text-success"></span> 支持
-            <span>@comment.Appraises.Agree</span>
-        </a>
-        <a href="/Article/Comment/Appraise?id=@comment.Id" agree=@comment.Appraises.IsAgree.ToString() data-id=@comment.Id.ToString()>
-            <span class="fa fa-thumbs-o-down text-success"></span> 反对
-            <span>@comment.Appraises.DisAgree</span>
-        </a>
-    </div>*@
+            <a href="/Article/Comment/Appraise?id=@comment.Id;" agree=@comment.Appraises.IsAgree.ToString() data-id=@comment.Id.ToString()>
+                <span class="fa fa-thumbs-o-up text-success"></span> 支持
+                <span>@comment.Appraises.Agree</span>
+            </a>
+            <a href="/Article/Comment/Appraise?id=@comment.Id" agree=@comment.Appraises.IsAgree.ToString() data-id=@comment.Id.ToString()>
+                <span class="fa fa-thumbs-o-down text-success"></span> 反对
+                <span>@comment.Appraises.DisAgree</span>
+            </a>
+        </div>*@
 }
+
+
 
 @{
     for (int i = 0; i < Model.Count; i++)
@@ -42,7 +44,26 @@
         }
     }
 }
+
+<script charset="utf-8" src="~/Content/editor/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="~/Content/editor/lang/zh-CN.js"></script>
+
+@Html.BeginForm(){
+    @Html.HiddenFor(c=>c.com)
+    <textarea id="editor_id" name="content" style="width:700px;height:300px;"></textarea>
+    
+    
+}
+
+
 <script>
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#editor_id');
+    });
+</script>
+
+<script>
+
     $('.comment').on('click', function (e) {
         let agree;
         if (e.target.id === 'appraise') { return }
