@@ -46,7 +46,6 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Appraise.cs" />
     <Compile Include="Comment.cs" />
-    <Compile Include="Interface\AppraiseType.cs" />
     <Compile Include="KeyWord.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

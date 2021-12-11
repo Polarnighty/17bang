@@ -3,7 +3,7 @@
     public class AppraiseDto 
     {
         public bool? IsAgree { get; set; }
-        public int Agree { get; set; }
-        public int DisAgree { get; set; }
+        public int AgreeCount { get; set; }
+        public int DisAgreeCount { get; set; }
     }
 }

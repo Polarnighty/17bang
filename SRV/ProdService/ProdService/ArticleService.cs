@@ -65,22 +65,18 @@ namespace SRV.ProdService
             model.PreviousTitle = Prev?.Title;
             model.PreviousId = Prev?.Id;
 
-
-            bool? hasAppraise =null;
+            model.Appraise = new AppraiseDto { AgreeCount=0,DisAgreeCount=0 };
             if (HttpContext.Current.Request.Cookies[Keys.User]?.Values != null)
             {
-                hasAppraise = appraiseRepositary.GetHasAppraise(id, AppraiseType.Article, GetCurrentUser());
+                model.Appraise.IsAgree = appraiseRepositary.GetAppraise(id, AppraiseType.Article, GetCurrentUser())?.IsAgree;
             }
 
             if (article.Appraises.Count != 0)
             {
-                model.Appraise.Agree = article.Appraises.Count(a => a.IsAgree == true);
-                model.Appraise.DisAgree = article.Appraises.Count(a => a.IsAgree == false);
-                model.Appraise.IsAgree = hasAppraise;
+                model.Appraise.AgreeCount = article.Appraises.Count(a => a.IsAgree == true);
+                model.Appraise.DisAgreeCount = article.Appraises.Count(a => a.IsAgree == false);
             }//do nothing
 
-            //var comments = commentRepository.GetArticleComments(id);
-            //model.Comments = mapper.Map<List<Comment>, List<CommentDto>>(comments);
 
             return model;
         }
@@ -90,9 +86,9 @@ namespace SRV.ProdService
             appraiseRepositary.Appraise(id, AppraiseType.Article,GetCurrentUser(), agree);
         }
 
-        public List<CommentDto> GetComment(int id)
+        public List<CommentDto> GetComment(int id,int page=1)
         {
-            var comments = commentRepository.GetArticleComments(id);
+            var comments = commentRepository.GetArticleComments(id,page);
             var model = mapper.Map<List<Comment>, List<CommentDto>>(comments);
             
             //if (article.Appraises.Count != 0)

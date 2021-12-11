@@ -13,8 +13,11 @@ namespace SRV.ViewModel.EnityDto
         public int CommentatorId { get; set; }
         public string Content { get; set; }
         public DateTime CommentTime { get; set; }
-        public AppraiseDto Appraises { get; set; }
         public IList<CommentDto> CommentBy { get; set; }
+        public bool? IsAgree { get; set; }
+        public int Agree { get; set; }
+        public int DisAgree { get; set; }
+        public int ArticleId { get; set; }
 
     }
 }

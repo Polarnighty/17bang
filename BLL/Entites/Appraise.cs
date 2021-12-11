@@ -1,5 +1,4 @@
-﻿using BLL.Entites.Interface;
-namespace BLL.Entites
+﻿namespace BLL.Entites
 {
     public class Appraise : BaseEntity
     {

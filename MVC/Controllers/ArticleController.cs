@@ -1,18 +1,18 @@
 ﻿using SRV.ViewModel;
-using System.Linq;
 using System.Web.Mvc;
 using SRV.ProdService;
-using MVC.Helpers;
-using Newtonsoft.Json;
 
 namespace MVC.Controllers
 {
     public class ArticleController : Controller
     {
         private ArticleService articleService;
-        public ArticleController(ArticleService articleService)
+        private CommentService commentService;
+
+        public ArticleController(ArticleService articleService,CommentService commentService)
         {
             this.articleService = articleService;
+            this.commentService = commentService;
         }
         public ActionResult Index(int id = 1)
         {
@@ -59,19 +59,19 @@ namespace MVC.Controllers
             articleService.Appraise(id, agree);
             return null;
         }
-        [ChildActionOnly]
-        public PartialViewResult Comment(int id)
+
+        public PartialViewResult Comment(int id, int page = 1)
         {
-            var model = articleService.GetComment(id);
+            var model = articleService.GetComment(id, page);
             return PartialView(model);
         }
 
-        //[HttpPost]
-        //public ActionResult Reply(int id, string )
-        //{
-        //    var appraise = articleService.Appraise(id, agree);
-        //    return Json(appraise, JsonRequestBehavior.AllowGet);
-        //}
+        [HttpPost]
+        public PartialViewResult Reply(int id, string content, int? commentId)
+        {
+            var model = commentService.Reply(id, content, commentId);
+            return PartialView("Comment/Reply", model);
+        }
 
 
     }

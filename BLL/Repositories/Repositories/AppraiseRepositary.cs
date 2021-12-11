@@ -50,7 +50,7 @@ namespace BLL.Repositories
             appraise.IsAgree = agree;
             context.SaveChanges();
         }
-        public bool? GetHasAppraise(int id, AppraiseType type, User user)
+        public Appraise GetAppraise(int id, AppraiseType type, User user)
         {
             var appraise = new Appraise();
             var query = DbSet.AsQueryable<Appraise>();
@@ -69,8 +69,23 @@ namespace BLL.Repositories
                 default:
                     break;
             }
-            return appraise.IsAgree;
+            return appraise;
         }
 
+        public int GetAppraiseCount(int id, AppraiseType type, bool agree =true)
+        {
+            switch (type)
+            {
+                case AppraiseType.Article:
+                    return DbSet.Count(a => a.ArticleId == id && a.IsAgree == agree);
+                case AppraiseType.Comment:
+                    return DbSet.Count(a => a.CommentId == id && a.IsAgree == agree);
+                default:
+                    break;
+            }
+            return 0;
+        }
     }
+
+
 }

@@ -9,6 +9,6 @@ namespace BLL.Entites
         public string Content { get; set; }
         public short Level { get; set; }
         public List<KeyWord> KeyWords { get; set; }
-        public int? KeyWordId { get; set; }
+        public int? ArticleId { get; set; }
     }
 }

@@ -14,13 +14,19 @@ namespace BLL.Repositories
         {
         }
 
-        public List<Comment> GetArticleComments(int articleId,int pageIndex=10)
+        public List<Comment> GetArticleComments(int articleId, int page, int pageIndex = 5)
         {
-            return DbSet.Where(c => c.Article.Id == articleId && c.CommentId==null).Take(pageIndex)
-                .Include(c=>c.CommentBy)
-                .Include(c=>c.Appraises)
+            return DbSet.Where(c => c.Article.Id == articleId && c.CommentId == null).OrderBy(c=>c.Id).Skip((page - 1) * pageIndex).Take(pageIndex)
+                .Include(c => c.CommentBy)
+                .Include(c => c.Appraises)
                 .ToList();
         }
 
+        public int? Reply(Comment comment)
+        {
+            DbSet.Add(comment);
+            context.SaveChanges();
+            return comment.Id;
+        }
     }
 }

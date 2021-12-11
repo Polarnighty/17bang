@@ -27,8 +27,8 @@ namespace DbFactory
                 var comment = new Comment { Article= ArticleFactory.First, CommentTime = date.AddDays(i), Commentator = UserFactory.fg, Content = $"这是评论内容{i + 1}" };
                 if (i < 3)
                 {
-                    comment.CommentBy = new[]  { new Comment { Article= ArticleFactory.First, CommentTime = date.AddDays(i), Commentator = UserFactory.fg, Content = $"这是评论子内容{i+1}:1" },
-                        new Comment {  Article= ArticleFactory.First,CommentTime = date.AddDays(i+1), Commentator = UserFactory.fg, Content = $"这是评论子内容{i}:2" },
+                    comment.CommentBy = new[]  { new Comment { Article= ArticleFactory.First, CommentTime = date.AddDays(i), Commentator = UserFactory.fg, Content = $"这是评论子内容1" },
+                        new Comment {  Article= ArticleFactory.First,CommentTime = date.AddDays(i+1), Commentator = UserFactory.fg, Content = $"这是评论子内容2" },
                     };
                 }
                 comments.Add(comment);

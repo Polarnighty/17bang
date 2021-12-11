@@ -3,7 +3,7 @@
 @helper DisplayComment(SRV.ViewModel.EnityDto.CommentDto comment)
 {
     <div>
-        <small class="text-muted"><span class="fa fa-calendar"></span><span>@comment.CommentTime</span></small>
+        <small class="text-muted"><span class="fa fa-calendar"></span><span style="margin:0px 5px;">@comment.CommentTime</span></small>
     </div>
     <div class="clearfix" style="margin:10px 0;">
         @comment.Content
@@ -45,46 +45,26 @@
     }
 }
 
-<script charset="utf-8" src="~/Content/editor/kindeditor-all-min.js"></script>
-<script charset="utf-8" src="~/Content/editor/lang/zh-CN.js"></script>
-
-@Html.BeginForm(){
-    @Html.HiddenFor(c=>c.com)
-    <textarea id="editor_id" name="content" style="width:700px;height:300px;"></textarea>
-    
-    
-}
-
-
-<script>
-    KindEditor.ready(function (K) {
-        window.editor = K.create('#editor_id');
-    });
-</script>
-
 <script>
 
-    $('.comment').on('click', function (e) {
-        let agree;
-        if (e.target.id === 'appraise') { return }
-        while (e.target.id !== 'appraise') {
-            if (e.target.id === 'agree') {
-                agree = true;
-                let e2 = $(e.target).next().children().last()
-                appraise(e.target, e2, agree)
-            }
+    //$('.comment').on('click', function (e) {
+    //    let agree;
+    //    if (e.target.id === 'appraise') { return }
+    //    while (e.target.id !== 'appraise') {
+    //        if (e.target.id === 'agree') {
+    //            agree = true;
+    //            let e2 = $(e.target).next().children().last()
+    //            appraise(e.target, e2, agree)
+    //        }
 
-            if (e.target.id === 'disAgree') {
-                agree = false;
-                let e2 = $(e.target).prev().children().last();
-                appraise(e.target, e2, agree)
-            }
-            e.target = e.target.parentNode
-        }
+    //        if (e.target.id === 'disAgree') {
+    //            agree = false;
+    //            let e2 = $(e.target).prev().children().last();
+    //            appraise(e.target, e2, agree)
+    //        }
+    //        e.target = e.target.parentNode
+    //    }
 
-    })
+    //})
 
 </script>
-
-<style>
-</style>

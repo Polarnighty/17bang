@@ -12,18 +12,13 @@ namespace MVC.Filters
     {
         public void OnAuthorization(AuthorizationContext filterContext)
         {
-            //if (filterContext.HttpContext.Request.RawUrl=="/")
-            //{
-            //    return;
-            //}
             if (filterContext.HttpContext.Request.Cookies[Keys.User]!=null)
             {
                 var user = new BaseService().GetCurrentUser();
                 filterContext.Controller.ViewBag.UserName = user.Name;
                 return;
             }
-            //filterContext.HttpContext.Response.Redirect("/");
-
         }
+
     }
 }
