@@ -29,6 +29,11 @@ namespace BLL.Repositories
             return comment.Id;
         }
 
+        public void Delete(int id)
+        {
+            DbSet.Remove(LoadProxy(id));
+            context.SaveChanges();
+        }
         public int getCommentCount(int id)
         {
             return DbSet.Count(c => c.ArticleId == id && c.CommentId==null);

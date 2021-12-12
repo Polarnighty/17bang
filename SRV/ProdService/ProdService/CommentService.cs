@@ -39,6 +39,10 @@ namespace SRV.ProdService
             return model;
         }
 
+        public void Delete(int id)
+        {
+            commentRepository.Delete(id);
+        }
         public int GetCommentCount(int id)
         {
             return commentRepository.getCommentCount(id);

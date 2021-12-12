@@ -67,6 +67,10 @@ namespace MVC.Controllers
             var model = commentService.GetComments(id, page);
             return PartialView("Comment/Comments", model);
         }
+        public void DeleteComment(int id)
+        {
+            commentService.Delete(id);
+        }
 
         [HttpPost]
         public PartialViewResult Reply(int id, string content, int? commentId)
