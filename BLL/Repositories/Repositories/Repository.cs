@@ -21,8 +21,7 @@ namespace BLL.Repositories
         }
         public T Find(int Id)
         {
-            //return context.Entites.Find(Id);
-            return DbSet.Find(Id);
+            return DbSet.Where(p=>p.Id==Id).SingleOrDefault();
         }
 
         public int? Save(T entity)

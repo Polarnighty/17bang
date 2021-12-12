@@ -5,13 +5,13 @@
     var comment = Model[i];
     if (comment.CommentId == null)
     {
-        <div class="comment clearfix">
+        <div class="comment clearfix"  @("comment-"+comment.Id)>
             @Html.Partial("Comment/Comment", comment)
             @if (comment.CommentBy.Count != 0)
             {
                 foreach (var item in comment.CommentBy)
                 {
-                    <div class="commentBy">
+                    <div class="commentBy" @("comment-"+item.Id)>
                         @Html.Partial("Comment/Comment", item)
                     </div>
                 }

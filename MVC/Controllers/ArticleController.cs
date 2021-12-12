@@ -76,7 +76,7 @@ namespace MVC.Controllers
         public PartialViewResult Reply(int id, string content, int? commentId)
         {
             var model = commentService.Reply(id, content, commentId);
-            return PartialView("Comment/Comment", model);
+            return PartialView("Comment/Reply", model);
         }
 
 

@@ -40,8 +40,8 @@ namespace SRV.ProdService
         }
 
         public void Delete(int id)
-        {
-            commentRepository.Delete(id);
+        {            
+            commentRepository.Delete(id, GetCurrentUser().Id);
         }
         public int GetCommentCount(int id)
         {

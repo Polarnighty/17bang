@@ -80,6 +80,10 @@ namespace SRV.ProdService
             return model;
         }
 
+        public string GetAuthorById(int id)
+        {
+            return articleRepository.GetAuthorById(id);
+        }
 
         public void Appraise(int id, bool agree)
         {

@@ -91,7 +91,7 @@
 
             <div id="comments">
                 @*@Html.Action("Comment", new { Page = 1 })*@
-                @Html.Partial("Comment/Comments", Model.Comments);
+                @Html.Partial("Comment/Comments", Model.Comments)
             </div>
 
 
@@ -100,6 +100,7 @@
 </div>
 
 <script>
+
     $("[comment-submit]").on("click", function (e) {
         e.preventDefault()
         editor.sync()
@@ -124,11 +125,30 @@
 
             },
         })
-
-
     })
 
-
+    $('#comments').on('click', function (e) {
+        e.preventDefault()
+        e = e.target;
+        let selectComment;
+        while (e.id != 'comments') {
+            if (e.tagName=='A') {
+                let url = $(e).prop('href');
+                url = '/' + url.split('/').slice(3).join('/');
+                selectComment = e.parentNode.parentNode
+                $.ajax({
+                    url: url,
+                    success: function () {
+                        console.log(selectComment)
+                        $(selectComment).remove()
+                        $('[comment-count]').text(
+                            (+$('[comment-count]').text() - 1))
+                    }
+                })
+            }
+            e = e.parentNode
+        }
+    })
 </script>
 @*<script>
 
@@ -173,6 +193,22 @@
         })
     </script>*@
 <script type="text/javascript">
+    //禁止默认事件
+    //$('#comments').on('click', function (e) {
+    //    while (e.target.tagName !== 'a') {
+    //        if (e.target.tagName == 'a') {
+    //            console.log("1")
+    //            e.preventDefault();
+    //            return;
+    //        }
+    //        console.log('Node')
+    //        console.log(e.target)
+    //        console.log(e.parents)
+    //        console.log(e.parentNode)
+    //        e = e.parentNode
+    //    }
+    //})
+
 
     let hasAgree = "@Model.Appraise.IsAgree";
     let appraiseStatus = [false, false]

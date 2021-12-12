@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System;
 
 namespace BLL.Repositories
 {
@@ -46,6 +47,9 @@ namespace BLL.Repositories
             return DbSet.Where(a => a.Id < id).OrderByDescending(a => a.Id).FirstOrDefault();
         }
 
-
+        public string GetAuthorById(int id)
+        {
+            return DbSet.Where(a => a.Id == id).Include(a => a.Author).Select(a => a.Author.Name).SingleOrDefault();
+        }
     }
 }
