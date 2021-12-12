@@ -30,6 +30,8 @@ namespace MVC.Controllers
         public ActionResult Single(int id)
         {
             var model = articleService.GetSingleArticle(id);
+            model.Comments = commentService.GetComments(id);
+            ViewBag.CommentCount = commentService.GetCommentCount(id);
             return View(model);
         }
 
@@ -62,15 +64,15 @@ namespace MVC.Controllers
 
         public PartialViewResult Comment(int id, int page = 1)
         {
-            var model = articleService.GetComment(id, page);
-            return PartialView(model);
+            var model = commentService.GetComments(id, page);
+            return PartialView("Comment/Comments", model);
         }
 
         [HttpPost]
         public PartialViewResult Reply(int id, string content, int? commentId)
         {
             var model = commentService.Reply(id, content, commentId);
-            return PartialView("Comment/Reply", model);
+            return PartialView("Comment/Comment", model);
         }
 
 

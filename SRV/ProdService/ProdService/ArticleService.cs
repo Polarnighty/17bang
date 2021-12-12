@@ -77,29 +77,15 @@ namespace SRV.ProdService
                 model.Appraise.DisAgreeCount = article.Appraises.Count(a => a.IsAgree == false);
             }//do nothing
 
-
             return model;
         }
+
 
         public void Appraise(int id, bool agree)
         {
             appraiseRepositary.Appraise(id, AppraiseType.Article,GetCurrentUser(), agree);
         }
 
-        public List<CommentDto> GetComment(int id,int page=1)
-        {
-            var comments = commentRepository.GetArticleComments(id,page);
-            var model = mapper.Map<List<Comment>, List<CommentDto>>(comments);
-            
-            //if (article.Appraises.Count != 0)
-            //{
-            //    model.Appraise.Agree = article.Appraises.Count(a => a.IsAgree == true);
-            //    model.Appraise.DisAgree = article.Appraises.Count(a => a.IsAgree == false);
-            //    model.Appraise.IsAgree = appraise.IsAgree;
-            //}//do nothing
-
-            return model;
-        }
 
 
     }

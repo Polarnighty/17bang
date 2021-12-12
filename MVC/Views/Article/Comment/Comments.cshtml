@@ -1,0 +1,22 @@
+﻿@model List<SRV.ViewModel.EnityDto.CommentDto>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    var comment = Model[i];
+    if (comment.CommentId == null)
+    {
+        <div class="comment clearfix">
+            @Html.Partial("Comment/Comment", comment)
+            @if (comment.CommentBy.Count != 0)
+            {
+                foreach (var item in comment.CommentBy)
+                {
+                    <div class="commentBy">
+                        @Html.Partial("Comment/Comment", item)
+                    </div>
+                }
+            }
+        </div>
+    }
+}
+

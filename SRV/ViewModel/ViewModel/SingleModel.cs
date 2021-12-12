@@ -18,7 +18,6 @@ namespace SRV.ViewModel
         public string PreviousTitle { get; set; }
         public int? NextId { get; set; }
         public string NextTitle { get; set; }
-
         public DateTime PublishDateTime { get; set; }
         public AppraiseDto Appraise { get; set; }
         public List<CommentDto> Comments { get; set; }

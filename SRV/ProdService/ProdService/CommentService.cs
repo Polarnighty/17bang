@@ -24,7 +24,24 @@ namespace SRV.ProdService
             commentRepository.Reply(comment);
             return mapper.Map<Comment, CommentDto>(comment);
         }
+        public List<CommentDto> GetComments(int id, int page = 1)
+        {
+            var comments = commentRepository.GetArticleComments(id, page);
+            var model = mapper.Map<List<Comment>, List<CommentDto>>(comments);
 
+            //if (article.Appraises.Count != 0)
+            //{
+            //    model.Appraise.Agree = article.Appraises.Count(a => a.IsAgree == true);
+            //    model.Appraise.DisAgree = article.Appraises.Count(a => a.IsAgree == false);
+            //    model.Appraise.IsAgree = appraise.IsAgree;
+            //}//do nothing
 
+            return model;
+        }
+
+        public int GetCommentCount(int id)
+        {
+            return commentRepository.getCommentCount(id);
+        }
     }
 }

@@ -28,5 +28,10 @@ namespace BLL.Repositories
             context.SaveChanges();
             return comment.Id;
         }
+
+        public int getCommentCount(int id)
+        {
+            return DbSet.Count(c => c.ArticleId == id && c.CommentId==null);
+        }
     }
 }

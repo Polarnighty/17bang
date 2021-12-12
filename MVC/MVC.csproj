@@ -2264,7 +2264,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Article\UserArticle.cshtml" />
     <Content Include="Views\Message\Index.cshtml" />
-    <Content Include="Views\Article\Comment.cshtml" />
+    <Content Include="Views\Article\Comment\Comment.cshtml" />
+    <Content Include="Views\Article\Comment\Comments.cshtml" />
     <Content Include="Views\Article\Comment\Reply.cshtml" />
   </ItemGroup>
   <ItemGroup>
