@@ -1,6 +1,6 @@
 ﻿using BLL.Repositories;
-using SRV.ViewModel.EnityDto;
 using Global;
+using SRV.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +17,9 @@ namespace SRV.ProdService
             appraiseRepositary = new AppraiseRepositary(context);
         }
 
-        public AppraiseDto GetAppraiseCount(int id)
+        public AppraiseModel GetAppraiseCount(int id)
         {
-            var appraiseDto = new AppraiseDto();
+            var appraiseDto = new AppraiseModel();
             appraiseDto.AgreeCount = appraiseRepositary.GetAppraiseCount(id, AppraiseType.Comment);
             appraiseDto.DisAgreeCount = appraiseRepositary.GetAppraiseCount(id, AppraiseType.Comment,false);
             return appraiseDto;

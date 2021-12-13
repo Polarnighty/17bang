@@ -31,6 +31,7 @@ namespace MVC.Controllers
         {
             var model = articleService.GetSingleArticle(id);
             model.Comments = commentService.GetComments(id);
+            model.Reply = new CommentModel();
             ViewBag.CommentCount = commentService.GetCommentCount(id);
             return View(model);
         }
@@ -70,12 +71,18 @@ namespace MVC.Controllers
         public void DeleteComment(int id)
         {
             commentService.Delete(id);
+            ViewBag.CommentCount -= 1;
         }
 
         [HttpPost]
         public PartialViewResult Reply(int id, string content, int? commentId)
         {
             var model = commentService.Reply(id, content, commentId);
+            if (commentId==null)
+            {
+                ViewBag.CommentCount += 1;
+                model.Floor = ViewBag.CommentCount;
+            }
             return PartialView("Comment/Reply", model);
         }
 

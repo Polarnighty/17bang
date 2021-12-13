@@ -1,6 +1,6 @@
-﻿namespace SRV.ViewModel.EnityDto
+﻿namespace SRV.ViewModel
 {
-    public class AppraiseDto 
+    public class AppraiseModel 
     {
         public bool? IsAgree { get; set; }
         public int AgreeCount { get; set; }

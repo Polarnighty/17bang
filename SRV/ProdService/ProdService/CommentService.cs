@@ -1,7 +1,6 @@
 ﻿using BLL.Entites;
 using BLL.Repositories;
 using SRV.ViewModel;
-using SRV.ViewModel.EnityDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +17,16 @@ namespace SRV.ProdService
             commentRepository = new CommentRepository(context);
         }
 
-        public CommentDto Reply(int id, string content, int? commentId)
+        public CommentModel Reply(int id, string content, int? commentId)
         {
             var comment = new Comment { ArticleId = id, Content = content, Commentator = GetCurrentUser(), CommentId = commentId, CommentTime = DateTime.Now };
             commentRepository.Reply(comment);
-            return mapper.Map<Comment, CommentDto>(comment);
+            return mapper.Map<Comment, CommentModel>(comment);
         }
-        public List<CommentDto> GetComments(int id, int page = 1)
+        public List<CommentModel> GetComments(int id, int page = 1)
         {
             var comments = commentRepository.GetArticleComments(id, page);
-            var model = mapper.Map<List<Comment>, List<CommentDto>>(comments);
+            var model = mapper.Map<List<Comment>, List<CommentModel>>(comments);
 
             //if (article.Appraises.Count != 0)
             //{

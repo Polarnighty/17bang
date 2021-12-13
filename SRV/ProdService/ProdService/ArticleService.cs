@@ -1,7 +1,6 @@
 ﻿using BLL.Entites;
 using BLL.Repositories;
 using SRV.ViewModel;
-using SRV.ViewModel.EnityDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,7 +64,7 @@ namespace SRV.ProdService
             model.PreviousTitle = Prev?.Title;
             model.PreviousId = Prev?.Id;
 
-            model.Appraise = new AppraiseDto { AgreeCount=0,DisAgreeCount=0 };
+            model.Appraise = new AppraiseModel { AgreeCount=0,DisAgreeCount=0 };
             if (HttpContext.Current.Request.Cookies[Keys.User]?.Values != null)
             {
                 model.Appraise.IsAgree = appraiseRepositary.GetAppraise(id, AppraiseType.Article, GetCurrentUser())?.IsAgree;
