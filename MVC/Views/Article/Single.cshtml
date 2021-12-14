@@ -50,11 +50,12 @@
                 {
                     <div reply-reminder style="margin-bottom:10px">
                     </div>
-                    @Html.HiddenFor(c => c.Reply.Id);
+                    @Html.HiddenFor(c => c.Reply.CommentId);
 
                     <input type="hidden" name="commentId" />
 
-                    <textarea name="content" style="display:none;" kindeditor></textarea>
+                    @*<textarea name="content" style="display:none;"></textarea>*@
+                    @Html.TextAreaFor(c=>c.Reply.Content,new {@class= "form-control", kindEditor = string.Empty,cols="20",rows="4" })
                     <div class="submit" style="margin-top:20px">
                         <input type="submit" comment-submit class="btn btn-primary" value="提交">
                         <input type="reset" class="btn btn-default">
@@ -102,7 +103,7 @@
                 @Html.Partial("Comment/Comments", Model.Comments)
             </div>
 
-            <div class="modal fade" tabindex="-1" role="dialog" global-modal="" id="contact" style="display: none;">
+            <div class="modal fade" tabindex="-1" role="dialog" id="contact" style="display: none;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -123,6 +124,7 @@
 </div>
 
 <script>
+
     function showRemind(content) {
         showModal("<span class='fa fa-info-circle'></span> 友情提示", content);
     }
@@ -157,12 +159,14 @@
 
                 //回复
                 let $comment = $(data);
-                let cid = $("input[name='commentId']").val()
+                let cid = $("#Reply_CommentId").val()
                 if (!!cid) {
                     $(`[comment-${cid}]`).append($comment);
                 } else {
                     $("#comments").append($comment);
                 }
+                $("#Reply_CommentId").val('');
+
                 showRemind(`<p><span>评论发布成功!</span></p>`);
             },
         })
@@ -174,6 +178,7 @@
         e = e.target;
         let selectComment;
         while (e.id != 'comments') {
+            //删除楼层
             if (e.tagName == 'A' && e.innerHTML == $('[delete]')[0].innerHTML) {
                 selectComment = e.parentNode.parentNode
                 let id = $(selectComment).data('id')
@@ -200,14 +205,14 @@
                 let id = $(e).data('id');
                 let cid = $(e).data('cid');
                 let floor;
-                $("input[name='commentId']").val('');
+                $("#Reply_CommentId").val('');
                 $("input[name='id']").val('');
 
                 if (!!cid) {
-                    $("input[name='commentId']").val(cid);
+                    $("#Reply_CommentId").val(cid);
                     floor = $(`[floor-${cid}]`).html();
                 } else {
-                    $("input[name='commentId']").val(id);
+                    $("#Reply_CommentId").val(id);
                     floor = $(`[floor-${id}]`).html();
                 }
                 $('[reply-reminder]').html(floor)

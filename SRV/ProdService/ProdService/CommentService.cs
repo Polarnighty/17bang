@@ -17,11 +17,13 @@ namespace SRV.ProdService
             commentRepository = new CommentRepository(context);
         }
 
-        public CommentModel Reply(int id, string content, int? commentId)
+        public CommentModel Reply(int id, CommentModel model)
         {
-            var comment = new Comment { ArticleId = id, Content = content, Commentator = GetCurrentUser(), CommentId = commentId, CommentTime = DateTime.Now };
-            commentRepository.Reply(comment);
-            return mapper.Map<Comment, CommentModel>(comment);
+            model.CommentTime = DateTime.Now;
+            model.CommentatorId = GetCurrentUser().Id;
+            model.ArticleId = id;
+            commentRepository.Reply(mapper.Map<CommentModel, Comment>(model));
+            return model;
         }
         public List<CommentModel> GetComments(int id, int page = 1)
         {

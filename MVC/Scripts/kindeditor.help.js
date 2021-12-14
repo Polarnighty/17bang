@@ -55,7 +55,7 @@ var simpleConfig =
     }
 };
 $(document).ready(function () {
-    editor = KindEditor.create("[kindeditor]", simpleConfig);
+    editor = KindEditor.create("[kindEditor]", simpleConfig);
     var validator = $(editor.container).parents('form').data("validator");
     if (validator !== undefined) {
         //Note: 验证“隐藏”的控件

@@ -70,21 +70,13 @@ namespace MVC.Controllers
         }
         public bool DeleteComment(int id)
         {
-            if (commentService.Delete(id))
-            {
-                ViewBag.CommentCount -= 1;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return commentService.Delete(id);
         }
 
         [HttpPost]
-        public PartialViewResult Reply(int id, string content, int? commentId)
+        public PartialViewResult Reply(int id, CommentModel Reply)
         {
-            var model = commentService.Reply(id, content, commentId);
+            var model = commentService.Reply(id, Reply);
             return PartialView("Comment/Reply", model);
         }
 
