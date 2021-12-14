@@ -14,7 +14,7 @@ namespace BLL.Entites
         public string InviterCode { get; set; }
         public IList<Article> Articles { get; set; }
         public IList<Message> Messages { get; set; }
-        //public IList<Comment> Comments { get; set; }
+        public IList<Comment> Comments { get; set; }
 
         public void Register()
         {

@@ -11,10 +11,10 @@
     @Model.Content
 </div>
 <div class="pull-right">
-    <a href="@Url.Action("DeleteComment",new { id=Model.Id,uid=Model.CommentatorId })" style="margin-left:10px" DeleteComment>
+    <a href="#new-comment" style="margin-left:10px" delete>
         <i class="fa fa-trash" style="margin-right:3px"></i>删除
     </a>
-    <a href="#new-comment" style="margin-left:10px" data-id="@Model.Id" data-commentId="@Model.CommentId" Reply>
+    <a href="#new-comment" style="margin-left:10px" data-id="@Model.Id" data-cid="@Model.CommentId" Reply>
         <i class="fa fa-reply" style="margin-right:3px"></i>回复
     </a>
 </div>

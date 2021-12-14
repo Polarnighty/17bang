@@ -50,10 +50,11 @@
                 {
                     <div reply-reminder style="margin-bottom:10px">
                     </div>
+                    @Html.HiddenFor(c => c.Reply.Id);
+
                     <input type="hidden" name="commentId" />
-                    Html.HiddenFor(c => c.Reply.CommentId);
+
                     <textarea name="content" style="display:none;" kindeditor></textarea>
-                    Html.HiddenFor(a => a.Id);
                     <div class="submit" style="margin-top:20px">
                         <input type="submit" comment-submit class="btn btn-primary" value="提交">
                         <input type="reset" class="btn btn-default">
@@ -101,12 +102,41 @@
                 @Html.Partial("Comment/Comments", Model.Comments)
             </div>
 
+            <div class="modal fade" tabindex="-1" role="dialog" global-modal="" id="contact" style="display: none;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title"><span class="fa fa-info-circle"></span> 友情提示</h4>
+                        </div>
+                        <div class="modal-body"><p><span class="fa fa-check text-success" style="margin-right:10px;"></span><span>恭喜！评论发布成功。</span></p></div>
+                        <div class="modal-footer">
+                            <span global-modal-footer-placeholder=""></span>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
 
         </div>
     </div>
 </div>
 
 <script>
+    function showRemind(content) {
+        showModal("<span class='fa fa-info-circle'></span> 友情提示", content);
+    }
+
+    function showModal(title, body, nofooter) {
+        $modal = $("[global-modal]");
+        $modal.find(".modal-title").html(title);
+        $modal.find(".modal-body").html(body);
+        if (nofooter) {
+            $modal.find(".modal-footer").remove();
+        }
+        $modal.modal("show");
+    }
+
     //回复
     $("[comment-submit]").on("click", function (e) {
         e.preventDefault()
@@ -114,8 +144,7 @@
         var $this = $(this),
             $form = $this.parents("form")
             ;
-        console.log($form[0].text())
-        @*$.ajax({
+        $.ajax({
             url: "/Article/Reply/@Model.Id",
             data: $form.serialize(),
             method: "POST",
@@ -125,50 +154,66 @@
                 }
                 $("[comment-count]").text(
                     parseInt($("[comment-count]").text()) + 1);
-                @(ViewBag.CommentCount +=1)
+
+                //回复
                 let $comment = $(data);
-                console.log($comment)
-                $("#comments").append($comment);
+                let cid = $("input[name='commentId']").val()
+                if (!!cid) {
+                    $(`[comment-${cid}]`).append($comment);
+                } else {
+                    $("#comments").append($comment);
+                }
+                showRemind(`<p><span>评论发布成功!</span></p>`);
             },
-        })*@
+        })
     })
 
-    //删除
-    $('[DeleteComment]').on('click', function (e) {
-        e.preventDefault()
+    //评论功能委托
+    $('#comments').on('click', function (e) {
+
         e = e.target;
         let selectComment;
         while (e.id != 'comments') {
-            if (e.tagName == 'A') {
-                let url = $(e).prop('href');
-                url = '/' + url.split('/').slice(3).join('/');
+            if (e.tagName == 'A' && e.innerHTML == $('[delete]')[0].innerHTML) {
                 selectComment = e.parentNode.parentNode
+                let id = $(selectComment).data('id')
+                console.log(id)
                 $.ajax({
-                    url: url,
-                    success: function () {
-                        console.log(selectComment)
-                        $(selectComment).remove()
-
-                        $('[comment-count]').text(
-                            (+$('[comment-count]').text() - 1))
-
+                    url: `/Article/DeleteComment/${id}`,
+                    success: function (data) {
+                        hasDel = JSON.parse(data.toLowerCase())
+                        if (hasDel) {
+                            console.log(!hasDel)
+                            $(selectComment).remove()
+                            $('[comment-count]').text(
+                                (+$('[comment-count]').text() - 1))
+                            showRemind(`<p><span>评论删除成功!</span></p>`);
+                        } else {
+                            showRemind(`<p><span>评论删除失败!因为你不是文章作者或者评论发布人</span></p>`);
+                        }
                     }
                 })
             }
-            e = e.parentNode
-        }
-    })
-    //回复特定楼层
-    $('[Reply]').on('click', function (e) {
-        while(e.target.tagName!='A') {
-            e.target = e.target.parentNode
-        }
-        let id = $(e.target).data('id');
-        let cid = $(e.target).data('commentId');
-        let floor = $(`[floor-${id}]`).html();
-        $('[reply-reminder]').html(floor)
-        if (!!cid) {
 
+            //回复特定楼层
+            if (e.tagName == 'A' && e.innerHTML == $('[reply]')[0].innerHTML) {
+                let id = $(e).data('id');
+                let cid = $(e).data('cid');
+                let floor;
+                $("input[name='commentId']").val('');
+                $("input[name='id']").val('');
+
+                if (!!cid) {
+                    $("input[name='commentId']").val(cid);
+                    floor = $(`[floor-${cid}]`).html();
+                } else {
+                    $("input[name='commentId']").val(id);
+                    floor = $(`[floor-${id}]`).html();
+                }
+                $('[reply-reminder]').html(floor)
+            }
+
+            e = e.parentNode
         }
     })
 
@@ -197,7 +242,7 @@
             if (appraiseStatus[b2]===true) {
                 e2.text(+e2.text()-1)
                 appraiseStatus[b2] = false
-            }
+            }// else nothing
             e.text(+e.text()+1)
             appraiseStatus[b1] = true;
         }

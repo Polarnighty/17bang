@@ -38,9 +38,9 @@ namespace SRV.ProdService
             return model;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {            
-            commentRepository.Delete(id, GetCurrentUser().Id);
+            return commentRepository.Delete(id, GetCurrentUser().Id);
         }
         public int GetCommentCount(int id)
         {

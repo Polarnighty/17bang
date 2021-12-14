@@ -29,15 +29,16 @@ namespace BLL.Repositories
             return comment.Id;
         }
 
-        public void Delete(int id, int uid)
+        public bool Delete(int id, int uid)
         {
-            var userId = DbSet.Where(c => c.Id == id).Include(c => c.Commentator).Select(c => c.Commentator.Id).SingleOrDefault();
-            if (userId != uid)
+            var user = DbSet.Where(c => c.Id == id).Include(c => c.Article).Select(c => new { uid = c.CommentatorId, aid = c.Article.AuthorId }).SingleOrDefault();
+            if ( uid!= user.uid && uid != user.aid)
             {
-                return;
+                return false;
             }
             DbSet.Remove(LoadProxy(id));
             context.SaveChanges();
+            return true;
         }
         public int getCommentCount(int id)
         {

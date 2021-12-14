@@ -9,7 +9,7 @@ namespace MVC.Controllers
         private ArticleService articleService;
         private CommentService commentService;
 
-        public ArticleController(ArticleService articleService,CommentService commentService)
+        public ArticleController(ArticleService articleService, CommentService commentService)
         {
             this.articleService = articleService;
             this.commentService = commentService;
@@ -68,21 +68,23 @@ namespace MVC.Controllers
             var model = commentService.GetComments(id, page);
             return PartialView("Comment/Comments", model);
         }
-        public void DeleteComment(int id)
+        public bool DeleteComment(int id)
         {
-            commentService.Delete(id);
-            ViewBag.CommentCount -= 1;
+            if (commentService.Delete(id))
+            {
+                ViewBag.CommentCount -= 1;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         [HttpPost]
         public PartialViewResult Reply(int id, string content, int? commentId)
         {
             var model = commentService.Reply(id, content, commentId);
-            if (commentId==null)
-            {
-                ViewBag.CommentCount += 1;
-                model.Floor = ViewBag.CommentCount;
-            }
             return PartialView("Comment/Reply", model);
         }
 

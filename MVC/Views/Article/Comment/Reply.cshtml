@@ -1,7 +1,15 @@
 ﻿@model SRV.ViewModel.CommentModel
 
 @{string isComentBy = Model.CommentId != null ? "commentBy" : "comment"; }
-
-<div class="@isComentBy">
-    @Html.Partial("Comment/Comment", Model)
-</div>
+@if (Model.CommentId != null)
+{
+    <div class="commentBy" data-id="@Model.Id" @("comment-" + Model.Id)>
+        @Html.Partial("Comment/Comment", Model)
+    </div>
+}
+else
+{
+    <div class="comment" data-id="@Model.Id" comments @("comment-" + Model.Id)>
+        @Html.Partial("Comment/Comment", Model)
+    </div>
+}

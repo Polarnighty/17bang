@@ -7,6 +7,7 @@ namespace BLL.Entites
     public class Comment : BaseEntity
     {
         public User Commentator { get; set; }
+        public int? CommentatorId { get; set; }
         [MaxLength(200)]
         public string Content { get; set; }
         public DateTime CommentTime { get; set; }
