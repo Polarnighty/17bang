@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SRV.ViewModel
 {
@@ -9,9 +10,9 @@ namespace SRV.ViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        [AllowHtml]
         public string Body { get; set; }
         public string Summary { get; set; }
-
         public int AuthorId { get; set; }
         public int? PreviousId { get; set; }
         public string PreviousTitle { get; set; }
@@ -20,6 +21,7 @@ namespace SRV.ViewModel
         public DateTime PublishDateTime { get; set; }
         public AppraiseModel Appraise { get; set; }
         public List<CommentModel> Comments { get; set; }
+        public List<KeywordModel> Keywords { get; set; }
         public CommentModel Reply { get; set; }
     }
 }

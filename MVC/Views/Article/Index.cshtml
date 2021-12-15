@@ -20,6 +20,8 @@
                 <h1><a href="/Article/@item.Id">@item.Title</a></h1>
                 <p style="word-break:break-all; clear:both; margin-top:8px;">@item.Summary</p>
             </div>
+
+            @Html.Partial("Keywords",item.Keywords)
         </div>
     }
 

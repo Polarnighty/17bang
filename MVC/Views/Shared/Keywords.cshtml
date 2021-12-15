@@ -1,0 +1,8 @@
+﻿@model IEnumerable<SRV.ViewModel.KeywordModel>
+<div>
+    <label><span class="fa fa-tags"></span>  关键字：</label>
+    @foreach (var item in Model)
+    {
+        <span class="badge">@item.Content</span>
+    }
+</div>

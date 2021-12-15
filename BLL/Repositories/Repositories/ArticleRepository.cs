@@ -21,6 +21,7 @@ namespace BLL.Repositories
             }
             return query.OrderBy(a => a.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize)
                 .Include(au => au.Author)
+                .Include(a => a.Keywords)
                 .ToList();
         }
 
@@ -36,6 +37,7 @@ namespace BLL.Repositories
         {
             return DbSet.Where(a => a.Id == id)
                 .Include(a => a.Appraises)
+                .Include(a => a.Keywords)
                 .SingleOrDefault();
         }
         public Article GetNextArticle(int id)

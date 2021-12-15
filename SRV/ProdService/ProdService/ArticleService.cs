@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Global;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace SRV.ProdService
 {
@@ -28,8 +29,19 @@ namespace SRV.ProdService
                 return null;
                 //throw new ArgumentException("");
             }
-
-            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = DateTime.Now, Author = user, AuthorId = user.Id };
+            //生成摘要
+            if (model.Summary ==null)
+            {
+                model.Summary = Regex.Match(model.Body, @"<[^>]+>").ToString();
+            }
+            var Keywords = new List<Keyword>();
+            var keyword = Regex.Split(model.Keywords, "\\s+");
+            for (int i = 0; i < keyword.Length; i++)
+            {
+                Keywords.Add(new Keyword { Content = keyword[i] });
+            }
+            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = DateTime.Now, Author = user, AuthorId = user.Id, Keywords = Keywords };
+            
             return articleRepository.Save(article);
         }
 
