@@ -8,7 +8,7 @@ namespace BLL.Entites
         [MaxLength(15)]
         public string Content { get; set; }
         public short? Level { get; set; }
-        public List<Keyword> Keywords { get; set; }
-        public int? ArticleId { get; set; }
+        public IList<Keyword> Keywords { get; set; }
+        public IList<Article> Articles { get; set; }
     }
 }

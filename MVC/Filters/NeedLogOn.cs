@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace MVC.Filters
 {
-    public class NeedLogOn : IAuthorizationFilter
+    public class NeedLogOn : Attribute, IAuthorizationFilter
     {
 
         public void OnAuthorization(AuthorizationContext filterContext)

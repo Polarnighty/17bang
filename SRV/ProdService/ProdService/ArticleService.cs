@@ -32,15 +32,21 @@ namespace SRV.ProdService
             //生成摘要
             if (model.Summary ==null)
             {
-                model.Summary = Regex.Match(model.Body, @"<[^>]+>").ToString();
+                model.Summary = Regex.Replace(model.Body, @"<[^>]+>",string.Empty).Replace("&nbsp;","");
+                model.Summary = model.Summary.Length > 255 ? model.Summary.Remove(255) : model.Summary;
             }
+
             var Keywords = new List<Keyword>();
-            var keyword = Regex.Split(model.Keywords, "\\s+");
-            for (int i = 0; i < keyword.Length; i++)
+            if (model.Keywords!=null)
             {
-                Keywords.Add(new Keyword { Content = keyword[i] });
+                var keyword = Regex.Split(model.Keywords, "\\s+");
+                for (int i = 0; i < keyword.Length; i++)
+                {
+                    Keywords.Add(new Keyword { Content = keyword[i] });
+                }
             }
-            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = DateTime.Now, Author = user, AuthorId = user.Id, Keywords = Keywords };
+
+            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = DateTime.Now, Author = user, AuthorId = user.Id, Keywords = Keywords,Summary = model.Summary };
             
             return articleRepository.Save(article);
         }

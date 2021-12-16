@@ -15,8 +15,8 @@ namespace SRV.ViewModel
         [Required(ErrorMessage = "* 内容必须填写")]
         [AllowHtml]
         public string Body { get; set; }
-        //[Required(ErrorMessage = "* 摘要必须填写")]
         public string Summary { get; set; }
+        [Required(ErrorMessage = "* 关键字必须填写")]
         public string Keywords { get; set; }
         public int? AuthorId { get; set; }
         public DateTime PublishDateTime { get; set; }

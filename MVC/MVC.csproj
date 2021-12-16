@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -1238,9 +1239,12 @@
     <Content Include="Views\Article\Comment\Comments.cshtml" />
     <Content Include="Views\Article\Comment\Reply.cshtml" />
     <Content Include="Views\Shared\Keywords.cshtml" />
+    <Content Include="Views\Profile\Write.cshtml" />
+    <Content Include="Views\Profile\UserIcon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

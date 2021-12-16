@@ -1,0 +1,19 @@
+﻿@model SRV.ViewModel.ProfileModel
+
+<div class="dualcolumns-container">
+    <div class="page-header">
+        <h2>
+            <span class="fa fa-user-circle-o " aria-hidden="true"></span> 个人资料
+        </h2>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-5">
+            @using (Html.BeginForm("UserIcon", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="file" name="icon" multiple accept="image/*" />
+            }
+        </div>
+    </div>
+
+</div>
