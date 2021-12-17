@@ -24,11 +24,11 @@ namespace BLL.Repositories
             return DbSet.Where(p=>p.Id==Id).SingleOrDefault();
         }
 
-        public int? Save(T entity)
-        {
+        public T Save(T entity)
+        {            
             DbSet.Add(entity);
             context.SaveChanges();
-            return entity.Id;
+            return entity;
         }
         public void RangeSave(IList<T> entities)
         {
@@ -40,6 +40,11 @@ namespace BLL.Repositories
             var entity = new T { Id = id };
             DbSet.Attach(entity);
             return entity;
+        }
+        public List<T> RangeLoadProxy(IList<int> id)
+        {
+            var entities = id.Select(i=>LoadProxy(i)).ToList();
+            return entities;
         }
         public void RangeRemove(int[] id)
         {

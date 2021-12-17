@@ -16,11 +16,12 @@ namespace SRV.ProdService
         {
             userRepository  =new UserRepository(context);
         }
-        public int? Register(UserModel model)
+        public int Register(UserModel model)
         {            
             var NewUser=mapper.Map<UserModel, User>(model);
+
             NewUser.InviterBy = userRepository.GetByName(model.InviterByName);
-            return userRepository.Save(NewUser);
+            return userRepository.Save(NewUser).Id;
         }
         //public int LogOn(LogOnModel model)
         //{            

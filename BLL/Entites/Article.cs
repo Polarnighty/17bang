@@ -19,6 +19,6 @@ namespace BLL.Entites
         public int AuthorId { get; set; }
         public List<Appraise> Appraises { get; set; }
         public IList<Comment> Comments { get; set; }
-        public ICollection<Keyword> Keywords { get; set; }
+        public IList<Keyword> Keywords { get; set; }
     }
 }

@@ -9,11 +9,61 @@
 
     <div class="row">
         <div class="col-lg-4 col-md-5">
+
             @using (Html.BeginForm("UserIcon", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                <input type="file" name="icon" multiple accept="image/*" />
+                <div class="form-group">
+                    <label>头像：（* 仅限jpg/png/gif）</label>
+                    <iframe id="frameFile" name="frameFile" style="display:none"></iframe>
+                    <div class="input-group">
+                        <input class="form-control" type="text" file-upload-text file-upload-path placeholder="页面提交时上传文件">
+                        <span class="btn input-group-addon file_browser" file-upload-button>浏览</span>
+                    </div>
+
+                    <input name="Icon" file-upload-really type="file" class="hide" accept="image/*" />
+                    <span class="field-validation-valid" data-valmsg-for="Icon" data-valmsg-replace="true"></span>
+                </div>
             }
+
         </div>
     </div>
 
 </div>
+<script>
+    //用途：点击游览,打开选择文件框
+    $("[file-upload-button]").click(function (e) {
+        e.preventDefault();
+        console.log($("[file-upload-really]"))
+        $("[file-upload-really]").click();
+    });
+
+    //用途：选择文件后,改变文本框的显示内容
+    $("[file-upload-really]").change(function () {
+        //$("[usericon-show]").html('正在上传中……');
+
+        //验证
+        //var checkResult = checkUploadPicture(this, 256);
+        //if (checkResult !== "") {
+        //    //showRemind('<span class="fa fa-exclamation-triangle text-warning"></span> ' + checkResult);
+        //    return false;
+        //}
+
+        $(this).parents("form").submit();
+
+        var $textbox = $("[file-upload-text]");
+        $textbox.val(this.value);
+        afterFileSelected($textbox);
+    });
+
+    //用途：修改图片时隐藏/显示原图片
+    $("[file-upload-path]").on("input", function () {
+        if ($.trim($(this).val()) === "") {
+            var $icon = $("[file-upload-old]");
+            if ($icon.length > 0) {
+                $icon.show();
+            }
+            $("[file-upload-really]").val("");
+        }
+    });
+
+</script>

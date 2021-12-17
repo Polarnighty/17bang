@@ -10,5 +10,6 @@ namespace BLL.Entites
         public short? Level { get; set; }
         public IList<Keyword> Keywords { get; set; }
         public IList<Article> Articles { get; set; }
+        public IList<Profile> Profiles { get; set; }
     }
 }

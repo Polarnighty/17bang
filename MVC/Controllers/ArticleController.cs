@@ -8,11 +8,13 @@ namespace MVC.Controllers
     {
         private ArticleService articleService;
         private CommentService commentService;
+        private KeywordService keywordService;
 
-        public ArticleController(ArticleService articleService, CommentService commentService)
+        public ArticleController(ArticleService articleService, CommentService commentService, KeywordService keywordService)
         {
             this.articleService = articleService;
             this.commentService = commentService;
+            this.keywordService = keywordService;
         }
         public ActionResult Index(int id = 1)
         {
@@ -48,8 +50,9 @@ namespace MVC.Controllers
                 return View(model);
             }
 
-            model.Id = articleService.Publish(model);
-            return RedirectToAction("Single", new { id = model.Id });
+            var article = articleService.Publish(model);
+            keywordService.SaveKeywords(article, model.Keywords);
+            return RedirectToAction("Single", new { id = article.Id });
         }
         public ActionResult Edit(NewModel model)
         {

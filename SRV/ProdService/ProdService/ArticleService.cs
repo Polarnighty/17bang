@@ -21,7 +21,7 @@ namespace SRV.ProdService
             commentRepository = new CommentRepository(context);
             appraiseRepositary = new AppraiseRepositary(context);
         }
-        public int? Publish(NewModel model)
+        public Article Publish(NewModel model)
         {
             var user = GetCurrentUser();
             if (user == null)
@@ -36,17 +36,8 @@ namespace SRV.ProdService
                 model.Summary = model.Summary.Length > 255 ? model.Summary.Remove(255) : model.Summary;
             }
 
-            var Keywords = new List<Keyword>();
-            if (model.Keywords!=null)
-            {
-                var keyword = Regex.Split(model.Keywords, "\\s+");
-                for (int i = 0; i < keyword.Length; i++)
-                {
-                    Keywords.Add(new Keyword { Content = keyword[i] });
-                }
-            }
 
-            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = DateTime.Now, Author = user, AuthorId = user.Id, Keywords = Keywords,Summary = model.Summary };
+            var article = new Article { Body = model.Body, Title = model.Title, PublishDateTime = DateTime.Now, Author = user, AuthorId = user.Id,Summary = model.Summary };
             
             return articleRepository.Save(article);
         }

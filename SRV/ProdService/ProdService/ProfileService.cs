@@ -7,12 +7,18 @@ namespace SRV.ProdService
 {
     public class ProfileService : BaseService
     {
-        private MessageRepository messageRepository;
+        private ProfileRepository profileRepository;
         public ProfileService()
         {
-            messageRepository = new MessageRepository(context);
+            profileRepository = new ProfileRepository(context);
         }
 
-
+        public void SaveUserIcon(User user,string icon)
+        {
+            if (user!=null)
+            {                
+                profileRepository.SaveUserIcon(user, icon);
+            }//else nothing
+        }
     }
 }

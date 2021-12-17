@@ -33,35 +33,36 @@ namespace MVC.Controllers
             return View();
         }
 
-        public ActionResult UserIcon(HttpPostedFileBase icon)
+        public string UserIcon(HttpPostedFileBase icon)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
 
             if (icon.ContentLength > 1024 * 800)
             {
                 ModelState.AddModelError("", "文件过大");
             }
-            if (!icon.ContentType.StartsWith(@"image\"))
+            if (!icon.ContentType.StartsWith("image"))
             {
                 ModelState.AddModelError("", "上传的不是图片类型");
             }
+            if (!ModelState.IsValid)
+            {
+                return "";
+            }
 
             var Now = DateTime.Now;
-            var id = CookieHelper.GetCurrentUserId()?.ToString();
+            var user = CookieHelper.GetCurrentUserId();
 
-            string urlPath = Server.MapPath($@"UploadFiles\{Now.Year}\{Now.Month}\{Now.Day}");
-            string urlName = Path.Combine(urlPath, $@"{id}.{Path.GetExtension(icon.FileName)}");
+            string urlPath = $@"/Images/{Now.Year}/{Now.Month}/{Now.Day}";
+            string urlName = Path.Combine(urlPath, $"{user.Id}{Path.GetExtension(icon.FileName)}");
             if (!Directory.Exists(urlPath))
             {
                 Directory.CreateDirectory(urlPath);
             }
-            icon.SaveAs(urlName);
-            return View();
-        }
+            icon.SaveAs(Server.MapPath(urlName));
 
+            profileService.SaveUserIcon(user,urlName);
+            return urlName;
+        }
 
     }
 }

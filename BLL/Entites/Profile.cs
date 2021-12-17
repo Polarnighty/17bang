@@ -6,10 +6,8 @@ namespace BLL.Entites
     public class Profile:BaseEntity
     {
         public bool? Sex { get; set; }
-        [MaxLength(4)]
-        public int? Year { get; set; }
-        [MaxLength(2)]
-        public int? Month { get; set; }
+        public byte? Year { get; set; }
+        public byte? Month { get; set; }
         [MaxLength(255)]
         public string SelfDescription { get; set; }
         public IList<Keyword> Keywords { get; set; }
@@ -17,8 +15,5 @@ namespace BLL.Entites
         public string Icon { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
-        public void upload()
-        {
-        }
     }
 }
