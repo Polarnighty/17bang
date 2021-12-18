@@ -3,11 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Entites
 {
-    public class Profile:BaseEntity
+    public class Profile : BaseEntity
     {
-        public bool? Sex { get; set; }
-        public byte? Year { get; set; }
-        public byte? Month { get; set; }
+        public bool? IsFemale { get; set; }
+        public int? BirthYear { get; set; }
+        public int? BirthMonth { get; set; }
+        public string Constellation { get; set; }
+
         [MaxLength(255)]
         public string SelfDescription { get; set; }
         public IList<Keyword> Keywords { get; set; }

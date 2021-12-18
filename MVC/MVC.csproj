@@ -1240,7 +1240,6 @@
     <Content Include="Views\Article\Comment\Reply.cshtml" />
     <Content Include="Views\Shared\Keywords.cshtml" />
     <Content Include="Views\Profile\Write.cshtml" />
-    <Content Include="Views\Profile\UserIcon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -15,24 +15,21 @@ namespace MVC.Controllers
     {
         private ProfileService profileService;
 
-        public ProfileController(ProfileService profileService)
-        {
-            this.profileService = profileService;
-        }
+        public ProfileController(ProfileService profileService) => this.profileService = profileService;
         // GET: Home
+        [NeedLogOn]
         public ActionResult Write()
         {
-            return View();
+            var model = profileService.GetProfile();
+            return View(model);
         }
         [HttpPost]
-        [NeedLogOn]
         public ActionResult Write(ProfileModel model)
         {
- 
-
-            return View();
+            profileService.SaveProfile(model);
+            return RedirectToAction("Write");
         }
-
+        [NeedLogOn]
         public string UserIcon(HttpPostedFileBase icon)
         {
 
@@ -46,22 +43,20 @@ namespace MVC.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return "";
+                return null;
             }
 
             var Now = DateTime.Now;
             var user = CookieHelper.GetCurrentUserId();
 
-            string urlPath = $@"/Images/{Now.Year}/{Now.Month}/{Now.Day}";
+            string urlPath = $@"\Images\{Now.Year}\{Now.Month}\{Now.Day}";
             string urlName = Path.Combine(urlPath, $"{user.Id}{Path.GetExtension(icon.FileName)}");
-            if (!Directory.Exists(urlPath))
-            {
-                Directory.CreateDirectory(urlPath);
-            }
+            Directory.CreateDirectory(Server.MapPath(urlPath));
             icon.SaveAs(Server.MapPath(urlName));
 
             profileService.SaveUserIcon(user,urlName);
-            return urlName;
+            urlName += $"?code={icon.ContentLength}";
+            return urlName.Replace(@"\", "/");
         }
 
     }

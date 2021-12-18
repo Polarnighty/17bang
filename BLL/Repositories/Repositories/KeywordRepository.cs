@@ -18,16 +18,15 @@ namespace BLL.Repositories
         {
             foreach (var item in keywords)
             {
-                var kid = DbSet.Where(k => k.Content == item.Content).Include(k => k.Articles)
-                                .Select(k => k.Id).SingleOrDefault();
-                if (kid != 0)
+                var keyword = DbSet.Where(k => k.Content == item.Content).SingleOrDefault();
+                if (keyword != null)
                 {
-                    article.Keywords.Add(LoadProxy(kid));
+                    article.Keywords.Add(keyword);
                     context.Set<Article>().Add(article);
                 }
                 else
                 {
-                    item.Articles = new List<Article> { article };
+                    item.Articles.Add(article);
                     DbSet.Add(item);
                 }
             }

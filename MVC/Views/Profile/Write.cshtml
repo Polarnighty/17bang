@@ -1,5 +1,18 @@
 ﻿@model SRV.ViewModel.ProfileModel
-
+@{ 
+    var years = new int?[50];
+    var months = new int?[13];
+    var constellations = new string[13] { "----", "摩羯座", "水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天平座", "天蝎座", "射手座" };
+    years[0] = null; /*months[0] = null;*/
+    for (int i = 1; i < 50; i++)
+    {
+        years[i] = DateTime.Now.AddYears(-(i + 5)).Year;
+        if (i < 13)
+        {
+            months[i] = i;
+        }// nothing
+    }
+}
 <div class="dualcolumns-container">
     <div class="page-header">
         <h2>
@@ -10,10 +23,13 @@
     <div class="row">
         <div class="col-lg-4 col-md-5">
 
-            @using (Html.BeginForm("UserIcon", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("UserIcon", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", target = "frameFile" }))
             {
                 <div class="form-group">
                     <label>头像：（* 仅限jpg/png/gif）</label>
+                    <div usericon-show>
+                        <img src="@Model.Icon" class="img-responsive img-thumbnail" />
+                    </div>
                     <iframe id="frameFile" name="frameFile" style="display:none"></iframe>
                     <div class="input-group">
                         <input class="form-control" type="text" file-upload-text file-upload-path placeholder="页面提交时上传文件">
@@ -22,6 +38,38 @@
 
                     <input name="Icon" file-upload-really type="file" class="hide" accept="image/*" />
                     <span class="field-validation-valid" data-valmsg-for="Icon" data-valmsg-replace="true"></span>
+                </div>
+            }
+
+
+            @using (Html.BeginForm("Write", "Profile"))
+            {
+                <div class="form-group">
+                    <label>性别：</label>
+                    <label class="checkbox-inline">
+                        @Html.RadioButtonFor(p => p.IsFemale, true) 男
+                    </label>
+                    <label class="checkbox-inline">
+                        @Html.RadioButtonFor(p => p.IsFemale, false) 女
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>生日：</label>
+                    <div class="input-group">
+                        @Html.DropDownListFor(p => p.BirthYear, new SelectList(years), new { @class = "form-control valid", style = "width:105%" })
+                        <span class="input-group-addon">年</span>
+                        @Html.DropDownListFor(p => p.BirthMonth, new SelectList(months), new { @class = "form-control valid" })
+                        <span class="input-group-addon">月</span>
+                        @Html.DropDownListFor(p => p.Constellation, new SelectList(constellations), new { @class = "form-control valid" })
+                        <span class="input-group-addon">星座</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>自我介绍：</label>
+                    @Html.TextAreaFor(p => p.SelfDescription, new { placeholder = "简单的介绍一下自己吧，不超过255字", @class = "form-control", rows = "5" })
+                </div>
+                <div class="submit">
+                    <input type="submit" class="btn btn-primary loading" value="提交" zyf-submit-once="">
                 </div>
             }
 
@@ -44,12 +92,11 @@
         //验证
         //var checkResult = checkUploadPicture(this, 256);
         //if (checkResult !== "") {
-        //    //showRemind('<span class="fa fa-exclamation-triangle text-warning"></span> ' + checkResult);
+        //    showRemind('<span class="fa fa-exclamation-triangle text-warning"></span> ' + checkResult);
         //    return false;
         //}
 
         $(this).parents("form").submit();
-
         var $textbox = $("[file-upload-text]");
         $textbox.val(this.value);
         afterFileSelected($textbox);
@@ -65,5 +112,27 @@
             $("[file-upload-really]").val("");
         }
     });
+    function afterFileSelected(textbox) {
+        var $icon = $("[file-upload-old]");
+        if ($icon.length > 0) {
+            if ($.trim(textbox.val()) !== "") {
+                $icon.hide();
+            }
+        }
+    }
+    $("#frameFile").on('load', function () {
+        let urlName = $(this)[0].contentDocument.body.textContent;  //从后台传过来的数据，拿到就可以做相应的业务代码了
+        console.log($('[usericon-show]').children().length)
+        if (!!urlName) {
+            console.log(urlName)
+            $('[usericon-show]').html("")
+            console.log($('[usericon-show]').html())
+            //if ($('[usericon-show]').children().length>0) {
+            //    $('[usericon-show]').html("")
+            //}
+            $('[usericon-show]').html(`<img src=${urlName}  class="img-responsive img-thumbnail">`)
+        }
+
+    })
 
 </script>
