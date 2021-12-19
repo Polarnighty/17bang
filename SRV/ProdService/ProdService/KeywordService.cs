@@ -15,7 +15,7 @@ namespace SRV.ProdService
             keywordRepository = new KeywordRepository(context);
         }
 
-        public void SaveKeywords(Article article, string keywords)
+        public void SaveKeywords<T>(T t, string keywords)
         {
             var Keywords = new List<Keyword>();
             if (keywords != null)
@@ -26,7 +26,7 @@ namespace SRV.ProdService
                     Keywords.Add(new Keyword { Content = keyword[i] });
                 }
             }
-            keywordRepository.SaveKeywords(article, Keywords);
+            keywordRepository.SaveKeywords(t, Keywords);
         }
     }
 }

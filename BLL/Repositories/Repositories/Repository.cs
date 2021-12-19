@@ -30,6 +30,13 @@ namespace BLL.Repositories
             context.SaveChanges();
             return entity;
         }
+        //全部更新
+        public T Update(T entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
+            context.SaveChanges();
+            return entity;
+        }
         public void RangeSave(IList<T> entities)
         {
             DbSet.AddRange(entities);

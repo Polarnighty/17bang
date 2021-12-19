@@ -17,7 +17,7 @@ namespace BLL.Repositories
         public void SaveUserIcon(User user, string icon)
         {
             var profile = DbSet.Where(p => p.UserId == user.Id).SingleOrDefault();
-            if (profile!=null)
+            if (profile != null)
             {
                 profile.Icon = icon;
             }
@@ -30,23 +30,17 @@ namespace BLL.Repositories
 
         public Profile GetProfile(User user)
         {
-            return DbSet.Where(p => p.UserId == user.Id).SingleOrDefault();
+            return DbSet.Where(p => p.UserId == user.Id).Include(p => p.Keywords).SingleOrDefault();
         }
         public void SaveProfile(Profile profile)
         {
-            var oldProfile = DbSet.Where(p => p.UserId == profile.User.Id).SingleOrDefault();
-            if (oldProfile!=null)
+            var oldProfile = DbSet.Where(p => p.UserId == profile.User.Id).AsNoTracking().SingleOrDefault();
+            if (oldProfile != null)
             {
-                oldProfile.IsFemale = profile.IsFemale;
-                oldProfile.BirthYear = profile.BirthYear;
-                oldProfile.BirthMonth = profile.BirthMonth;
-                oldProfile.Constellation = profile.Constellation;
-                oldProfile.SelfDescription = profile.SelfDescription;
-
-                //
-                //profile.Icon = oldProfile.Icon;
-                //profile.Id = oldProfile.Id;
-                //DbSet.Update(profile);
+                profile.Icon = oldProfile.Icon;
+                profile.Id = oldProfile.Id;
+                //context.Entry(oldProfile).CurrentValues.SetValues(profile);
+                Update(profile);
             }
             else
             {

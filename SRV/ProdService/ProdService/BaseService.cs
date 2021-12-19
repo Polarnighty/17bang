@@ -27,7 +27,8 @@ namespace SRV.ProdService
                     cfg.CreateMap<Message, MessageModel>().ReverseMap();
                     cfg.CreateMap<CommentModel, Comment>().ReverseMap();
                     cfg.CreateMap<Keyword, KeywordModel>().ReverseMap();
-                    cfg.CreateMap<ProfileModel, BLL.Entites.Profile>().ReverseMap();
+                    cfg.CreateMap<ProfileModel, BLL.Entites.Profile>().ReverseMap()
+                            .ForMember(p=>p.Keywords,opt=>opt.Ignore());
                     cfg.CreateMap<Article, ArticleModel>().ReverseMap().ForMember(a => a.Author, opt => opt.Ignore());
                     //cfg.CreateMap<List<Article>, List<ArticleModel>>().ReverseMap();
                 });

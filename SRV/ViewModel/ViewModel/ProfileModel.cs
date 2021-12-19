@@ -17,6 +17,7 @@ namespace SRV.ViewModel
         public string SelfDescription { get; set; }
         public string Icon { get; set; }
         public IList<KeywordModel> Keywords { get; set; }
+        public string AllKeywords { get; set; }
 
     }
 }

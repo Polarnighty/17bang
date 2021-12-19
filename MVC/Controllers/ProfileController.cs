@@ -14,8 +14,13 @@ namespace MVC.Controllers
     public class ProfileController : Controller
     {
         private ProfileService profileService;
+        private KeywordService KeywordService;
 
-        public ProfileController(ProfileService profileService) => this.profileService = profileService;
+        public ProfileController(ProfileService profileService, KeywordService keywordService)
+        {
+            this.profileService = profileService;
+            this.KeywordService = keywordService;
+        }
         // GET: Home
         [NeedLogOn]
         public ActionResult Write()
@@ -54,9 +59,9 @@ namespace MVC.Controllers
             Directory.CreateDirectory(Server.MapPath(urlPath));
             icon.SaveAs(Server.MapPath(urlName));
 
-            profileService.SaveUserIcon(user,urlName);
+            profileService.SaveUserIcon(user, urlName);
             urlName += $"?code={icon.ContentLength}";
-            return urlName.Replace(@"\", "/");
+            return urlName.Replace(@"\", "/");            
         }
 
     }
