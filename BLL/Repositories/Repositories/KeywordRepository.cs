@@ -14,6 +14,17 @@ namespace BLL.Repositories
         {
         }
 
+        public List<Keyword> GetProfileKeywords(int? pid = null)
+        {
+            if (pid!=null)
+            {
+                return DbSet.Where(k => k.KeywordId==pid ).ToList();
+            }
+            else
+            {
+                return DbSet.Where(k => k.Level == 1).ToList();
+            }
+        }
         public void SaveKeywords<T>(T t, IList<Keyword> keywords)
         {
             switch (t)

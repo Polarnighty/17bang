@@ -13,7 +13,7 @@ namespace MVC.Filters
         {
             if (filterContext.HttpContext.Request.Cookies[Keys.User] == null)
             {
-                var refer = filterContext.HttpContext.Request.UrlReferrer.ToString();
+                //var refer = filterContext.HttpContext.Request.UrlReferrer.ToString();
                 HttpContext.Current.Response.Redirect("/Log/On");
             }
         }

@@ -9,6 +9,7 @@ namespace BLL.Entites
         public string Content { get; set; }
         public short? Level { get; set; }
         public IList<Keyword> Keywords { get; set; }
+        public int? KeywordId { get; set; }
         public IList<Article> Articles { get; set; }
         public IList<Profile> Profiles { get; set; }
     }

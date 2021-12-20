@@ -8,32 +8,58 @@ using System.IO;
 using MVC.Helpers;
 using MVC.Filters;
 using SRV.ProdService;
+using System.Text;
 
 namespace MVC.Controllers
 {
     public class ProfileController : Controller
     {
         private ProfileService profileService;
-        private KeywordService KeywordService;
+        private KeywordService keywordService;
 
         public ProfileController(ProfileService profileService, KeywordService keywordService)
         {
             this.profileService = profileService;
-            this.KeywordService = keywordService;
+            this.keywordService = keywordService;
         }
         // GET: Home
         [NeedLogOn]
         public ActionResult Write()
         {
             var model = profileService.GetProfile();
+            model.Keywords = keywordService.GetProfileKeywords();
             return View(model);
         }
         [HttpPost]
         public ActionResult Write(ProfileModel model)
         {
-            profileService.SaveProfile(model);
+            var profile= profileService.SaveProfile(model);
+            keywordService.SaveKeywords(profile, model.AllKeywords);
             return RedirectToAction("Write");
         }
+
+        [HttpPost]
+        //public string Keywords(string name)
+        //{
+        //    var childKeyword = keywordService.GetProfileKeywords(id);
+        //    var str = new StringBuilder();
+        //    foreach (var item in childKeyword)
+        //    {
+        //        str.Append($@"<li><a data-id={item.Id}>{item.Content}</a></li>");
+        //    }
+        //    return str.ToString();
+        //}
+        public string Keywords(int? id)
+        {
+            var childKeyword = keywordService.GetProfileKeywords(id);
+            var str = new StringBuilder();
+            foreach (var item in childKeyword)
+            {
+                str.Append($@"<li><a data-id={item.Id}>{item.Content}</a></li>");
+            }
+            return str.ToString();
+        }
+
         [NeedLogOn]
         public string UserIcon(HttpPostedFileBase icon)
         {

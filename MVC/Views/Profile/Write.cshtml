@@ -1,5 +1,5 @@
 ﻿@model SRV.ViewModel.ProfileModel
-@{ 
+@{
     var years = new int?[50];
     var months = new int?[13];
     var constellations = new string[13] { "----", "摩羯座", "水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天平座", "天蝎座", "射手座" };
@@ -21,7 +21,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4 col-md-5">
+        <div class="col-lg-5 col-md-6">
 
             @using (Html.BeginForm("UserIcon", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", target = "frameFile" }))
             {
@@ -65,11 +65,41 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>关键字：（* 使用空格分隔）</label>
+                    <div keyword-show="" style="padding-bottom:3px;"></div>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default ">--- 1级 ---</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" keyword-dropdownlist="1">
+                                @foreach (var item in Model.Keywords)
+                                {
+                                    <li style="cursor: pointer "><a data-id="@item.Id">@item.Content</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="input-group-btn input-group-btn-middle" keyword-dropdownlist-2="">
+                            <button type="button" class="btn btn-default ">--- 2级 ---</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" keyword-dropdownlist="2"></ul>
+                        </div>
+                        <input type="text" class="form-control" placeholder="自定义关键字，使用空格分隔" keyword-input="">
+                    </div>
+                    <input data-val="true" data-val-required="* 关键字不能为空" id="Keywords" name="Keywords" type="hidden" value="" keyword-submit-value="">
+                    <span class="field-validation-valid" data-valmsg-for="Keywords" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
                     <label>自我介绍：</label>
                     @Html.TextAreaFor(p => p.SelfDescription, new { placeholder = "简单的介绍一下自己吧，不超过255字", @class = "form-control", rows = "5" })
                 </div>
                 <div class="submit">
-                    <input type="submit" class="btn btn-primary loading" value="提交" zyf-submit-once="">
+                    <input type="submit" class="btn btn-primary loading" value="提交" submit-once="">
                 </div>
             }
 
@@ -78,6 +108,26 @@
 
 </div>
 <script>
+    $("[keyword-dropdownlist]").find("a").click(function () {
+        var keywordId = $(this).data("id");
+        console.log(keywordId)
+        //二级关键字Ajax加载
+        $.ajax({
+            url: "/Profile/Keywords/" + keywordId,
+            method: "GET",
+            cache: false,
+            success: function (data) {
+                var $keywords = $(data);
+                //$keywords.find("a").click(makeBadgeByDropdown);
+                $("[keyword-dropdownlist=2]")
+                    .html("")
+                    .append($keywords)
+                    .find("li").css("cursor", "pointer")
+                //$("[keyword-dropdownlist=2]")
+            }
+        })
+
+    })
     //用途：点击游览,打开选择文件框
     $("[file-upload-button]").click(function (e) {
         e.preventDefault();

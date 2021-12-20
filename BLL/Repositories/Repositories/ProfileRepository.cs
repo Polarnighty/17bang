@@ -32,7 +32,7 @@ namespace BLL.Repositories
         {
             return DbSet.Where(p => p.UserId == user.Id).Include(p => p.Keywords).SingleOrDefault();
         }
-        public void SaveProfile(Profile profile)
+        public Profile SaveProfile(Profile profile)
         {
             var oldProfile = DbSet.Where(p => p.UserId == profile.User.Id).AsNoTracking().SingleOrDefault();
             if (oldProfile != null)
@@ -47,6 +47,7 @@ namespace BLL.Repositories
                 DbSet.Add(profile);
             }
             context.SaveChanges();
+            return profile;
         }
 
     }

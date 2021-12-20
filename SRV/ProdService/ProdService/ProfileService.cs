@@ -17,12 +17,13 @@ namespace SRV.ProdService
             var profile = profileRepository.GetProfile(GetCurrentUser());
             return mapper.Map<Profile, ProfileModel>(profile)?? new ProfileModel { Icon =""};
         }
-        public void SaveProfile(ProfileModel model)
+        public Profile SaveProfile(ProfileModel model)
         {
             var profile= mapper.Map<ProfileModel, Profile>(model);
             profile.User = GetCurrentUser();
             profile.UserId = profile.User.Id;
-            profileRepository.SaveProfile(profile);
+            return profileRepository.SaveProfile(profile);
+            
         }
         public void SaveUserIcon(User user,string icon)
         {

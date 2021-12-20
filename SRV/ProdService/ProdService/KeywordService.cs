@@ -28,5 +28,12 @@ namespace SRV.ProdService
             }
             keywordRepository.SaveKeywords(t, Keywords);
         }
+
+        public IList<KeywordModel> GetProfileKeywords(int? pid=null)
+        {
+            return mapper.Map<List<Keyword>, List<KeywordModel>>(keywordRepository.GetProfileKeywords(pid));
+        }
+
+
     }
 }
