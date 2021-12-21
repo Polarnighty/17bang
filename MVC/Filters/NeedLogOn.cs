@@ -15,6 +15,7 @@ namespace MVC.Filters
             {
                 //var refer = filterContext.HttpContext.Request.UrlReferrer.ToString();
                 HttpContext.Current.Response.Redirect("/Log/On");
+                filterContext.Result = new EmptyResult();
             }
         }
 

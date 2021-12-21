@@ -20,5 +20,6 @@ namespace BLL.Entites
         public List<Appraise> Appraises { get; set; }
         public IList<Comment> Comments { get; set; }
         public IList<Keyword> Keywords { get; set; }
+        public Category Category { get; set; }
     }
 }

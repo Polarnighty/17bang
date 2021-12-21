@@ -40,6 +40,7 @@ namespace BLL.Repositories
             modelBuilder.Entity<Appraise>();
             modelBuilder.Entity<Comment>();
             modelBuilder.Entity<Profile>();
+            modelBuilder.Entity<Category>();
 
             base.OnModelCreating(modelBuilder);
         }

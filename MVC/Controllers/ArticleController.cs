@@ -1,6 +1,7 @@
 ﻿using SRV.ViewModel;
 using System.Web.Mvc;
 using SRV.ProdService;
+using MVC.Filters;
 
 namespace MVC.Controllers
 {
@@ -37,7 +38,7 @@ namespace MVC.Controllers
             ViewBag.CommentCount = commentService.GetCommentCount(id);
             return View(model);
         }
-
+        [NeedLogOn]
         public ActionResult New()
         {
             return View();
