@@ -30,10 +30,17 @@ namespace BLL.Repositories
             context.SaveChanges();
             return entity;
         }
-        //全部更新
-        public T Update(T entity)
+        //全部更新(任意实体类)
+        public E Update<E>(E entity)
         {
             context.Entry(entity).State = EntityState.Modified;
+            context.SaveChanges();
+            return entity;
+        }
+        //保存(任意实体类)
+        public E Save<E>(E entity)
+        {
+            context.Entry(entity).State = EntityState.Added;
             context.SaveChanges();
             return entity;
         }

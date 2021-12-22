@@ -27,7 +27,7 @@ namespace MVC.Controllers
         public ActionResult Write()
         {
             var model = profileService.GetProfile();
-            model.Keywords = keywordService.GetProfileKeywords();
+            model.KeywordsLv1 = keywordService.GetProfileKeywords();
             return View(model);
         }
         [HttpPost]
@@ -38,7 +38,7 @@ namespace MVC.Controllers
             return RedirectToAction("Write");
         }
 
-        [HttpPost]
+        //[HttpPost]
         //public string Keywords(string name)
         //{
         //    var childKeyword = keywordService.GetProfileKeywords(id);

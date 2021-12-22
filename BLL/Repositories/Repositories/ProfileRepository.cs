@@ -49,6 +49,5 @@ namespace BLL.Repositories
             context.SaveChanges();
             return profile;
         }
-
     }
 }

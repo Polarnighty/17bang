@@ -16,9 +16,9 @@ namespace BLL.Repositories
 
         public List<Keyword> GetProfileKeywords(int? pid = null)
         {
-            if (pid!=null)
+            if (pid != null)
             {
-                return DbSet.Where(k => k.KeywordId==pid ).ToList();
+                return DbSet.Where(k => k.KeywordId == pid).ToList();
             }
             else
             {
@@ -63,15 +63,20 @@ namespace BLL.Repositories
             foreach (var item in keywords)
             {
                 var keyword = DbSet.Where(k => k.Content == item.Content).SingleOrDefault();
-
+                var oldProfile = context.Set<Profile>().Where(p => p.Id == profile.Id).SingleOrDefault();
+                //删除全部
+                //context.keyword.range
                 if (keyword != null)
                 {
-                    profile.Keywords.Add(item);
-                    context.Set<Profile>().Add(profile);
+                    //context.Set<Profile>().Attach(profile);
+                    //profile.Keywords.Add(item);
+                    //Update(profile);
+                    DbSet.Attach(keyword);
+                    keyword.Profiles = new List<Profile> { profile };
                 }
                 else
                 {
-                    item.Profiles= new List<Profile> { profile }; ;
+                    item.Profiles = new List<Profile> { profile };
                     DbSet.Add(item);
                 }
             }

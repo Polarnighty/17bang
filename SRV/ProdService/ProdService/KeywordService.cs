@@ -23,7 +23,10 @@ namespace SRV.ProdService
                 var keyword = Regex.Split(keywords, "\\s+");
                 for (int i = 0; i < keyword.Length; i++)
                 {
-                    Keywords.Add(new Keyword { Content = keyword[i] });
+                    if (keyword[i]!="")
+                    {
+                        Keywords.Add(new Keyword { Content = keyword[i] });
+                    }
                 }
             }
             keywordRepository.SaveKeywords(t, Keywords);
