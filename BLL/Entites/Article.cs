@@ -21,5 +21,6 @@ namespace BLL.Entites
         public IList<Comment> Comments { get; set; }
         public IList<Keyword> Keywords { get; set; }
         public Category Category { get; set; }
+        public int ArticleCategoryId { get; set; }
     }
 }

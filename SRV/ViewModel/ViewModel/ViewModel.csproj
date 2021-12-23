@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppraiseModel.cs" />
+    <Compile Include="CategoryModel.cs" />
     <Compile Include="CommentModel.cs" />
     <Compile Include="KeywordModel.cs" />
     <Compile Include="MessageModel.cs" />
