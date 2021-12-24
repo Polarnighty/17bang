@@ -7,9 +7,9 @@ using System.Data.Entity;
 
 namespace BLL.Repositories
 {
-    public class AppraiseRepositary : Repository<Appraise>
+    public class AppraiseRepository : Repository<Appraise>
     {
-        public AppraiseRepositary(SqlContext context) : base(context)
+        public AppraiseRepository(SqlContext context) : base(context)
         {
         }
 

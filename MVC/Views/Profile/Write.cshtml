@@ -67,11 +67,16 @@
                 <div class="form-group">
                     <label>关键字：（* 使用空格分隔）</label>
                     <div id="Test" keyword-show style="padding-bottom:3px;">
-                        @foreach (var item in Model.Keywords)
+                        @if (Model.Keywords != null)
                         {
-                            <span class="badge" style="margin-right:5px;" keyword-new>@item.Content<small keyword-remove style="margin-left:5px;"><span class="fa fa-times"></span>
-                                </small>
-                            </span>
+                            foreach (var item in Model.Keywords)
+                            {
+                                <span class="badge" style="margin-right:5px;" keyword-new>
+                                    @item.Content<small keyword-remove style="margin-left:5px;">
+                                        <span class="fa fa-times"></span>
+                                    </small>
+                                </span>
+                            }
                         }
                     </div>
                     <div class="input-group" keywords>

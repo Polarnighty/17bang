@@ -10,6 +10,7 @@ namespace SRV.ViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Summary { get; set; }
         public IList<CategoryModel> Categories { get; set; }
         public int CategoryId { get; set; }
 

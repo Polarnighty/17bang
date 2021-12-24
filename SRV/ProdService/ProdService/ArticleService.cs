@@ -14,12 +14,12 @@ namespace SRV.ProdService
     {
         private ArticleRepository articleRepository;
         private CommentRepository commentRepository;
-        private AppraiseRepositary appraiseRepositary;
+        private AppraiseRepository appraiseRepositary;
         public ArticleService()
         {
             articleRepository = new ArticleRepository(context);
             commentRepository = new CommentRepository(context);
-            appraiseRepositary = new AppraiseRepositary(context);
+            appraiseRepositary = new AppraiseRepository(context);
         }
         public Article Publish(NewModel model)
         {

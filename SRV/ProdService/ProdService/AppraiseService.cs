@@ -11,10 +11,10 @@ namespace SRV.ProdService
 {
     public class AppraiseService :BaseService
     {
-        private AppraiseRepositary appraiseRepositary;
+        private AppraiseRepository appraiseRepositary;
         public AppraiseService()
         {
-            appraiseRepositary = new AppraiseRepositary(context);
+            appraiseRepositary = new AppraiseRepository(context);
         }
 
         public AppraiseModel GetAppraiseCount(int id)
