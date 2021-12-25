@@ -9,8 +9,8 @@ namespace BLL.Entites
 {
     public class Category :BaseEntity
     {
-        [MaxLength(10)]
-        public string Name { get; set; }
+        [MaxLength(30)]
+        public string Title { get; set; }
         public string Summary { get; set; }
         public IList<Category> Categories { get; set; }
         public int CategoryId { get; set; }

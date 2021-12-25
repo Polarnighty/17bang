@@ -12,14 +12,21 @@ namespace SRV.ProdService
     {
         private CategoryRepository categoryRepository;
 
-        public CategoryService(CategoryRepository categoryRepository)
+        public CategoryService()
         {
-            this.categoryRepository = categoryRepository;
+            categoryRepository = new CategoryRepository(context);
         }
 
         public IList<CategoryModel> GetCategories()
         {
             return mapper.Map<IList<Category>, IList<CategoryModel>>(categoryRepository.GetCategories());
         }
+        public void NewOrEdit(CategoryModel model)
+        {
+            var category = mapper.Map<CategoryModel, Category>(model);
+            categoryRepository.NewOrEdit(category);
+        }
+
+
     }
 }

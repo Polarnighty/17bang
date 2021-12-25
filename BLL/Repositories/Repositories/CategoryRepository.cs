@@ -17,5 +17,17 @@ namespace BLL.Repositories
         {
             return DbSet.ToList();
         }
+        public void NewOrEdit(Category category)
+        {
+            if (category.Id!=default(int))
+            {
+                Update(category);
+            }
+            else
+            {
+                DbSet.Add(category);
+            }
+        }
+
     }
 }
