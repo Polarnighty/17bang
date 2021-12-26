@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{ 
+    var selectItem = new Dictionary<int,string>();
+}
 <div class="row">
     <div class="col-md-9">
         <h2 class="page-header">
@@ -11,7 +14,6 @@
             <a class="small pull-right" category-add style="cursor:pointer;"><span class="fa fa-plus"></span> 添加</a>
         </h2>
 
-        @Html.Partial("NewOrEdit",Model[0])
 
         <div category-manage-item data-parent="0" style="margin-bottom:10px;">
             <span class="pull-right">
@@ -30,7 +32,8 @@
         {
             foreach (var item in Model)
             {
-                <div category-manage-item data-parent="@item.Id" style="margin-bottom:10px;">
+                selectItem.Add(item.Id, item.Title);
+                <div category-manage-item data-parent="@item.CategoryId" style="margin-bottom:10px;">
                     <span class="pull-right">
                         <a category-delete data-self-id="@item.Id" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
                         <a category-edit data-self-id="@item.Id" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
@@ -45,6 +48,9 @@
                 </div>
             }
         }
+
+        @Html.Partial("NewOrEdit", new SRV.ViewModel.CategoryModel { SelectItem = selectItem })
+
     </div>
 </div>
 
