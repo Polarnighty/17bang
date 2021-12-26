@@ -13,6 +13,6 @@ namespace BLL.Entites
         public string Title { get; set; }
         public string Summary { get; set; }
         public IList<Category> Categories { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

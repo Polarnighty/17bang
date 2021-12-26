@@ -8,49 +8,56 @@
     <div class="col-md-9">
         <h2 class="page-header">
             <span class="fa fa-list" aria-hidden="true"></span> 文章系列管理
-            <a class="small pull-right" zyf-category-add=""><span class="fa fa-plus"></span> 添加</a>
+            <a class="small pull-right" category-add style="cursor:pointer;"><span class="fa fa-plus"></span> 添加</a>
         </h2>
 
+        @Html.Partial("NewOrEdit",Model[0])
+
+        <div category-manage-item data-parent="0" style="margin-bottom:10px;">
+            <span class="pull-right">
+                <a category-delete data-self-id="3" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
+                <a category-edit data-self-id="3" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
+            </span>
+
+            <h4 category-edit-name>
+                <a href="/Article/Category-3"><span class="fa fa-folder"></span> 前端默认数据</a>
+            </h4>
+            <p category-edit-description>
+                前端默认数据测试
+            </p>
+        </div>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div category-manage-item data-parent="@item.Id" style="margin-bottom:10px;">
+                    <span class="pull-right">
+                        <a category-delete data-self-id="@item.Id" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
+                        <a category-edit data-self-id="@item.Id" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
+                    </span>
+
+                    <h4 category-edit-name>
+                        <a href="/Article/Category-3"><span class="fa fa-folder"></span> @item.Title</a>
+                    </h4>
+                    <p category-edit-description>
+                        @item.Summary
+                    </p>
+                </div>
+            }
+        }
     </div>
-    <form class="" method="post" zyf-category-edit-form="" novalidate="novalidate" action="/Category/_NewInManage">
-        <div class="form-group">
-            <label>父系列：</label>
-            <select class="form-control" data-val="true" data-val-number="字段 SelectedCategoryId 必须是一个数字。" id="Input_SelectedCategoryId" name="Input.SelectedCategoryId" zyf-categories="">
-                <option value="">--------------</option>
-                <option value="2">默认分类</option>
-                <option value="3">讲课这些天</option>
-                <option value="4">ASP.NET</option>
-                <option value="5">MVC</option>
-                <option value="6">Razor</option>
-                <option value="7">CSharp</option>
-                <option value="8">折腾</option>
-                <option value="9">空系列</option>
-                <option value="12">三生三世</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>标题：</label>
-
-        </div>
-        <div class="form-group">
-            <label>描述：</label>
-
-        </div>
-        <button type="submit" class="btn btn-primary zyf-submit-once">提交</button>
-        <button zyf-category-edit-cancel="" type="button" class="btn btn-default">放弃</button>
-    </form>
-    <div zyf-category-manage-item="" data-parent="0" style="margin-bottom:10px;">
-        <span class="pull-right">
-            <a zyf-category-delete="" data-self-id="3" class="text-warning"><span class="fa fa-trash"></span>删除</a>
-            <a zyf-category-edit="" data-self-id="3" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
-        </span>
-
-        <h4 zyf-category-edit-name="">
-            <a class="" href="/Article/Category-3"><span class="fa fa-folder"></span> 讲课这些天</a>
-        </h4>
-        <p zyf-category-edit-description="">
-            在我做 “一起帮”零基础ASP.NET MVC实战开发全栈系列课程 （呵呵，标题一定要长） 期间，我计划每天记录一个我印象最深刻的知识点。
-        </p>
-    </div>
-
 </div>
+
+<style>
+    a {
+        cursor: pointer;
+        text-decoration: none;
+    }
+</style>
+
+<script>
+    $("[category-add]").click(function () {
+        $('[category-edit-form]').removeClass("hide")
+        $('[category-edit-form]').attr("action", "/Category/NewOrEdit");
+    })
+</script>

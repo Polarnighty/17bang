@@ -18,7 +18,7 @@ namespace MVC.Controllers
         public ActionResult Manage()
         {
             var model = categoryService.GetCategories();
-            return View();
+            return View(model);
         }
         public ActionResult NewOrEdit(CategoryModel model)
         {

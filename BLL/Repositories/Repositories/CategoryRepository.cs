@@ -27,6 +27,8 @@ namespace BLL.Repositories
             {
                 DbSet.Add(category);
             }
+            context.SaveChanges();
+
         }
 
     }

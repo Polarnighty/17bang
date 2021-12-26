@@ -8,11 +8,10 @@ namespace SRV.ViewModel
 {
     public class CategoryModel
     {
-        public int? Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
         public string Summary { get; set; }
         public IList<CategoryModel> Categories { get; set; }
-        public int CategoryId { get; set; }
-        public CategoryModel Input { get; set; }
+        public int? CategoryId { get; set; }
     }
 }
