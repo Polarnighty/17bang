@@ -22,6 +22,10 @@ namespace MVC.Controllers
         }
         public ActionResult NewOrEdit(CategoryModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Manage");
+            }
             categoryService.NewOrEdit(model);
             return RedirectToAction("Manage");
         }

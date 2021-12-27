@@ -6,6 +6,7 @@
 
 @{ 
     var selectItem = new Dictionary<int,string>();
+
 }
 <div class="row">
     <div class="col-md-9">
@@ -33,6 +34,7 @@
             foreach (var item in Model)
             {
                 selectItem.Add(item.Id, item.Title);
+                
                 <div category-manage-item data-parent="@item.CategoryId" style="margin-bottom:10px;">
                     <span class="pull-right">
                         <a category-delete data-self-id="@item.Id" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
@@ -62,6 +64,8 @@
 </style>
 
 <script>
+    let EditData;
+
     $("[category-add]").click(function () {
         $('[category-edit-form]').removeClass("hide")
         $('[category-edit-form]').attr("action", "/Category/NewOrEdit");

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleFactory.cs" />
+    <Compile Include="CategoryFactory.cs" />
     <Compile Include="KeywordFactory.cs" />
     <Compile Include="MessageFactory.cs" />
     <Compile Include="Program.cs" />
