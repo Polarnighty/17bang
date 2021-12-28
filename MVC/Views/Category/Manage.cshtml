@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{ 
-    var selectItem = new Dictionary<int,string>();
+@{
+    var selectItem = new Dictionary<int, string>();
 
 }
 <div class="row">
@@ -14,7 +14,6 @@
             <span class="fa fa-list" aria-hidden="true"></span> 文章系列管理
             <a class="small pull-right" category-add style="cursor:pointer;"><span class="fa fa-plus"></span> 添加</a>
         </h2>
-
 
         <div category-manage-item data-parent="0" style="margin-bottom:10px;">
             <span class="pull-right">
@@ -34,7 +33,6 @@
             foreach (var item in Model)
             {
                 selectItem.Add(item.Id, item.Title);
-                
                 <div category-manage-item data-parent="@item.CategoryId" style="margin-bottom:10px;">
                     <span class="pull-right">
                         <a category-delete data-self-id="@item.Id" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
@@ -53,6 +51,7 @@
 
         @Html.Partial("NewOrEdit", new SRV.ViewModel.CategoryModel { SelectItem = selectItem })
 
+
     </div>
 </div>
 
@@ -64,10 +63,12 @@
 </style>
 
 <script>
-    let EditData;
-
+    let Category = @Html.Raw(Json.Encode(Model.Select(c=>new { id=c.Id,c.Title ,c.Summary,c.CategoryId })));
+    console.log(Category)
     $("[category-add]").click(function () {
+        $(".page-header").after($('[category-edit-form]'))
         $('[category-edit-form]').removeClass("hide")
         $('[category-edit-form]').attr("action", "/Category/NewOrEdit");
     })
+
 </script>

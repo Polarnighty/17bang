@@ -9,7 +9,7 @@
     <div class="form-group">
         <label>标题：</label>
         @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
-        @*@Html.ValidateFor(c => c.Title)*@
+        @Html.ValidationMessageFor(c => c.Title)
     </div>
     <div class="form-group">
         <label>描述：</label>
@@ -20,7 +20,6 @@
 </form>
 
 <script>
-    console.log("@Model.SelectItem")
     $('[category-edit-cancel]').click(function () {
         $('[category-edit-form]').addClass("hide")
     })
