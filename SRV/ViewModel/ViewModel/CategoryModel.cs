@@ -14,7 +14,7 @@ namespace SRV.ViewModel
         public string Title { get; set; }
         public string Summary { get; set; }
         public IList<CategoryModel> Categories { get; set; }
-        public Dictionary<int,string> SelectItem { get; set; }
+        public Dictionary<int?,string> SelectItem { get; set; }
         public int? CategoryId { get; set; }
 
     }

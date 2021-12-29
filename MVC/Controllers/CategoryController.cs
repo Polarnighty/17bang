@@ -20,12 +20,13 @@ namespace MVC.Controllers
             var model = categoryService.GetCategories();
             return View(model);
         }
-        public ActionResult NewOrEdit(CategoryModel model)
+        public ActionResult NewOrEdit(int? id, CategoryModel model)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Manage");
             }
+            model.Id = id??0;
             categoryService.NewOrEdit(model);
             return RedirectToAction("Manage");
         }

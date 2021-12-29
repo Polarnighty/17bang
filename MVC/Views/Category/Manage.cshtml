@@ -5,8 +5,8 @@
 }
 
 @{
-    var selectItem = new Dictionary<int, string>();
-
+    var selectItem = new Dictionary<int?, string>();
+    selectItem.Add(null, value: "-----");
 }
 <div class="row">
     <div class="col-md-9">
@@ -15,25 +15,26 @@
             <a class="small pull-right" category-add style="cursor:pointer;"><span class="fa fa-plus"></span> 添加</a>
         </h2>
 
-        <div category-manage-item data-parent="0" style="margin-bottom:10px;">
-            <span class="pull-right">
-                <a category-delete data-self-id="3" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
-                <a category-edit data-self-id="3" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
-            </span>
+        @*<div category-manage-item data-parent="0" style="margin-bottom:10px;">
+                <span class="pull-right">
+                    <a category-delete data-self-id="3" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
+                    <a category-edit data-self-id="3" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
+                </span>
 
-            <h4 category-edit-name>
-                <a href="/Article/Category-3"><span class="fa fa-folder"></span> 前端默认数据</a>
-            </h4>
-            <p category-edit-description>
-                前端默认数据测试
-            </p>
-        </div>
+                <h4 category-edit-name>
+                    <a href="/Article/Category-3"><span class="fa fa-folder"></span> 前端默认数据</a>
+                </h4>
+                <p category-edit-description>
+                    前端默认数据测试
+                </p>
+            </div>*@
+
         @if (Model != null)
         {
             foreach (var item in Model)
             {
                 selectItem.Add(item.Id, item.Title);
-                <div category-manage-item data-parent="@item.CategoryId" style="margin-bottom:10px;">
+                <div category-manage-item data-id="@item.Id" style="margin-bottom:10px;">
                     <span class="pull-right">
                         <a category-delete data-self-id="@item.Id" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
                         <a category-edit data-self-id="@item.Id" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
@@ -46,6 +47,10 @@
                         @item.Summary
                     </p>
                 </div>
+                while (item.Categories.Count > 0)
+                {
+
+                }
             }
         }
 
@@ -63,10 +68,11 @@
 </style>
 
 <script>
-    let Category = @Html.Raw(Json.Encode(Model.Select(c=>new { id=c.Id,c.Title ,c.Summary,c.CategoryId })));
-    console.log(Category)
+    let Category = @Html.Raw(Json.Encode(Model.Select(c=>new { id=c.Id,c.Title ,c.Summary,c.CategoryId })) );
+
     $("[category-add]").click(function () {
         $(".page-header").after($('[category-edit-form]'))
+        $('[category-edit-form]').reset()
         $('[category-edit-form]').removeClass("hide")
         $('[category-edit-form]').attr("action", "/Category/NewOrEdit");
     })
