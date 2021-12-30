@@ -20,10 +20,10 @@
 
         @helper DisplayCategory(SRV.ViewModel.CategoryModel category)
         {
-            <div category-manage-item data-id="@category.Id" style="margin-bottom:10px;">
+            <div @("category-manage-"+@category.Id)   style="margin-bottom:10px;">
                 <span class="pull-right">
-                    <a category-delete data-self-id="@category.Id" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
-                    <a category-edit data-self-id="@category.Id" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
+                    <a category-delete data-id="@category.Id" class="text-warning" style="p"><span class="fa fa-trash"></span>删除</a>
+                    <a category-edit data-id="@category.Id" style="margin-left: 14px;"><span class="fa fa-edit"></span>编辑</a>
                 </span>
                 <h4 category-edit-name>
                     <a href="/Article/Category-3"><span class="fa fa-folder"></span> @category.Title</a>
@@ -72,5 +72,16 @@
         $('[category-edit-form]').removeClass("hide")
         $('[category-edit-form]').attr("action", "/Category/NewOrEdit");
     })
+    $("[category-edit]").click(function () {
+        let id = $(this).data("id");
+        $('[category-edit-form]').removeClass("hide")
+        $('[category-edit-form]')[0].reset();
+        $(`[category-manage-${id}] >P`).after($('[category-edit-form]'))
 
+        let SelectCategory = Category.filter(c => c.id === id)[0]
+        $("#CategoryId").val(SelectCategory.CategoryId)
+        $("#Title").val(SelectCategory.Title)
+        $("#Summary").val(SelectCategory.Summary)
+        $('[category-edit-form]').attr("action", "/Category/NewOrEdit/"+id);
+    })
 </script>

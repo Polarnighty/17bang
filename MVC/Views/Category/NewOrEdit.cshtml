@@ -2,7 +2,6 @@
 
 <form class="hide" method="post" category-edit-form novalidate="novalidate">
     <div class="form-group">
-        @Html.HiddenFor(c=>c.Id)
         <label>父系列：</label>
         @*@Html.TextBoxFor(c => c.CategoryId, new { @class = "form-control" })*@
         @Html.DropDownListFor(c=>c.CategoryId, new SelectList(Model.SelectItem,"Key", "Value"),new {@class= "form-control" })
