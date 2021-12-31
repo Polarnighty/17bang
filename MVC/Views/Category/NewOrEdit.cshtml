@@ -4,7 +4,7 @@
     <div class="form-group">
         <label>父系列：</label>
         @*@Html.TextBoxFor(c => c.CategoryId, new { @class = "form-control" })*@
-        @Html.DropDownListFor(c=>c.CategoryId, new SelectList(Model.SelectItem,"Key", "Value"),new {@class= "form-control" })
+        @Html.DropDownListFor(c=>c.CategoryId, new SelectList(Model.SelectItem, "Value", "Key"),new {@class= "form-control" })
     </div>
     <div class="form-group">
         <label>标题：</label>
@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
         <label>描述：</label>
-        @Html.TextBoxFor(c => c.Summary, new { @class = "form-control" })
+        @Html.TextAreaFor(c => c.Summary, new { @class = "form-control" })
     </div>
     <button type="submit" class="btn btn-primary submit-once">提交</button>
     <button category-edit-cancel type="button" class="btn btn-default">放弃</button>

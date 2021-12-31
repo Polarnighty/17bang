@@ -5,9 +5,9 @@
 }
 
 @{
-    var selectItem = new Dictionary<int?, string>();
-    selectItem.Add(0, value: "-----");
-    Model.ForEach(c => selectItem.Add(c.Id, c.Title));
+    var selectItem = new Dictionary<string,int?>();
+    selectItem.Add("-----",null);
+    Model.ForEach(c => selectItem.Add(c.Title, c.Id));
 }
 
 <div class="row">
