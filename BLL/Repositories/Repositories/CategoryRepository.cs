@@ -31,5 +31,10 @@ namespace BLL.Repositories
 
         }
 
+        public void DeleteCategory(int id)
+        {
+            DbSet.Remove(LoadProxy(id));
+            context.SaveChanges();
+        }
     }
 }

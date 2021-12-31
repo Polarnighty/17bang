@@ -69,6 +69,7 @@
     <Compile Include="CommentModel.cs" />
     <Compile Include="KeywordModel.cs" />
     <Compile Include="MessageModel.cs" />
+    <Compile Include="PageModel.cs" />
     <Compile Include="ProfileModel.cs" />
     <Compile Include="SingleModel.cs" />
     <Compile Include="ArticleModel.cs" />

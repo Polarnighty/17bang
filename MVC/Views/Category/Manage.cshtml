@@ -84,4 +84,13 @@
         $("#Summary").val(SelectCategory.Summary)
         $('[category-edit-form]').attr("action", "/Category/NewOrEdit/"+id);
     })
+
+    $("[category-delete]").click(function () {
+        let id = $(this).data("id");
+        $.ajax({
+            url: "/Category/DeleteCategory/" + id,
+            method:'Post'
+        })
+        $(`[category-manage-${id}]`).remove();
+    })
 </script>

@@ -30,7 +30,11 @@ namespace MVC.Controllers
             categoryService.NewOrEdit(model);
             return RedirectToAction("Manage");
         }
-
+        [HttpPost]
+        public bool DeleteCategory(int id)
+        {
+            return categoryService.DeleteCategory(id);            
+        }
 
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SRV.ProdService
 {
-    public class CategoryService :BaseService
+    public class CategoryService : BaseService
     {
         private CategoryRepository categoryRepository;
 
@@ -25,6 +25,18 @@ namespace SRV.ProdService
         {
             var category = mapper.Map<CategoryModel, Category>(model);
             categoryRepository.NewOrEdit(category);
+        }
+        public bool DeleteCategory(int id)
+        {
+            if (GetCurrentUser().Id != 1)
+            {
+                return false;
+            }
+            else
+            {
+                categoryRepository.DeleteCategory(id);
+                return true;
+            }
         }
 
 
