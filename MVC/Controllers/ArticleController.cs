@@ -35,7 +35,7 @@ namespace MVC.Controllers
             var model = articleService.GetSingleArticle(id);
             model.Comments = commentService.GetComments(id);
             model.Reply = new CommentModel();
-            ViewBag.CommentCount = commentService.GetCommentCount(id);
+            model.Page = new PageModel { ActionName = "Comment", TotalPage = commentService.GetCommentCount(id) };
             return View(model);
         }
         [NeedLogOn]
@@ -70,6 +70,7 @@ namespace MVC.Controllers
         public PartialViewResult Comment(int id, int page = 1)
         {
             var model = commentService.GetComments(id, page);
+            ViewBag.CurrentPage = page;
             return PartialView("Comment/Comments", model);
         }
         public bool DeleteComment(int id)

@@ -10,5 +10,6 @@ namespace SRV.ViewModel
     {
         public int CurrentPage { get; set; } = 1;
         public int TotalPage { get; set; }
+        public string ActionName { get; set; }
     }
 }

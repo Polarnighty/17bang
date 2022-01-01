@@ -25,9 +25,9 @@ namespace SRV.ProdService
             commentRepository.Reply(mapper.Map<CommentModel, Comment>(model));
             return model;
         }
-        public List<CommentModel> GetComments(int id, int page = 1)
+        public List<CommentModel> GetComments(int articleId, int page = 1)
         {
-            var comments = commentRepository.GetArticleComments(id, page);
+            var comments = commentRepository.GetArticleComments(articleId, page);
             var model = mapper.Map<List<Comment>, List<CommentModel>>(comments);
 
             //if (article.Appraises.Count != 0)
@@ -46,7 +46,12 @@ namespace SRV.ProdService
         }
         public int GetCommentCount(int id)
         {
-            return commentRepository.getCommentCount(id);
+            var CommentCount= commentRepository.getCommentCount(id); 
+            if (CommentCount%5>0)
+            {
+                return (CommentCount / 5) + 1;
+            }
+            return CommentCount/5;
         }
     }
 }

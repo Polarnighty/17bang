@@ -23,5 +23,6 @@ namespace SRV.ViewModel
         public List<CommentModel> Comments { get; set; }
         public List<KeywordModel> Keywords { get; set; }
         public CommentModel Reply { get; set; }
+        public PageModel Page { get; set; }
     }
 }

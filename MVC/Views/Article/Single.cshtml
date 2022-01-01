@@ -1,5 +1,7 @@
 ﻿@model SRV.ViewModel.SingleModel
-
+@{ 
+    Model.Page.CurrentPage = ViewBag.CurrentPage ?? 1;
+}
 <div class="container body-content">
     <div class="row">
         <div class="col-md-8">
@@ -104,6 +106,10 @@
 
             <div id="comments">
                 @Html.Partial("Comment/Comments", Model.Comments)
+            </div>
+
+            <div id="Pagination">
+                @Html.Partial("Pagination", Model.Page)
             </div>
 
             <div class="modal fade" tabindex="-1" role="dialog" id="contact" style="display: none;">
