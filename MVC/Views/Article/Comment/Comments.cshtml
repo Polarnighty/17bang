@@ -2,17 +2,17 @@
 
 @for (int i = 0; i < Model.Count; i++)
 {
-    var comment = Model[i];    
+    var comment = Model[i];
     if (comment.CommentId == null)
     {
-        comment.Floor = i + 1;        
-        <div class="comment clearfix" data-id="@comment.Id" comments  @("comment-" + comment.Id)>
+        comment.Floor = i + 1;
+        <div class="comment clearfix" data-id="@comment.Id" comments @("comment-" + comment.Id)>
             @Html.Partial("Comment/Comment", comment)
             @if (comment.CommentBy.Count != 0)
             {
                 foreach (var item in comment.CommentBy)
                 {
-                    <div class="commentBy" data-id="@item.Id" @("comment-"+item.Id)>
+                    <div class="commentBy" data-id="@item.Id" @("comment-" + item.Id)>
                         @Html.Partial("Comment/Comment", item)
                     </div>
                 }
@@ -21,3 +21,4 @@
     }
 }
 
+@Html.Partial("Pagination")
