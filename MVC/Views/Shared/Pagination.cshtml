@@ -20,11 +20,19 @@
 
         @for (int i = begin; i <= end; i++)
         {
-            <li class="active">
-                <a href="@ActionName/@i">@i</a>
-            </li>
+            if (i == CurrentPage)
+            {
+                <li class="active">
+                    <a href="@ActionName/@i">@i</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@ActionName/@i">@i</a>
+                </li>
+            }
         }
-
         @if (CurrentPage != TotalPage && TotalPage != 0)
         {
             <li>

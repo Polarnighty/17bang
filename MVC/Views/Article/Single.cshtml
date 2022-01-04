@@ -105,9 +105,7 @@
             <div id="comments">
                 @Html.Partial("Comment/Comments", Model.Comments)
             </div>
-            <div>
-                @*@Html.Partial("Pagination")*@
-            </div>
+
             <div class="modal fade" tabindex="-1" role="dialog" id="contact" style="display: none;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -130,24 +128,17 @@
 
 <script>
     //分页处理
-    $("[pagination]").on('click', function (e) {
+    @*$("#comments").on('click', function (e) {
         e.preventDefault()
         e = e.target;
+
         while (e.tagName!=='NAV') {
             if (e.tagName === "A") {
-                let url = $(e).attr("href").split('/')
-                paramter = "?id=@Model.Id&page=" + url.pop()
-                $.ajax({
-                    url: url+paramter,
-                    method: 'Get',
-                    success: function (res) {
-                        $("#comments").html(res)
-                    }
-                })
+
             }
             e = e.parentNode;
         }
-    })
+    })*@
 
     function showRemind(content) {
         showModal("<span class='fa fa-info-circle'></span> 友情提示", content);
@@ -199,14 +190,14 @@
     //评论功能委托
     $('#comments').on('click', function (e) {
 
-        e = e.target;
         let selectComment;
-        while (e.id != 'comments') {
+        while (e.target.id != 'comments') {
+
             //删除楼层
-            if (e.tagName == 'A' && e.innerHTML == $('[delete]')[0].innerHTML) {
-                selectComment = e.parentNode.parentNode
+            if (e.target.tagName == 'A' && e.target.innerHTML == $('[delete]')[0].innerHTML) {
+                selectComment = e.target.parentNode.parentNode
                 let id = $(selectComment).data('id')
-                console.log(id)
+
                 $.ajax({
                     url: `/Article/DeleteComment/${id}`,
                     success: function (data) {
@@ -222,12 +213,12 @@
                         }
                     }
                 })
+                return;
             }
-
             //回复特定楼层
-            if (e.tagName == 'A' && e.innerHTML == $('[reply]')[0].innerHTML) {
-                let id = $(e).data('id');
-                let cid = $(e).data('cid');
+            if (e.target.tagName == 'A' && $(e.target).is($("[reply]"))) {
+                let id = $(e.target).data('id');
+                let cid = $(e.target).data('cid');
                 let floor;
                 $("#Reply_CommentId").val('');
                 $("input[name='id']").val('');
@@ -240,9 +231,24 @@
                     floor = $(`[floor-${id}]`).html();
                 }
                 $('[reply-reminder]').html(floor)
+                return;
             }
 
-            e = e.parentNode
+            //分页功能
+            if (e.target.tagName == 'A' && e.target.parentNode.tagName === "LI") {
+                e.preventDefault()
+                let url = $(e.target).attr("href").split('/');
+                paramter = "?id=@Model.Id&page=" + url.pop()
+                $.ajax({
+                    url: url+paramter,
+                    method: 'Get',
+                    success: function (res) {
+                        $("#comments").html(res)
+                    }
+                })
+                return;
+            }
+            e.target = e.target.parentNode
         }
     })
 
@@ -320,9 +326,11 @@
         float: right;
         margin-top: 3px;
     }
-    .h2-inline{
-        font-size:30px;
+
+    .h2-inline {
+        font-size: 30px;
     }
+
     .iconfont {
         font-family: "iconfont" !important;
         font-style: normal;
