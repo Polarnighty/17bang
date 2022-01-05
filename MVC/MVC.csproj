@@ -1244,6 +1244,7 @@
     <Content Include="Views\Category\Manage.cshtml" />
     <Content Include="Views\Category\NewOrEdit.cshtml" />
     <Content Include="Views\Shared\Pagination.cshtml" />
+    <Content Include="Views\Shared\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

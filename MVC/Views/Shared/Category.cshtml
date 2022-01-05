@@ -1,0 +1,24 @@
+﻿@model List<SRV.ViewModel.CategoryModel>
+
+<div class="col-md-4 visible-md visible-lg">
+    <div widget-content class="widget clearfix">
+        <div style="font-size:24px;">
+            <span class="fa fa-folder-open"></span>
+            <a>@ViewBag.AuthorName</a>的系列文章
+        </div>
+
+        @foreach (var item in Model.Where(c=>c.CategoryId==null))
+        {
+            <div style="margin-bottom:10px;">
+                <h4>
+                    <span class="fa fa-folder text-primary"></span>
+                    <a href="/Article/Category-2">@item.Title</a>
+                </h4>
+                <p>
+                    @item.Summary
+                </p>
+            </div>
+        }
+
+    </div>
+</div>
