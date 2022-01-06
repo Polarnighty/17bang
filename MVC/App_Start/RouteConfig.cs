@@ -15,15 +15,22 @@ namespace MVC
 
             routes.MapRoute(
                 name: "UserArticle",
-                url: "{controller}/User-{userId}/{id}",// Article/User-1/Page-1
-                defaults: new { controller = "Article", action = "UserArticle", id = UrlParameter.Optional },
-                constraints: new { id = @"\d*", userId = @"\d*" }    //只能是数字
+                url: "{controller}/User-{userId}/{page}",// Article/User-1/Page-1
+                defaults: new { controller = "Article", action = "UserArticle", page = UrlParameter.Optional },
+                constraints: new { page = @"\d*", userId = @"\d*" }    //只能是数字
+            );
+
+            routes.MapRoute(
+                name: "ArticleCategory",
+                url: "{controller}/Category-{categoryId}/{page}",// Article/User-1/Page-1
+                defaults: new { controller = "Article", action = "ArticleCategory" },
+                constraints: new { page = @"\d*", categoryId = @"\d*" }    //只能是数字
             );
 
             routes.MapRoute(
                 name: "Pagination",
-                url: "{controller}/Page-{id}",
-                defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional },
+                url: "{controller}/Page-{page}",
+                defaults: new { controller = "Article", action = "Index", page = UrlParameter.Optional },
                 constraints: new { id = @"\d*" }    //只能是数字
             );
             

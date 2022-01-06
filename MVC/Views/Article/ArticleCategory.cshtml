@@ -1,0 +1,60 @@
+﻿@model List<SRV.ViewModel.ArticleModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top:55px" class="row">
+    <div class="col-md-8">
+        @foreach (var item in Model)
+        {
+            <div>
+                <small class="text-muted" zyf-datetime="">
+                    <span>
+                        <span class="fa fa-calendar"></span> @item.PublishDateTime.ToString()
+                    </span>
+                </small>
+
+                <span class="pull-right">
+                    作者：<a href="/Article/User-@item.AuthorId">@item.AuthorName</a>
+                </span>
+            </div>
+
+            <div style="margin-bottom:20px; padding-bottom:10px; border-bottom: 1px dashed #ccc;">
+                <div class="clearfix">
+                    <h1><a href="/Article/User-@item.AuthorId/@item.Id">@item.Title</a></h1>
+                    <p style="word-break:break-all; clear:both; margin-top:8px;">@item.Summary</p>
+                </div>
+            </div>
+        }
+
+        @Html.Partial("Pagination")
+
+    </div>
+</div>
+
+
+<style>
+/*
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+
+        .pagination > li {
+            display: inline;
+        }
+
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .clearfix {
+        clear: both;
+    }*/
+</style>

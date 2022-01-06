@@ -17,17 +17,25 @@ namespace MVC.Controllers
             this.commentService = commentService;
             this.keywordService = keywordService;
         }
-        public ActionResult Index(int id = 1)
+        public ActionResult Index(int page = 1)
         {
-            var model = articleService.GetArticles(id, out int count);
+            var model = articleService.GetArticles(page, out int count);
             ViewBag.PageCount = count;
             return View(model);
         }
-        public ActionResult UserArticle(int userId, int id = 1)
+        public ActionResult UserArticle(int userId, int page = 1)
         {
-            var model = articleService.GetArticles(id, out int count, userId);
+            var model = articleService.GetArticles(page, out int count, userId);
             ViewBag.PageCount = count;
             ViewBag.AuthorId = userId;
+            return View(model);
+        }
+        public ActionResult ArticleCategory(int categoryId, int page = 1)
+        {
+            var model = articleService.GetArticleByCategory(page,categoryId);
+            ViewBag.PageCount = count;
+            ViewBag.AuthorId = userId;
+            ViewBag.ActionName = "ArticleCategory";
             return View(model);
         }
         public ActionResult Single(int id)

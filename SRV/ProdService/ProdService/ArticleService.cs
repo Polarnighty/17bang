@@ -42,6 +42,20 @@ namespace SRV.ProdService
             return articleRepository.Save(article);
         }
 
+        public IList<ArticleModel> GetArticleByCategory(int page,int categoryId)
+        {
+            var articles = articleRepository.GetArticleByCategory(categoryId, page);
+            var articleModels = new List<ArticleModel>();
+            foreach (var item in articles)
+            {
+                var model = mapper.Map<Article, ArticleModel>(item);
+                model.AuthorName = item.Author.Name;
+
+                articleModels.Add(model);
+            }
+            return articleModels;
+        }
+
         public IList<ArticleModel> GetArticles(int pageIndex, out int count, int? authorId = null, int pageSize = 5)
         {
             var articles = articleRepository.GetArticles(pageIndex, authorId);

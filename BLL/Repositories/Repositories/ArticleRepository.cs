@@ -24,6 +24,12 @@ namespace BLL.Repositories
                 .Include(a => a.Keywords)
                 .ToList();
         }
+        public List<Article> GetArticleByCategory(int categoryId, int pageIndex,  int pageSize = 5)
+        {
+            return DbSet.OrderBy(a => a.Id).Where(a=>a.ArticleCategoryId == categoryId).Skip((pageIndex - 1) * pageSize).Take(pageSize)
+                .Include(a => a.Keywords)
+                .ToList();
+        }
 
         public int GetCount(int? authorId = null)
         {
